@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Star Swarm": {
+      "commandName": "Project",
+      "commandLineArgs": "-e --path C:\\dev\\Game Development\\Godot projects\\StarSwarm",
+      "workingDirectory": "C:\\dev\\Game Development\\Godot projects\\StarSwarm"
+    },
+    "Play In Editor": {
+      "commandName": "Executable"
+    }
+  }
+}

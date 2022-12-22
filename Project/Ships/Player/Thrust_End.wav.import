@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Thrust_End.wav-d36f66f5222b6a4cbae53d632df6f121.sample"
+
+[deps]
+
+source_file="res://Project/Ships/Player/Thrust_End.wav"
+dest_files=[ "res://.import/Thrust_End.wav-d36f66f5222b6a4cbae53d632df6f121.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
