@@ -32,6 +32,8 @@ namespace StarSwarm.Project.Ships.Player.States
 
         public override async void _Ready()
         {
+            base._Ready();
+            
             Agent = new GSAIKinematicBody2DAgent((KinematicBody2D)Owner);
 
             await ToSignal(Owner, "ready");

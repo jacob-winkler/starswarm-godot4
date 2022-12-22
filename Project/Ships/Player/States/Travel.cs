@@ -12,6 +12,8 @@ public class Travel : PlayerState
 
     public override void _Ready()
     {
+        base._Ready();
+        
         AudioThrusters = GetNode<LoopingAudioStreamPlayer2D>("ThrustersAudioPlayer");
     }
 

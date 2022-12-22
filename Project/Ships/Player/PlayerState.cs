@@ -13,6 +13,8 @@ namespace StarSwarm.Project.Ships.Player
 
         public override async void _Ready()
         {
+            base._Ready();
+            
             await ToSignal(Owner, "ready");
             Ship = (PlayerShip)Owner;
         }
