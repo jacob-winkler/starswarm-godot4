@@ -12,8 +12,9 @@ namespace StarSwarm.Project.StateMachine
         [Export]
         public NodePath InitialState { get; set; } = new NodePath();
 
-        public State State {get { return State; } set {
-                State = value;
+        private State state;
+        public State State {get { return state; } set {
+                state = value;
                 _stateName = State.Name;
             }
         }
