@@ -5,8 +5,6 @@ VisualStudioVersion = 17.3.32811.315
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Star Swarm", "Star Swarm.csproj", "{53457289-B4FD-4825-AD19-F419E8E9F940}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stub", "..\StarSwarmVSDebugger\Stub\Stub.csproj", "{E8663E0A-DC51-4FB9-8FE6-7316A3876387}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
