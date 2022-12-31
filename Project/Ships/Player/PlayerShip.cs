@@ -26,8 +26,8 @@ public class PlayerShip : KinematicBody2D
 	public Gun Gun;
 	// public VFX Vfx;
 
-    public override void _Ready()
-    {
+	public override void _Ready()
+	{
 		ObjectRegistry = GetNode<ObjectRegistry>("/root/ObjectRegistry");
 		Events = GetNode<Events>("/root/Events");
 		Shape = GetNode<CollisionPolygon2D>("CollisionShape");
@@ -72,7 +72,7 @@ public class PlayerShip : KinematicBody2D
 	public void OnUpgradeChosen(int choice)
 	{
 		switch(choice)
-        {
+		{
 			case (int)UpgradeChoices.HEALTH:
 				Stats.AddModifier("maxHealth", 25.0F);
 				break;
@@ -86,6 +86,6 @@ public class PlayerShip : KinematicBody2D
 				if (Gun.Stats.GetStat("cooldown") > 2.0f)
 					Gun.Stats.AddModifier("cooldown", -0.05f);
 				break;
-        }
+		}
 	}
 }
