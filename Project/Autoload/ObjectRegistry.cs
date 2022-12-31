@@ -9,8 +9,9 @@ namespace StarSwarm.Project.Autoload
 {
     public class ObjectRegistry : Node
     {
-        public Node2D _projectiles = new Node2D();
+        private Node2D _projectiles = new Node2D();
         private Node2D _effects = new Node2D();
+        private Viewport _distortions = new Viewport();
 
         public override void _Ready()
         {
@@ -26,6 +27,12 @@ namespace StarSwarm.Project.Autoload
         public void RegisterProjectiles(Node projectile)
         {
             _projectiles.AddChild(projectile);
+        }
+
+        public void RegisterDistortionEffect(Node2D effect)
+        {
+            if(_distortions != null)
+                _distortions.AddChild(effect);
         }
     }
 }

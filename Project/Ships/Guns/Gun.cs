@@ -23,7 +23,7 @@ namespace StarSwarm.Project.Ships.Guns
         public override void _Ready()
         {
             Stats = (StatsGun)ResourceLoader.Load("res://Project/Ships/Player/player_gun_stats.tres");
-            ObjectRegistry = GetNode<ObjectRegistry>("/root/ObjectRegistry");
+            ObjectRegistry = GetNode<ObjectRegistry>("/root/Autoload/ObjectRegistry");
             Cooldown = GetNode<Timer>("Cooldown");
             Stats.Initialize();
             Cooldown.WaitTime = Stats.GetCooldown();

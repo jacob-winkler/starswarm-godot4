@@ -28,8 +28,8 @@ public class PlayerShip : KinematicBody2D
 
 	public override void _Ready()
 	{
-		ObjectRegistry = GetNode<ObjectRegistry>("/root/ObjectRegistry");
-		Events = GetNode<Events>("/root/Events");
+		ObjectRegistry = GetNode<ObjectRegistry>("/root/Autoload/ObjectRegistry");
+		Events = GetNode<Events>("/root/Autoload/Events");
 		Shape = GetNode<CollisionPolygon2D>("CollisionShape");
 		Agent = GetNode<Move>("StateMachine/Move").Agent;
 		CameraTransform = GetNode<RemoteTransform2D>("CameraTransform");
@@ -54,7 +54,7 @@ public class PlayerShip : KinematicBody2D
 	}
 
 
-	public void GrabCamer(Camera2D camera)
+	public void GrabCamera(Camera2D camera)
 	{
 		CameraTransform.RemotePath = camera.GetPath();
 	}
