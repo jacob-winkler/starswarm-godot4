@@ -30,7 +30,7 @@ public class Travel : PlayerState
         AudioThrusters.GlobalPosition = ((PlayerShip)Owner).GlobalPosition;
         if (movement.y < 0.0 && !AudioThrusters.Playing)
             AudioThrusters.Start();
-        else if (Mathf.IsEqualApprox(movement.y, 0.0f) && AudioThrusters.Ending)
+        else if (Mathf.IsEqualApprox(movement.y, 0.0f) && !AudioThrusters.Ending)
             AudioThrusters.End();
 
         parent.LinearVelocity += movement.y * direction * parent.AccelerationMax * (Reversing ? parent.ReverseMultiplier : 1) * delta;
