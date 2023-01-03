@@ -34,5 +34,10 @@ namespace StarSwarm.Project.Autoload
             if(_distortions != null)
                 _distortions.AddChild(effect);
         }
+
+        public void RegisterDistortionParent(Viewport viewport)
+        {
+            _distortions = viewport;
+        }
     }
 }
