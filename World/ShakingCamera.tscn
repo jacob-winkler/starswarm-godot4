@@ -3,6 +3,10 @@
 [ext_resource path="res://Project/Ships/Player/PlayerCamera.cs" type="Script" id=1]
 
 [node name="Camera" type="Camera2D" groups=["Camera"]]
+current = true
+process_mode = 0
+smoothing_enabled = true
+editor_draw_drag_margin = true
 script = ExtResource( 1 )
 
 [node name="Tween" type="Tween" parent="."]
