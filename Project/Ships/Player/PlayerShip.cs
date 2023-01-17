@@ -10,7 +10,7 @@ using System;
 public class PlayerShip : KinematicBody2D
 {
 	[Export]
-	public Resource Stats = (StatsShip)ResourceLoader.Load("res://Project/Ships/Player/player_stats.tres");
+	public StatsShip Stats = (StatsShip)ResourceLoader.Load("res://Project/Ships/Player/player_stats.tres");
 	
 	[Export]
 	public PackedScene ExplosionEffect = new PackedScene();
@@ -18,7 +18,6 @@ public class PlayerShip : KinematicBody2D
 	[Signal]
 	public delegate void Died();
 
-	public StatsShip StatsShip = new StatsShip();
 	public ObjectRegistry ObjectRegistry = new ObjectRegistry();
 	public Events Events = new Events();
 	public CollisionPolygon2D Shape = new CollisionPolygon2D();
@@ -30,7 +29,6 @@ public class PlayerShip : KinematicBody2D
 
 	public override void _Ready()
 	{
-		StatsShip = (StatsShip)Stats;
 		ObjectRegistry = GetNode<ObjectRegistry>("/root/ObjectRegistry");
 		Events = GetNode<Events>("/root/Events");
 		Shape = GetNode<CollisionPolygon2D>("CollisionShape");
@@ -41,8 +39,8 @@ public class PlayerShip : KinematicBody2D
 		Vfx = GetNode<VFX>("VFX");
 		Events.Connect("Damaged", this, "OnDamaged");
 		Events.Connect("UpgradeChosen", this, "OnUpgradeChosen");
-		StatsShip.Connect("HealthDepleted", this, "Die");
-		StatsShip.Initialize();
+		Stats.Connect("HealthDepleted", this, "Die");
+		Stats.Initialize();
 	}
 
 	public void Die()
@@ -69,7 +67,7 @@ public class PlayerShip : KinematicBody2D
 		if (target != this)
 			return;
 
-		StatsShip.Health -= amount;
+		Stats.Health -= amount;
 	}
 
 
@@ -78,10 +76,10 @@ public class PlayerShip : KinematicBody2D
 		switch(choice)
 		{
 			case (int)UpgradeChoices.HEALTH:
-				StatsShip.AddModifier("maxHealth", 25.0F);
+				Stats.AddModifier("maxHealth", 25.0F);
 				break;
 			case (int)UpgradeChoices.SPEED:
-				StatsShip.AddModifier("linearSpeedMax", 125.0F);
+				Stats.AddModifier("linearSpeedMax", 125.0F);
 				break;
 			case (int)UpgradeChoices.WEAPON:
 				Gun.Stats.AddModifier("damage", 3.0F);

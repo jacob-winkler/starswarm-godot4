@@ -38,10 +38,10 @@ namespace StarSwarm.Project.Ships.Player.States
 
             await ToSignal(Owner, "ready");
 
-            AccelerationMax = Ship.StatsShip.GetAccelerationMax();
-            LinearSpeedMax = Ship.StatsShip.GetLinearSpeedMax();
-            AngularSpeedMax = Ship.StatsShip.GetAngularSpeedMax();
-            AngularAccelerationMax = Ship.StatsShip.GetAngularAccelerationMax();
+            AccelerationMax = Ship.Stats.GetAccelerationMax();
+            LinearSpeedMax = Ship.Stats.GetLinearSpeedMax();
+            AngularSpeedMax = Ship.Stats.GetAngularSpeedMax();
+            AngularAccelerationMax = Ship.Stats.GetAngularAccelerationMax();
 
             Agent.LinearAccelerationMax = AccelerationMax * ReverseMultiplier;
             Agent.LinearSpeedMax = LinearSpeedMax;
