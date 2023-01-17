@@ -1,21 +1,26 @@
 using Godot;
-using System;
+using System.Collections.Generic;
 
-public class GameWorld : Node
+public class GameWorld : Node2D
 {
-    // Declare member variables here. Examples:
-    // private int a = 2;
-    // private string b = "text";
+        [Export]
+    public float Radius = 8000.0f;
 
-    // Called when the node enters the scene tree for the first time.
-    public override void _Ready()
+    private List<Vector2> _spawnedPositions = new List<Vector2>();
+    private List<Node2D> _worldObjects = new List<Node2D>();
+
+    public PlayerSpawner PlayerSpawner { get; set; } = new PlayerSpawner();
+
+    public async override void _Ready()
     {
-        
+        await ToSignal(Owner, "ready");
+        base._Ready();
+        PlayerSpawner = GetNode<PlayerSpawner>("PlayerSpawner");
+        Setup();
     }
 
-//  // Called every frame. 'delta' is the elapsed time since the previous frame.
-//  public override void _Process(float delta)
-//  {
-//      
-//  }
+    public void Setup()
+    {
+        PlayerSpawner.SpawnPlayer();
+    }
 }

@@ -14,5 +14,11 @@ namespace StarSwarm.Project.Autoload
 
         [Signal]
         public delegate void UpgradeChosen();
+
+        [Signal]
+        public delegate void PlayerSpawned(PlayerShip player);
+
+        [Signal]
+        public delegate void NodeSpawned();
     }
 }

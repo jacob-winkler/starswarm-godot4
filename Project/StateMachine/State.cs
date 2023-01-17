@@ -15,12 +15,12 @@ namespace StarSwarm.Project.StateMachine
     /// </summary>
     public class State : Node
     {
-        protected Node? _stateMachine;
+        protected StateMachine? _stateMachine;
         protected State? _parent = null;
 
         public override async void _Ready()
         {
-            _stateMachine = GetStateMachine(this);
+            _stateMachine = (StateMachine?)GetStateMachine(this);
             await ToSignal(Owner, "ready");
             _parent = GetParent() as State;
         }
@@ -39,7 +39,7 @@ namespace StarSwarm.Project.StateMachine
 
         public Node? GetStateMachine(Node node)
         {
-            if (node != null && node.IsInGroup("state_machine"))
+            if (node != null && !node.IsInGroup("state_machine"))
                 return GetStateMachine(node.GetParent());
             return node;
         }

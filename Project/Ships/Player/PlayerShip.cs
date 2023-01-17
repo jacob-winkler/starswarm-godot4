@@ -9,36 +9,40 @@ using System;
 
 public class PlayerShip : KinematicBody2D
 {
+	[Export]
+	public Resource Stats = (StatsShip)ResourceLoader.Load("res://Project/Ships/Player/player_stats.tres");
+	
+	[Export]
+	public PackedScene ExplosionEffect = new PackedScene();
+
 	[Signal]
 	public delegate void Died();
 
-	[Export]
-	public StatsShip Stats = (StatsShip)ResourceLoader.Load("res://Project/Ships/Player/player_stats.tres");
-	[Export]
-	public PackedScene ExplosionEffect;
-
-	public ObjectRegistry ObjectRegistry;
-	public Events Events;
-	public CollisionPolygon2D Shape;
-	public GSAISteeringAgent Agent;
-	public RemoteTransform2D CameraTransform;
-	public Move MoveState;
-	public Gun Gun;
-	// public VFX Vfx;
+	public StatsShip StatsShip = new StatsShip();
+	public ObjectRegistry ObjectRegistry = new ObjectRegistry();
+	public Events Events = new Events();
+	public CollisionPolygon2D Shape = new CollisionPolygon2D();
+	public GSAISteeringAgent Agent = new GSAISteeringAgent();
+	public RemoteTransform2D CameraTransform = new RemoteTransform2D();
+	public Move MoveState = new Move();
+	public Gun Gun = new Gun();
+	public VFX Vfx = new VFX();
 
 	public override void _Ready()
 	{
-		ObjectRegistry = GetNode<ObjectRegistry>("/root/Autoload/ObjectRegistry");
-		Events = GetNode<Events>("/root/Autoload/Events");
+		StatsShip = (StatsShip)Stats;
+		ObjectRegistry = GetNode<ObjectRegistry>("/root/ObjectRegistry");
+		Events = GetNode<Events>("/root/Events");
 		Shape = GetNode<CollisionPolygon2D>("CollisionShape");
 		Agent = GetNode<Move>("StateMachine/Move").Agent;
 		CameraTransform = GetNode<RemoteTransform2D>("CameraTransform");
 		MoveState = GetNode<Move>("StateMachine/Move");
 		Gun = GetNode<Gun>("Gun");
-		// Vfx = GetNode<VFX>("Vfx");
+		Vfx = GetNode<VFX>("VFX");
 		Events.Connect("Damaged", this, "OnDamaged");
 		Events.Connect("UpgradeChosen", this, "OnUpgradeChosen");
-		Stats.Connect("HealthDepleted", this, "Die");
+		StatsShip.Connect("HealthDepleted", this, "Die");
+		StatsShip.Initialize();
 	}
 
 	public void Die()
@@ -65,7 +69,7 @@ public class PlayerShip : KinematicBody2D
 		if (target != this)
 			return;
 
-		Stats.Health -= amount;
+		StatsShip.Health -= amount;
 	}
 
 
@@ -74,10 +78,10 @@ public class PlayerShip : KinematicBody2D
 		switch(choice)
 		{
 			case (int)UpgradeChoices.HEALTH:
-				Stats.AddModifier("maxHealth", 25.0F);
+				StatsShip.AddModifier("maxHealth", 25.0F);
 				break;
 			case (int)UpgradeChoices.SPEED:
-				Stats.AddModifier("linearSpeedMax", 125.0F);
+				StatsShip.AddModifier("linearSpeedMax", 125.0F);
 				break;
 			case (int)UpgradeChoices.WEAPON:
 				Gun.Stats.AddModifier("damage", 3.0F);

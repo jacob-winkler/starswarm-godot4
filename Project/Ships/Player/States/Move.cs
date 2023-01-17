@@ -38,10 +38,10 @@ namespace StarSwarm.Project.Ships.Player.States
 
             await ToSignal(Owner, "ready");
 
-            AccelerationMax = Ship.Stats.GetAccelerationMax();
-            LinearSpeedMax = Ship.Stats.GetLinearSpeedMax();
-            AngularSpeedMax = Ship.Stats.GetAngularSpeedMax();
-            AngularAccelerationMax = Ship.Stats.GetAngularAccelerationMax();
+            AccelerationMax = Ship.StatsShip.GetAccelerationMax();
+            LinearSpeedMax = Ship.StatsShip.GetLinearSpeedMax();
+            AngularSpeedMax = Ship.StatsShip.GetAngularSpeedMax();
+            AngularAccelerationMax = Ship.StatsShip.GetAngularAccelerationMax();
 
             Agent.LinearAccelerationMax = AccelerationMax * ReverseMultiplier;
             Agent.LinearSpeedMax = LinearSpeedMax;
@@ -58,10 +58,9 @@ namespace StarSwarm.Project.Ships.Player.States
             AngularVelocity = Mathf.Clamp(AngularVelocity, -Agent.AngularSpeedMax, Agent.AngularSpeedMax);
             AngularVelocity = Mathf.Lerp(AngularVelocity, 0, DragAngularCoeff);
 
-
             LinearVelocity = Ship.MoveAndSlide(LinearVelocity);
             Ship.Rotation += AngularVelocity * delta;
-            //Ship.Vfx.MakeTrail(LinearVelocity.Length());
+            Ship.Vfx.MakeTrail(LinearVelocity.Length());
         }
     }
 }

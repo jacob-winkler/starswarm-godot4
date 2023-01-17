@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=2]
+
+[sub_resource type="StreamTexture" id=1]
+flags = 4
+load_path = "res://.import/PlayerShip.svg-f5a7d2eef93fa7ae829707f84b91d284.stex"
+
+[sub_resource type="Gradient" id=2]
+offsets = PoolRealArray( 0, 0.00552486 )
+colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 0.407843 )
+
+[node name="MoveTrail" type="CPUParticles2D"]
+show_behind_parent = true
+lifetime = 0.2
+local_coords = false
+draw_order = 1
+texture = SubResource( 1 )
+flag_align_y = true
+direction = Vector2( 0, 1 )
+spread = 0.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 1.0
+scale_amount = 0.5
+color_ramp = SubResource( 2 )

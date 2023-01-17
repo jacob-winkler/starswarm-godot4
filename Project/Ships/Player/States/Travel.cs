@@ -20,12 +20,10 @@ public class Travel : PlayerState
     public override void PhysicsProcess(float delta)
     {
         Debug.Assert(_parent != null, "Failed to process Travel state. Parent State is null.");
-        
-        Move parent = (Move)_parent!;
 
         var movement = GetMovement();
         Reversing = movement.y > 0;
-        var direction = GSAIUtils.AngleToVector2(parent.Agent.orientation);
+        var direction = GSAIUtils.AngleToVector2(((Move)_parent!).Agent.orientation);
 
         AudioThrusters.GlobalPosition = ((PlayerShip)Owner).GlobalPosition;
         if (movement.y < 0.0 && !AudioThrusters.Playing)
@@ -33,10 +31,10 @@ public class Travel : PlayerState
         else if (Mathf.IsEqualApprox(movement.y, 0.0f) && !AudioThrusters.Ending)
             AudioThrusters.End();
 
-        parent.LinearVelocity += movement.y * direction * parent.AccelerationMax * (Reversing ? parent.ReverseMultiplier : 1) * delta;
-        parent.AngularVelocity += movement.x * parent.Agent.AngularAccelerationMax * delta;
+        ((Move)_parent!).LinearVelocity += movement.y * direction * ((Move)_parent!).AccelerationMax * (Reversing ? ((Move)_parent!).ReverseMultiplier : 1) * delta;
+        ((Move)_parent!).AngularVelocity += movement.x * ((Move)_parent!).Agent.AngularAccelerationMax * delta;
 
-        parent.PhysicsProcess(delta);
+        ((Move)_parent!).PhysicsProcess(delta);
     }
 
     public Vector2 GetMovement()

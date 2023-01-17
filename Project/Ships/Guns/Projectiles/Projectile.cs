@@ -43,7 +43,7 @@ namespace StarSwarm.Project.Ships.Guns.Projectiles
 
         public override void _Ready()
         {
-            Events = GetNode<Events>("/root/Autoload/Events");
+            Events = GetNode<Events>("/root/Events");
             Tween = GetNode<Tween>("Tween");
             Sprite = GetNode<Sprite>("Sprite");
             Player = GetNode<AnimationPlayer>("AnimationPlayer");

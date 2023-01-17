@@ -49,8 +49,8 @@ public class PlayerCamera : Camera2D
     {
         _startZoom = Zoom;
 
-        Events = GetNode<Events>("/root/Autoload/Events");
-        ObjectRegistry = GetNode<ObjectRegistry>("/root/Autoload/ObjectRegistry");
+        Events = GetNode<Events>("/root/Events");
+        ObjectRegistry = GetNode<ObjectRegistry>("/root/ObjectRegistry");
         RemoteMap = GetNode<RemoteTransform2D>("RemoteMap");
         RemoteDistort = GetNode<RemoteTransform2D>("RemoteDistort");
         Tween = GetNode<Tween>("Tween");
@@ -88,7 +88,7 @@ public class PlayerCamera : Camera2D
 
     public void SetupDistortionCamera()
     {
-        var distortCamera = (Node2D)this.Duplicate();
+        var distortCamera = (PlayerCamera)this.Duplicate();
         ObjectRegistry.RegisterDistortionEffect(distortCamera);
         RemoteDistort.RemotePath = distortCamera.GetPath();
     }
