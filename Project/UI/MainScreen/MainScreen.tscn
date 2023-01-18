@@ -15,24 +15,24 @@ width = 720
 offsets = PoolRealArray( 0, 0.10559, 0.534162, 0.875776, 1 )
 colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 0.576087, 1, 1, 1, 1, 1, 1, 1, 0.658823, 1, 1, 1, 0 )
 
-[sub_resource type="GradientTexture" id=4]
+[sub_resource type="GradientTexture" id=12]
 gradient = SubResource( 3 )
 
 [sub_resource type="Curve" id=5]
 _data = [ Vector2( 0, 0 ), 0.0, -0.0442309, 0, 0, Vector2( 0.320652, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.543478, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.798913, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), -7.71676, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=6]
+[sub_resource type="CurveTexture" id=13]
 curve = SubResource( 5 )
 
 [sub_resource type="Curve" id=7]
 _data = [ Vector2( 0, 1 ), 0.0, -0.653409, 0, 0, Vector2( 1, 0.218182 ), -0.448781, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=8]
+[sub_resource type="CurveTexture" id=14]
 curve = SubResource( 7 )
 
 [sub_resource type="ParticlesMaterial" id=9]
 trail_divisor = 10
-trail_size_modifier = SubResource( 8 )
+trail_size_modifier = SubResource( 14 )
 emission_shape = 2
 emission_box_extents = Vector3( 700, 500, 0 )
 flag_disable_z = true
@@ -42,9 +42,9 @@ orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 scale = 3.84
 scale_random = 1.0
-scale_curve = SubResource( 6 )
+scale_curve = SubResource( 13 )
 color = Color( 1, 1, 1, 0.109804 )
-color_ramp = SubResource( 4 )
+color_ramp = SubResource( 12 )
 
 [sub_resource type="DynamicFont" id=11]
 font_data = ExtResource( 2 )
@@ -56,6 +56,8 @@ font_data = ExtResource( 2 )
 [node name="MainScreen" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 256.0
+margin_bottom = 120.0
 script = ExtResource( 1 )
 
 [node name="Background" type="TextureRect" parent="."]

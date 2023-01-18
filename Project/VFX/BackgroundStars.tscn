@@ -1,0 +1,64 @@
+[gd_scene load_steps=8 format=2]
+
+[sub_resource type="Gradient" id=9]
+offsets = PoolRealArray( 0, 0.10559, 0.534162, 0.875776, 1 )
+colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 0.576087, 1, 1, 1, 1, 1, 1, 1, 0.658823, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=4]
+gradient = SubResource( 9 )
+
+[sub_resource type="Curve" id=10]
+_data = [ Vector2( 0, 0 ), 0.0, -0.0442309, 0, 0, Vector2( 0.320652, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.543478, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.798913, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), -7.71676, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=6]
+curve = SubResource( 10 )
+
+[sub_resource type="Curve" id=11]
+_data = [ Vector2( 0, 1 ), 0.0, -0.653409, 0, 0, Vector2( 1, 0.218182 ), -0.448781, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=8]
+curve = SubResource( 11 )
+
+[sub_resource type="ParticlesMaterial" id=12]
+trail_divisor = 10
+trail_size_modifier = SubResource( 8 )
+emission_shape = 2
+emission_box_extents = Vector3( 1920, 1080, 1 )
+flag_disable_z = true
+gravity = Vector3( 0, 0, 0 )
+angular_velocity = 50.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 3.84
+scale_random = 1.0
+scale_curve = SubResource( 6 )
+color = Color( 1, 1, 1, 0.109804 )
+color_ramp = SubResource( 4 )
+
+[node name="BackgroundStars" type="ParallaxBackground"]
+scroll_base_scale = Vector2( 0.5, 0.5 )
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="."]
+motion_mirroring = Vector2( 1920, 1080 )
+
+[node name="Stars" type="Particles2D" parent="ParallaxLayer"]
+position = Vector2( 95, 100 )
+amount = 2500
+lifetime = 5.0
+preprocess = 2.0
+randomness = 1.0
+visibility_rect = Rect2( -100, -100, 1920, 1080 )
+process_material = SubResource( 12 )
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="."]
+motion_scale = Vector2( 0.2, 0.2 )
+motion_mirroring = Vector2( 1920, 1080 )
+
+[node name="Stars" type="Particles2D" parent="ParallaxLayer2"]
+position = Vector2( 99, 96 )
+amount = 1000
+lifetime = 5.0
+preprocess = 2.0
+randomness = 1.0
+visibility_rect = Rect2( -100, -100, 1920, 1080 )
+process_material = SubResource( 12 )
