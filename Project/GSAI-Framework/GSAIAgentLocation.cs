@@ -7,7 +7,7 @@ namespace StarSwarm.Project.GSAI_Framework
     /// </summary>
     public class GSAIAgentLocation : Object
     {
-        public Vector3 position = Vector3.Zero;
-        public float orientation = 0.0F;
+        public Vector3 Position = Vector3.Zero;
+        public float Orientation = 0.0F;
     }
 }

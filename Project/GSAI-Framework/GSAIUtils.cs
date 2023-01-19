@@ -33,5 +33,15 @@ namespace StarSwarm.Project.GSAI_Framework
         {
             return new Vector2(Mathf.Sin(-angle), Mathf.Cos(angle));
         }
+
+        public static float Vector3ToAngle(Vector3 vector)
+        {
+            return Mathf.Atan2(vector.x, vector.y);
+        }
+
+        public static float Vector2ToAngle(Vector2 vector)
+        {
+            return Mathf.Atan2(vector.x, -vector.y);
+        }
     }
 }

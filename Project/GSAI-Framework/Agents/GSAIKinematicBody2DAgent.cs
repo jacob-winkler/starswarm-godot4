@@ -9,11 +9,11 @@ namespace StarSwarm.Project.GSAI_Framework.Agents
 {
 	public class GSAIKinematicBody2DAgent : GSAISpecializedAgent
 	{
-		protected KinematicBody2D body = null;
+		protected KinematicBody2D body = default!;
 		protected KnownMovementType MovementType { get; set; }
 
-		private Vector2 _lastPosition;
-		private WeakRef _bodyRef;
+		private Vector2 _lastPosition { get; set; } = default!;
+		private WeakRef _bodyRef { get; set; } = default!;
 		public KinematicBody2D Body
 		{
 			set
@@ -24,8 +24,8 @@ namespace StarSwarm.Project.GSAI_Framework.Agents
 				_lastPosition = value.GlobalPosition;
 				_lastOrientation = value.Rotation;
 
-				position = GSAIUtils.ToVector3(_lastPosition);
-				orientation = _lastOrientation;
+				Position = GSAIUtils.ToVector3(_lastPosition);
+				Orientation = _lastOrientation;
 			}
 
 			get { return body; }
@@ -133,8 +133,8 @@ namespace StarSwarm.Project.GSAI_Framework.Agents
 			var currentPosition = ((KinematicBody2D)body).GlobalPosition;
 			var currentOrientation = ((KinematicBody2D)body).Rotation;
 
-			position = GSAIUtils.ToVector3(currentPosition);
-			orientation = currentOrientation;
+			Position = GSAIUtils.ToVector3(currentPosition);
+			Orientation = currentOrientation;
 
 			if (CalculateVelocities)
 			{
