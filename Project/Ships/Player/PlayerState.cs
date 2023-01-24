@@ -1,4 +1,4 @@
-﻿using StarSwarm.Project.StateMachine;
+﻿using StarSwarm.Project.SWStateMachine;
 using System;
 using System.Collections.Generic;
 using System.Linq;

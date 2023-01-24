@@ -5,14 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StarSwarm.Project.StateMachine
+namespace StarSwarm.Project.SWStateMachine
 {
     public class StateMachine : Node
     {
         [Export]
         public NodePath InitialState { get; set; } = new NodePath();
 
-        private State state;
+        private State state = new State();
         public State State {get { return state; } set {
                 state = value;
                 _stateName = State.Name;
@@ -44,10 +44,10 @@ namespace StarSwarm.Project.StateMachine
             State.PhysicsProcess(delta);
         }
 
-        public void TransitionTo(string targetStatePath, Dictionary<string, string>? msg = null)
+        public void TransitionTo(string targetStatePath, Dictionary<string, Godot.Object>? msg = null)
         {
             if(msg == null)
-                msg = new Dictionary<string, string>();
+                msg = new Dictionary<string, Godot.Object>();
 
             if(!HasNode(targetStatePath))
                 return;

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StarSwarm.Project.StateMachine
+namespace StarSwarm.Project.SWStateMachine
 {
     /// <summary>
     /// State interface to use in Hierarchical State Machines.
@@ -31,7 +31,7 @@ namespace StarSwarm.Project.StateMachine
         public virtual void PhysicsProcess(float delta)
         { }
 
-        public virtual void Enter(Dictionary<String, String>? msg = null)
+        public virtual void Enter(Dictionary<String, Godot.Object>? msg = null)
         { }
 
         public virtual void Exit()
