@@ -1,26 +1,30 @@
 using Godot;
+using StarSwarm.Project.World.Spawners;
 using System.Collections.Generic;
 
-public class GameWorld : Node2D
+namespace StarSwarm.Project.World
 {
-        [Export]
-    public float Radius = 8000.0f;
-
-    private List<Vector2> _spawnedPositions = new List<Vector2>();
-    private List<Node2D> _worldObjects = new List<Node2D>();
-
-    public PlayerSpawner PlayerSpawner { get; set; } = new PlayerSpawner();
-
-    public async override void _Ready()
+    public class GameWorld : Node2D
     {
-        await ToSignal(Owner, "ready");
-        base._Ready();
-        PlayerSpawner = GetNode<PlayerSpawner>("PlayerSpawner");
-        Setup();
-    }
+            [Export]
+        public float Radius = 8000.0f;
 
-    public void Setup()
-    {
-        PlayerSpawner.SpawnPlayer();
+        private List<Vector2> _spawnedPositions = new List<Vector2>();
+        private List<Node2D> _worldObjects = new List<Node2D>();
+
+        public PlayerSpawner PlayerSpawner { get; set; } = new PlayerSpawner();
+
+        public async override void _Ready()
+        {
+            await ToSignal(Owner, "ready");
+            base._Ready();
+            PlayerSpawner = GetNode<PlayerSpawner>("PlayerSpawner");
+            Setup();
+        }
+
+        public void Setup()
+        {
+            PlayerSpawner.SpawnPlayer();
+        }
     }
 }

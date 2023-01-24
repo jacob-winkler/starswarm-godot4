@@ -2,28 +2,31 @@ using Godot;
 using StarSwarm.Project.Autoload;
 using System;
 
-public class GameInitializer : Node
+namespace StarSwarm.Project.World
 {
-    public ObjectRegistry ObjectRegistry { get; set; } = new ObjectRegistry();
-    public PlayerCamera Camera { get; set; } = new PlayerCamera();
-    public Events Events { get; set; } = new Events();
-
-    // Called when the node enters the scene tree for the first time.
-    public override void _Ready()
+    public class GameInitializer : Node
     {
-        Events = GetNode<Events>("/root/Events");
-        ObjectRegistry = GetNode<ObjectRegistry>("/root/ObjectRegistry");
-        Camera = GetNode<PlayerCamera>("GameWorld/Camera");
+        public ObjectRegistry ObjectRegistry { get; set; } = new ObjectRegistry();
+        public PlayerCamera Camera { get; set; } = new PlayerCamera();
+        public Events Events { get; set; } = new Events();
 
-        Events.Connect("PlayerSpawned", this, "OnPlayerSpawned");
+        // Called when the node enters the scene tree for the first time.
+        public override void _Ready()
+        {
+            Events = GetNode<Events>("/root/Events");
+            ObjectRegistry = GetNode<ObjectRegistry>("/root/ObjectRegistry");
+            Camera = GetNode<PlayerCamera>("GameWorld/Camera");
 
-        //ObjectRegistry.RegisterDistortionParent(GetNode<Viewport>("DistortMaskView/Viewport"));
-	    Camera.SetupDistortionCamera();
-    }
+            Events.Connect("PlayerSpawned", this, "OnPlayerSpawned");
 
-    public void OnPlayerSpawned(PlayerShip player)
-    {
-        player.GrabCamera(Camera);
-        Events.EmitSignal("NodeSpawned", player);
+            //ObjectRegistry.RegisterDistortionParent(GetNode<Viewport>("DistortMaskView/Viewport"));
+            Camera.SetupDistortionCamera();
+        }
+
+        public void OnPlayerSpawned(PlayerShip player)
+        {
+            player.GrabCamera(Camera);
+            Events.EmitSignal("NodeSpawned", player);
+        }
     }
 }

@@ -1,11 +1,6 @@
 ﻿using Godot;
 using StarSwarm.Project.GSAI_Framework.Agents;
 using StarSwarm.Project.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StarSwarm.Project.Ships.Player.States
 {

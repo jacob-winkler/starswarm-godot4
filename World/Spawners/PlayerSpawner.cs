@@ -1,20 +1,22 @@
 using Godot;
 using StarSwarm.Project.Autoload;
 using System;
-
-public class PlayerSpawner : Node2D
+namespace StarSwarm.Project.World.Spawners
 {
-    public PlayerShip PlayerShip { get; set; } = new PlayerShip();
-    public Events Events { get; set; } = new Events();
-
-    public override void _Ready()
+    public class PlayerSpawner : Node2D
     {
-        Events = GetNode<Events>("/root/Events");
-        PlayerShip = GetNode<PlayerShip>("PlayerShip");
-    }
+        public PlayerShip PlayerShip { get; set; } = new PlayerShip();
+        public Events Events { get; set; } = new Events();
 
-    public void SpawnPlayer()
-    { 
-        Events.EmitSignal("PlayerSpawned", PlayerShip);
+        public override void _Ready()
+        {
+            Events = GetNode<Events>("/root/Events");
+            PlayerShip = GetNode<PlayerShip>("PlayerShip");
+        }
+
+        public void SpawnPlayer()
+        { 
+            Events.EmitSignal("PlayerSpawned", PlayerShip);
+        }
     }
 }

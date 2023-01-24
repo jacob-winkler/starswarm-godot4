@@ -20,5 +20,10 @@ namespace StarSwarm.Project.Autoload
 
         [Signal]
         public delegate void NodeSpawned();
+
+
+        // Enemy signals
+        [Signal]
+        public delegate void TargetAggroed(PhysicsBody2D target);
     }
 }

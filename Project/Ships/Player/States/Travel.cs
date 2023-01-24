@@ -23,7 +23,7 @@ public class Travel : PlayerState
 
         var movement = GetMovement();
         Reversing = movement.y > 0;
-        var direction = GSAIUtils.AngleToVector2(((Move)_parent!).Agent.orientation);
+        var direction = GSAIUtils.AngleToVector2(((Move)_parent!).Agent.Orientation);
 
         AudioThrusters.GlobalPosition = ((PlayerShip)Owner).GlobalPosition;
         if (movement.y < 0.0 && !AudioThrusters.Playing)
