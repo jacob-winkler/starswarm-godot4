@@ -22,6 +22,8 @@ ObjectRegistry="*res://Project/Autoload/ObjectRegistry.tscn"
 [global]
 
 export=false
+ide=false
+edito=false
 
 [input]
 

@@ -1,10 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://Project/Ships/Enemies/SpaceCrabs/SpaceCrab.cs" type="Script" id=1]
-
-[sub_resource type="StreamTexture" id=1]
-flags = 4
-load_path = "res://.import/SpaceCrab.png-ae5dd5f98a7bb785b4b6d9d02f59cdb4.stex"
+[ext_resource path="res://Project/Ships/Enemies/SpaceCrab/SpaceCrab.cs" type="Script" id=1]
+[ext_resource path="res://Project/Ships/Enemies/SpaceCrab/SpaceCrab.svg" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 28, 27 )
@@ -13,7 +10,7 @@ extents = Vector2( 28, 27 )
 script = ExtResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
-texture = SubResource( 1 )
+texture = ExtResource( 2 )
 
 [node name="Area2D" type="Area2D" parent="."]
 

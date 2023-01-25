@@ -34,9 +34,13 @@ namespace StarSwarm.Project.GSAI_Framework.Agents
 		public GSAIKinematicBody2DAgent()
 		{ }
 
-		public GSAIKinematicBody2DAgent(KinematicBody2D body, KnownMovementType movementType = KnownMovementType.Slide)
+		public async void Initialize(KinematicBody2D body,
+			KnownMovementType movementType = KnownMovementType.Slide)
 		{
-			Body = body;
+			if(!body.IsInsideTree())
+				await ToSignal(body, "ready");
+
+			_bodyRef = WeakRef(body);
 			MovementType = movementType;
 
 			body.GetTree().Connect("physics_frame", this, "OnSceneTreePhysicsFrame");

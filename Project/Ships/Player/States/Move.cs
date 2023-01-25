@@ -29,7 +29,8 @@ namespace StarSwarm.Project.Ships.Player.States
         {
             base._Ready();
             
-            Agent = new GSAIKinematicBody2DAgent((KinematicBody2D)Owner);
+            Agent = new GSAIKinematicBody2DAgent();
+            Agent.Initialize((KinematicBody2D)Owner);
 
             await ToSignal(Owner, "ready");
 

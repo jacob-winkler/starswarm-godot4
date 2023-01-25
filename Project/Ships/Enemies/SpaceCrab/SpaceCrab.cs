@@ -17,7 +17,8 @@ namespace StarSwarm.Project.Ships.Enemies.SpaceCrab
 
         public SpaceCrab()
         {
-            Agent = new GSAIKinematicBody2DAgent(this);
+            Agent = new GSAIKinematicBody2DAgent();
+            Agent.Initialize(this);
         }
 
         // Called when the node enters the scene tree for the first time.
