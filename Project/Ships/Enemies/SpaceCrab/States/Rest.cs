@@ -1,24 +1,16 @@
 using Godot;
+using StarSwarm.Project.GSAI_Framework;
 using System;
 
 namespace StarSwarm.Project.Ships.Enemies.SpaceCrab.States
 {
-    public class Rest : Node
+    public class Rest : SpaceCrabState
     {
-        // Declare member variables here. Examples:
-        // private int a = 2;
-        // private string b = "text";
+        private GSAITargetAcceleration _acceleration = new GSAITargetAcceleration(); 
 
-        // Called when the node enters the scene tree for the first time.
-        public override void _Ready()
+        public override void _PhysicsProcess(float delta)
         {
-            
+            Ship.Agent.ApplySteering(_acceleration, delta);
         }
-
-    //  // Called every frame. 'delta' is the elapsed time since the previous frame.
-    //  public override void _Process(float delta)
-    //  {
-    //      
-    //  }
     }
 }

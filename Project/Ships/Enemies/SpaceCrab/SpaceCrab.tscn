@@ -1,19 +1,43 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://Project/Ships/Enemies/SpaceCrab/SpaceCrab.cs" type="Script" id=1]
-[ext_resource path="res://Project/Ships/Enemies/SpaceCrab/SpaceCrab.svg" type="Texture" id=2]
+[ext_resource path="res://Project/SWStateMachine/StateMachine.cs" type="Script" id=1]
+[ext_resource path="res://Project/Ships/Enemies/SpaceCrab/States/Rest.cs" type="Script" id=2]
+[ext_resource path="res://Project/Ships/Enemies/SpaceCrab/SpaceCrab.cs" type="Script" id=3]
+[ext_resource path="res://Project/Ships/Enemies/SpaceCrab/States/Attack.cs" type="Script" id=4]
+
+[sub_resource type="StreamTexture" id=1]
+flags = 4
+load_path = "res://.import/SpaceCrab.png-ae5dd5f98a7bb785b4b6d9d02f59cdb4.stex"
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 28, 27 )
 
+[sub_resource type="CircleShape2D" id=3]
+radius = 500.0
+
 [node name="SpaceCrab" type="KinematicBody2D"]
-script = ExtResource( 1 )
+script = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
-texture = ExtResource( 2 )
+texture = SubResource( 1 )
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="MeleeRange" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeRange"]
 position = Vector2( 0, -2 )
 shape = SubResource( 2 )
+
+[node name="AggroArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AggroArea"]
+shape = SubResource( 3 )
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource( 1 )
+InitialState = NodePath("Rest")
+
+[node name="Attack" type="Node" parent="StateMachine"]
+script = ExtResource( 4 )
+
+[node name="Rest" type="Node" parent="StateMachine"]
+script = ExtResource( 2 )

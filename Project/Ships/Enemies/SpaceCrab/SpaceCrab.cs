@@ -10,10 +10,10 @@ namespace StarSwarm.Project.Ships.Enemies.SpaceCrab
 {
     public class SpaceCrab : KinematicBody2D
     {
-        public StateMachine StateMachine = new StateMachine();
+        public StateMachine StateMachine = null!;
         public Events Events = new Events();
 
-        public GSAIKinematicBody2DAgent Agent { get; set; } = new GSAIKinematicBody2DAgent();
+        public GSAIKinematicBody2DAgent Agent { get; set; } = null!;
 
         public SpaceCrab()
         {
@@ -24,6 +24,8 @@ namespace StarSwarm.Project.Ships.Enemies.SpaceCrab
         // Called when the node enters the scene tree for the first time.
         public override void _Ready()
         {
+            StateMachine = GetNode<StateMachine>("StateMachine");
+
             Events = GetNode<Events>("/root/Events");
             Events.Connect("TargetAggroed", this, "OnTargetAggroed");
 

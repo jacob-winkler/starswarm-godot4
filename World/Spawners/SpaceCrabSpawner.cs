@@ -13,7 +13,7 @@ namespace StarSwarm.Project.World.Spawners
 		[Export]
 		public Int32 CountMax = 5;
 		[Export]
-		public float SpawnRadius = 5f;
+		public float SpawnRadius = 500f;
 
 		public void SpawnSpaceCrabs(RandomNumberGenerator rng, Vector2 playerPosition)
 		{
@@ -23,11 +23,12 @@ namespace StarSwarm.Project.World.Spawners
 
 				var angle = Mathf.Deg2Rad(rng.RandfRange(1, 360));
 				var spawnPosition = new Vector2(
-					playerPosition.x + SpawnRadius * Mathf.Cos(angle),
-					playerPosition.y + SpawnRadius * Mathf.Sin(angle)
-				);
+					playerPosition.x + SpawnRadius,
+					playerPosition.y + SpawnRadius
+				).Rotated(angle);
 
 				spaceCrab.Position = spawnPosition;
+                AddChild(spaceCrab);
 			}
 		}
 	}

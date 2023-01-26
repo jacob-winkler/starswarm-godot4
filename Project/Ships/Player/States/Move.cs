@@ -23,7 +23,7 @@ namespace StarSwarm.Project.Ships.Player.States
         public bool IsReversing = false;
         public bool CanFire = true;
 
-        public GSAIKinematicBody2DAgent Agent;
+        public GSAIKinematicBody2DAgent Agent { get; set; } = null!;
 
         public override async void _Ready()
         {

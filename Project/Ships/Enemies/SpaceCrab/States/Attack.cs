@@ -19,6 +19,7 @@ namespace StarSwarm.Project.Ships.Enemies.SpaceCrab.States
 
         public async override void _Ready()
         {
+            base._Ready();
             await ToSignal(Owner, "ready");
             Pursue = new GSAIPursue(Ship.Agent, Target);
             Face = new GSAIFace(Ship.Agent, Target);
@@ -32,7 +33,7 @@ namespace StarSwarm.Project.Ships.Enemies.SpaceCrab.States
         {
             if(msg == null) return;
 
-            Target = (GSAISteeringAgent)msg["target"];
+            Target = ((PlayerShip)msg["target"]).Agent;
             Pursue.Target = Target;
             Face.Target = Target;
         }
