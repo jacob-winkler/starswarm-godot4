@@ -4,10 +4,7 @@
 [ext_resource path="res://Project/Ships/Enemies/SpaceCrab/States/Rest.cs" type="Script" id=2]
 [ext_resource path="res://Project/Ships/Enemies/SpaceCrab/SpaceCrab.cs" type="Script" id=3]
 [ext_resource path="res://Project/Ships/Enemies/SpaceCrab/States/Attack.cs" type="Script" id=4]
-
-[sub_resource type="StreamTexture" id=1]
-flags = 4
-load_path = "res://.import/SpaceCrab.png-ae5dd5f98a7bb785b4b6d9d02f59cdb4.stex"
+[ext_resource path="res://Project/Ships/Enemies/SpaceCrab/SpaceCrab.svg" type="Texture" id=5]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 28, 27 )
@@ -19,7 +16,7 @@ radius = 500.0
 script = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
-texture = SubResource( 1 )
+texture = ExtResource( 5 )
 
 [node name="MeleeRange" type="Area2D" parent="."]
 
