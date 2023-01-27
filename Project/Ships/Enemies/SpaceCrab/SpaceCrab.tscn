@@ -13,18 +13,25 @@ extents = Vector2( 28, 27 )
 radius = 500.0
 
 [node name="SpaceCrab" type="KinematicBody2D"]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource( 3 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( 24, 19, -24, 19, -16, -18, 16, -18 )
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 5 )
 
 [node name="MeleeRange" type="Area2D" parent="."]
+collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeRange"]
 position = Vector2( 0, -2 )
 shape = SubResource( 2 )
 
 [node name="AggroArea" type="Area2D" parent="."]
+collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AggroArea"]
 shape = SubResource( 3 )

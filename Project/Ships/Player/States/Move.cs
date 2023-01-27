@@ -43,7 +43,7 @@ namespace StarSwarm.Project.Ships.Player.States
             Agent.LinearSpeedMax = LinearSpeedMax;
             Agent.AngularAccelerationMax = Mathf.Deg2Rad(AngularAccelerationMax);
             Agent.AngularSpeedMax = Mathf.Deg2Rad(AngularSpeedMax);
-            Agent.BoundingRadius = MathUtils.GetTriangleCircumcircleRadius(Ship.Shape.Polygon);
+            //Agent.BoundingRadius = MathUtils.GetTriangleCircumcircleRadius(Ship.Shape.Polygon);
         }
 
         public override void PhysicsProcess(float delta)

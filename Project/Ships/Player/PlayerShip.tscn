@@ -10,8 +10,11 @@
 [ext_resource path="res://Project/Ships/Player/VFX.cs" type="Script" id=8]
 
 [node name="PlayerShip" instance=ExtResource( 1 )]
-collision_mask = 14
+collision_mask = 0
 script = ExtResource( 4 )
+
+[node name="CollisionShape" parent="." index="1"]
+polygon = PoolVector2Array( 21, -10, 0, -32, -21, -10, -23, 25, 0, 17, 23, 25 )
 
 [node name="StateMachine" type="Node" parent="." index="2"]
 script = ExtResource( 2 )
