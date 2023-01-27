@@ -48,7 +48,7 @@ namespace StarSwarm.Project.Ships.Player.States
 
         public override void PhysicsProcess(float delta)
         {
-            LinearVelocity = LinearVelocity.Clamped(LinearSpeedMax);
+            LinearVelocity = LinearVelocity.LimitLength(LinearSpeedMax);
             LinearVelocity = LinearVelocity.LinearInterpolate(Vector2.Zero, DragLinearCoefficient);
 
             AngularVelocity = Mathf.Clamp(AngularVelocity, -Agent.AngularSpeedMax, Agent.AngularSpeedMax);
