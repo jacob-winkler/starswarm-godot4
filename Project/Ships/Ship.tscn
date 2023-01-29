@@ -4,7 +4,7 @@
 
 [sub_resource type="StreamTexture" id=1]
 flags = 4
-load_path = "res://.import/PlayerShip.svg-f5a7d2eef93fa7ae829707f84b91d284.stex"
+load_path = "res://.import/PlayerShip_small.svg-745f0a5066feeea14357df5d635d06a9.stex"
 
 [node name="Ship" type="KinematicBody2D"]
 

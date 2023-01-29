@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/SpaceCrab.svg-00d4583b48bd25779a918d3abb7517b2.stex"
+path="res://.import/SpaceCrab_small.svg-3c082a091cd6ad3a15f4456d6369c2ff.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Project/Ships/Enemies/SpaceCrab/SpaceCrab.svg"
-dest_files=[ "res://.import/SpaceCrab.svg-00d4583b48bd25779a918d3abb7517b2.stex" ]
+source_file="res://Project/Ships/Enemies/SpaceCrab/SpaceCrab_small.svg"
+dest_files=[ "res://.import/SpaceCrab_small.svg-3c082a091cd6ad3a15f4456d6369c2ff.stex" ]
 
 [params]
 
@@ -31,5 +31,5 @@ process/invert_color=false
 process/normal_map_invert_y=false
 stream=false
 size_limit=0
-detect_3d=false
+detect_3d=true
 svg/scale=1.0
