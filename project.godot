@@ -19,6 +19,15 @@ config/icon="res://icon.png"
 Events="*res://Project/Autoload/Events.cs"
 ObjectRegistry="*res://Project/Autoload/ObjectRegistry.tscn"
 
+[display]
+
+window/size/width=1280
+window/size/height=720
+window/size/test_width=1280
+window/size/test_height=720
+window/stretch/mode="viewport"
+window/stretch/aspect="keep"
+
 [global]
 
 export=false
@@ -62,5 +71,6 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
+2d/snapping/use_gpu_pixel_snap=true
 environment/default_clear_color=Color( 0.105882, 0.0627451, 0.141176, 1 )
 environment/default_environment="res://default_env.tres"
