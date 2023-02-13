@@ -33,8 +33,6 @@ script = ExtResource( 6 )
 
 [node name="PlayerShip" parent="GameWorld/PlayerSpawner" instance=ExtResource( 1 )]
 
-[node name="HealthBar" parent="GameWorld/PlayerSpawner/PlayerShip" instance=ExtResource( 10 )]
-
 [node name="UI" type="CanvasLayer" parent="GameWorld"]
 
 [node name="ScreenFader" parent="GameWorld/UI" instance=ExtResource( 3 )]
@@ -42,6 +40,8 @@ script = ExtResource( 6 )
 [node name="SpaceCrabSpawner" type="Node2D" parent="GameWorld"]
 script = ExtResource( 8 )
 SpaceCrab = ExtResource( 9 )
+
+[node name="HealthBar" parent="GameWorld" instance=ExtResource( 10 )]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 1 )

@@ -18,14 +18,14 @@ public class PlayerShip : KinematicBody2D
 	[Signal]
 	public delegate void Died();
 
-	public ObjectRegistry ObjectRegistry = new ObjectRegistry();
-	public Events Events = new Events();
-	public CollisionPolygon2D Shape = new CollisionPolygon2D();
-	public GSAISteeringAgent Agent = new GSAISteeringAgent();
-	public RemoteTransform2D CameraTransform = new RemoteTransform2D();
-	public Move MoveState = new Move();
-	public Gun Gun = new Gun();
-	public VFX Vfx = new VFX();
+	public ObjectRegistry ObjectRegistry = default!;
+	public Events Events = default!;
+	public CollisionPolygon2D Shape = default!;
+	public GSAISteeringAgent Agent = default!;
+	public RemoteTransform2D CameraTransform = default!;
+	public Move MoveState = default!;
+	public Gun Gun = default!;
+	public VFX Vfx = default!;
 
 	public override void _Ready()
 	{
@@ -37,6 +37,7 @@ public class PlayerShip : KinematicBody2D
 		MoveState = GetNode<Move>("StateMachine/Move");
 		Gun = GetNode<Gun>("Gun");
 		Vfx = GetNode<VFX>("VFX");
+
 		Events.Connect("Damaged", this, "OnDamaged");
 		Events.Connect("UpgradeChosen", this, "OnUpgradeChosen");
 		Stats.Connect("HealthDepleted", this, "Die");
