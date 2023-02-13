@@ -63,7 +63,7 @@ public class PlayerShip : KinematicBody2D
 	}
 
 
-	public void OnDamaged(Node target, int amount, Node origin)
+	public void OnDamaged(Node target, float amount, Node origin)
 	{
 		if (target != this)
 			return;

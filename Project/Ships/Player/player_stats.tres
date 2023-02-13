@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource( 1 )
-_maxHealth = 100.0
+_maxHealth = 100000.0
 _accelerationMax = 1200.0
 _linearSpeedMax = 540.0
 _angularSpeedMax = 200.0

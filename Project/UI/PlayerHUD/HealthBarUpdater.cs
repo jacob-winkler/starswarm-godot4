@@ -11,7 +11,10 @@ public class HealthBarUpdater : Control
 
     public void Initialize(PlayerShip player)
     {
-        player.Stats.Connect("StatChanged", this, "OnHealthUpdated");
+        player.Stats.Connect("StatChanged", this, "OnStatChanged");
+        player.Stats.Connect("MaxHealthUpdated", this, "OnMaxHealthUpdated");
+        HealthBar.MaxValue = 100000;
+        HealthBar.Value = HealthBar.MaxValue;
     }
 
     public void OnStatChanged(String stat, float valueStart, float currentValue)

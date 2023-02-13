@@ -32,10 +32,12 @@ namespace StarSwarm.Project.Ships.Enemies.SpaceCrab
         [Export(PropertyHint.Layers2dPhysics)]
         public Int64 ProjectileMask = 0;
 
-        public StateMachine StateMachine = null!;
-        public Events Events = new Events();
+        public StateMachine StateMachine = default!;
+        public Events Events = default!;
 
-        public GSAIKinematicBody2DAgent Agent { get; set; } = null!;
+        public GSAIKinematicBody2DAgent Agent { get; set; } = default!;
+
+        private PhysicsBody2D? _meleeTarget = default;
 
         public SpaceCrab()
         {
@@ -62,6 +64,18 @@ namespace StarSwarm.Project.Ships.Enemies.SpaceCrab
 
             var AggroArea = GetNode<Area2D>("AggroArea");
             AggroArea.Connect("body_entered", this, "OnBodyEnteredAggroRadius");
+
+            var MeleeRange = GetNode<Area2D>("MeleeRange");
+            MeleeRange.Connect("body_entered", this, "OnBodyEnteredMeleeRange");
+            MeleeRange.Connect("body_exited", this, "OnBodyExitedMeleeRange");
+        }
+
+        public override void _PhysicsProcess(float delta)
+        {
+            if (_meleeTarget != null)
+            {
+                Events.EmitSignal("Damaged", _meleeTarget, 150f, this);
+            }
         }
 
         public void OnBodyEnteredAggroRadius(PhysicsBody2D collider)
@@ -72,6 +86,16 @@ namespace StarSwarm.Project.Ships.Enemies.SpaceCrab
         public void OnTargetAggroed(PhysicsBody2D target)
         {
             StateMachine.TransitionTo("Attack", new Dictionary<String, Godot.Object> { ["target"] = target });
+        }
+
+        public void OnBodyEnteredMeleeRange(PhysicsBody2D playerBody)
+        {
+            _meleeTarget = playerBody;
+        }
+
+        public void OnBodyExitedMeleeRange(PhysicsBody2D playerBody)
+        {
+            _meleeTarget = null;
         }
     }
 }

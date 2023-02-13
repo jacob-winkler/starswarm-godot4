@@ -11,9 +11,11 @@ namespace StarSwarm.Project.Ships.Player
     {
         [Signal]
         public delegate void HealthDepleted();
+        [Signal]
+        public delegate void MaxHealthUpdated();
 
         [Export]
-        private float _maxHealth = 100.0F;
+        private float _maxHealth = 100000.0F;
         [Export]
         private float _accelerationMax = 15.0F;
         [Export]
@@ -23,12 +25,18 @@ namespace StarSwarm.Project.Ships.Player
         [Export]
         private float _angularAccelerationMax = 45.0F;
 
-        public float Health { get { return Health; }  set {
-                Health = Mathf.Clamp(value, 0.0F, _maxHealth);
+        private float _health;
+        public float Health { get { return _health; }  set {
+                _health = Mathf.Clamp(value, 0.0F, _maxHealth);
                 if (Mathf.IsEqualApprox(Health, 0.0F))
                     EmitSignal("HealthDepleted");
                 Update("health");
             }
+        }
+
+        public StatsShip()
+        {
+            _health = _maxHealth;
         }
 
         public float GetMaxHealth()

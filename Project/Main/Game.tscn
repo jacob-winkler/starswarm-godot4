@@ -9,7 +9,7 @@
 [ext_resource path="res://Project/VFX/BackgroundStars.tscn" type="PackedScene" id=7]
 [ext_resource path="res://World/Spawners/SpaceCrabSpawner.cs" type="Script" id=8]
 [ext_resource path="res://Project/Ships/Enemies/SpaceCrab/SpaceCrab.tscn" type="PackedScene" id=9]
-[ext_resource path="res://Project/UI/PlayerHUD/HealthBar.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Project/UI/PlayerHUD/HealthBarUpdater.tscn" type="PackedScene" id=10]
 
 [sub_resource type="Environment" id=1]
 background_mode = 4
@@ -41,7 +41,7 @@ script = ExtResource( 6 )
 script = ExtResource( 8 )
 SpaceCrab = ExtResource( 9 )
 
-[node name="HealthBar" parent="GameWorld" instance=ExtResource( 10 )]
+[node name="HealthBarUpdater" parent="GameWorld" instance=ExtResource( 10 )]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 1 )
