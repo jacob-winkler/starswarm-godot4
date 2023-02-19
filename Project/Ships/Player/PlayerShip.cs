@@ -13,7 +13,7 @@ public class PlayerShip : KinematicBody2D
 	public StatsShip Stats = (StatsShip)ResourceLoader.Load("res://Project/Ships/Player/player_stats.tres");
 	
 	[Export]
-	public PackedScene ExplosionEffect = new PackedScene();
+	public PackedScene ExplosionEffect = default!;
 
 	[Signal]
 	public delegate void Died();

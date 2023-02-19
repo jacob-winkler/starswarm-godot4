@@ -32,6 +32,8 @@ namespace StarSwarm.Project.Ships.Enemies.SpaceCrab
         [Export(PropertyHint.Layers2dPhysics)]
         public Int64 ProjectileMask = 0;
 
+        private float _health;
+
         public StateMachine StateMachine = default!;
         public Events Events = default!;
 
@@ -41,6 +43,7 @@ namespace StarSwarm.Project.Ships.Enemies.SpaceCrab
 
         public SpaceCrab()
         {
+            _health = HealthMax;
             Agent = new GSAIKinematicBody2DAgent();
             Agent.Initialize(this);
         }

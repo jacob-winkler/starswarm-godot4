@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace StarSwarm.Project.Autoload
 {
+    /// <summary>
+    /// Creates, maintains, and organizes spawned special effects or projectiles; 
+    /// objects that should be untied from their spawners' lifespan when freed.
+    /// </summary>
     public class ObjectRegistry : Node
     {
         private Node2D _projectiles = new Node2D();

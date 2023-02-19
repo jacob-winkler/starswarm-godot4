@@ -7,7 +7,7 @@ namespace StarSwarm.Project.World.Spawners
 	public class SpaceCrabSpawner : Node2D
 	{
 		[Export]
-		public PackedScene SpaceCrab { get; set; } = null!;
+		public PackedScene SpaceCrab { get; set; } = default!;
 		[Export]
 		public Int32 CountMin = 1;
 		[Export]
