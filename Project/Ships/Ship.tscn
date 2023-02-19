@@ -1,9 +1,6 @@
-[gd_scene load_steps=3 format=2]
-
-[ext_resource path="res://Project/Ships/Guns/Gun.tscn" type="PackedScene" id=1]
+[gd_scene load_steps=2 format=2]
 
 [sub_resource type="StreamTexture" id=1]
-flags = 4
 load_path = "res://.import/PlayerShip_small.svg-745f0a5066feeea14357df5d635d06a9.stex"
 
 [node name="Ship" type="KinematicBody2D"]
@@ -13,5 +10,3 @@ texture = SubResource( 1 )
 
 [node name="CollisionShape" type="CollisionPolygon2D" parent="."]
 polygon = PoolVector2Array( 28, 22, 0, -32, -28, 22 )
-
-[node name="Gun" parent="." instance=ExtResource( 1 )]

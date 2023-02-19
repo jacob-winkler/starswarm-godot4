@@ -9,7 +9,6 @@ public class SpaceMine : Sprite
     public float CountdownTime { get; set; } = 5;
 
     public Events Events { get; set; } = default!;
-    public Timer DetonateTimer { get; set; } = default!;
     public Area2D BlastRadius { get; set; } = default!;
     public AnimationPlayer CountdownAnimationPlayer { get; set; } = default!;
 
@@ -38,7 +37,7 @@ public class SpaceMine : Sprite
 
         foreach(var body in bodies)
         {
-            Events.EmitSignal("damaged", body, Damage, this);
+            Events.EmitSignal("Damaged", body, Damage, this);
         }
 
         QueueFree();

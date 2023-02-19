@@ -35,9 +35,9 @@ script = ExtResource( 5 )
 
 [node name="ThrustersAudioPlayer" parent="StateMachine/Move/Travel" index="0" instance=ExtResource( 6 )]
 
-[node name="CameraTransform" type="RemoteTransform2D" parent="." index="5"]
+[node name="CameraTransform" type="RemoteTransform2D" parent="." index="4"]
 
-[node name="VFX" type="Node2D" parent="." index="6"]
+[node name="VFX" type="Node2D" parent="." index="5"]
 script = ExtResource( 8 )
 
 [node name="MoveTrail" parent="VFX" index="0" instance=ExtResource( 7 )]

@@ -64,6 +64,7 @@ namespace StarSwarm.Project.Ships.Enemies.SpaceCrab
 
             Events = GetNode<Events>("/root/Events");
             Events.Connect("TargetAggroed", this, "OnTargetAggroed");
+            Events.Connect("Damaged", this, "OnDamaged");
 
             var AggroArea = GetNode<Area2D>("AggroArea");
             AggroArea.Connect("body_entered", this, "OnBodyEnteredAggroRadius");
@@ -99,6 +100,16 @@ namespace StarSwarm.Project.Ships.Enemies.SpaceCrab
         public void OnBodyExitedMeleeRange(PhysicsBody2D playerBody)
         {
             _meleeTarget = null;
+        }
+
+        public void OnDamaged(Node target, float amount, Node origin)
+        {
+            if (target != this)
+                return;
+
+            _health -= amount;
+            if(_health <= 0)
+                QueueFree();
         }
     }
 }
