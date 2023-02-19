@@ -2,7 +2,6 @@ using Godot;
 using StarSwarm.Project.Autoload;
 using StarSwarm.Project.GSAI_Framework;
 using StarSwarm.Project.GSAI_Framework.Agents;
-using StarSwarm.Project.Ships.Guns;
 using StarSwarm.Project.Ships.Player;
 using StarSwarm.Project.Ships.Player.States;
 using System;
@@ -24,7 +23,6 @@ public class PlayerShip : KinematicBody2D
 	public GSAISteeringAgent Agent = default!;
 	public RemoteTransform2D CameraTransform = default!;
 	public Move MoveState = default!;
-	public Gun Gun = default!;
 	public VFX Vfx = default!;
 
 	public override void _Ready()
@@ -35,7 +33,6 @@ public class PlayerShip : KinematicBody2D
 		Agent = GetNode<Move>("StateMachine/Move").Agent;
 		CameraTransform = GetNode<RemoteTransform2D>("CameraTransform");
 		MoveState = GetNode<Move>("StateMachine/Move");
-		Gun = GetNode<Gun>("Gun");
 		Vfx = GetNode<VFX>("VFX");
 
 		Events.Connect("Damaged", this, "OnDamaged");
@@ -81,13 +78,6 @@ public class PlayerShip : KinematicBody2D
 				break;
 			case (int)UpgradeChoices.SPEED:
 				Stats.AddModifier("linearSpeedMax", 125.0F);
-				break;
-			case (int)UpgradeChoices.WEAPON:
-				Gun.Stats.AddModifier("damage", 3.0F);
-				// That's a limitation of the stats system, modifiers only add or remove values, and they
-				// don't have limits
-				if (Gun.Stats.GetStat("cooldown") > 2.0f)
-					Gun.Stats.AddModifier("cooldown", -0.05f);
 				break;
 		}
 	}
