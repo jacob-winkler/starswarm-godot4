@@ -63,7 +63,6 @@ namespace StarSwarm.Project.Ships.Enemies.SpaceCrab
             Agent.AngularDragPercentage = AngularDragFactor;
 
             Events = GetNode<Events>("/root/Events");
-            Events.Connect("TargetAggroed", this, "OnTargetAggroed");
             Events.Connect("Damaged", this, "OnDamaged");
 
             var AggroArea = GetNode<Area2D>("AggroArea");
@@ -84,12 +83,7 @@ namespace StarSwarm.Project.Ships.Enemies.SpaceCrab
 
         public void OnBodyEnteredAggroRadius(PhysicsBody2D collider)
         {
-            Events.EmitSignal("TargetAggroed", collider);
-        }
-
-        public void OnTargetAggroed(PhysicsBody2D target)
-        {
-            StateMachine.TransitionTo("Attack", new Dictionary<String, Godot.Object> { ["target"] = target });
+            StateMachine.TransitionTo("Attack", new Dictionary<String, Godot.Object> { ["target"] = collider });
         }
 
         public void OnBodyEnteredMeleeRange(PhysicsBody2D playerBody)
