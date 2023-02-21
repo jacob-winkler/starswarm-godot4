@@ -21,11 +21,11 @@ ObjectRegistry="*res://Project/Autoload/ObjectRegistry.tscn"
 
 [display]
 
-window/size/width=1280
-window/size/height=720
+window/size/width=920
+window/size/height=540
 window/size/test_width=1280
 window/size/test_height=720
-window/stretch/mode="viewport"
+window/stretch/mode="2d"
 window/stretch/aspect="keep"
 
 [global]
