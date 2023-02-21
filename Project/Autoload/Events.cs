@@ -18,4 +18,7 @@ public class Events : Node
 
     [Signal]
     public delegate void NodeSpawned();
+
+    [Signal]
+    public delegate void EnemyAdrift(PhysicsBody2D body, Vector2 playerPosition);
 }

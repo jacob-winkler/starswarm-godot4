@@ -26,7 +26,8 @@ namespace StarSwarm.Project.World
 			Rng.Randomize();
 			PlayerSpawner = GetNode<PlayerSpawner>("PlayerSpawner");
 			SpaceCrabSpawner = GetNode<SpaceCrabSpawner>("SpaceCrabSpawner");
-			Player = GetNode<PlayerShip>("PlayerSpawner/PlayerShip");
+            SpaceCrabSpawner.Initialize(Rng);
+            Player = GetNode<PlayerShip>("PlayerSpawner/PlayerShip");
 			HealthBarUpdater = GetNode<HealthBarUpdater>("HealthBarUpdater");
 			Setup();
 		}
@@ -34,14 +35,12 @@ namespace StarSwarm.Project.World
 		public void Setup()
 		{
 			var playerPosition = PlayerSpawner.SpawnPlayer();
-			SpaceCrabSpawner.SpawnSpaceCrabs(Rng, playerPosition);
+			SpaceCrabSpawner.SpawnSpaceCrabs(playerPosition);
 			HealthBarUpdater.Initialize(Player);
 		}
 
 		public override void _PhysicsProcess(float delta)
 		{
-			//HealthBar.SetRotation(0);
-
 			var healthBarPosition = Player.GlobalPosition;
 			healthBarPosition.x -= 16;
 			healthBarPosition.y += 24;

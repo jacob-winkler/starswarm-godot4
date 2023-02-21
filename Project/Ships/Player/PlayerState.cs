@@ -9,7 +9,7 @@ namespace StarSwarm.Project.Ships.Player
 {
     public class PlayerState : State
     {
-        public PlayerShip Ship;
+        public PlayerShip Ship { get; set; } = default!;
 
         public override async void _Ready()
         {

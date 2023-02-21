@@ -17,7 +17,7 @@ namespace StarSwarm.Project.World.Spawners
 		public Vector2 SpawnPlayer()
 		{ 
 			Events.EmitSignal("PlayerSpawned", PlayerShip);
-			return PlayerShip.Position;
+			return PlayerShip.GlobalPosition;
 		}
 	}
 }

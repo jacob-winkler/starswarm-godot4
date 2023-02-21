@@ -17,15 +17,16 @@ public class PlayerShip : KinematicBody2D
 	[Signal]
 	public delegate void Died();
 
-	public ObjectRegistry ObjectRegistry = default!;
-	public Events Events = default!;
-	public CollisionPolygon2D Shape = default!;
-	public GSAISteeringAgent Agent = default!;
-	public RemoteTransform2D CameraTransform = default!;
-	public Move MoveState = default!;
-	public VFX Vfx = default!;
+	public ObjectRegistry ObjectRegistry { get; set; } = default!;
+	public Events Events { get; set; } = default!;
+	public CollisionPolygon2D Shape { get; set; } = default!;
+	public GSAISteeringAgent Agent { get; set; } = default!;
+	public RemoteTransform2D CameraTransform { get; set; } = default!;
+	public Move MoveState { get; set; } = default!;
+	public VFX Vfx { get; set; } = default!;
+    public Area2D EnemyAccountabilityZone { get; set; } = default!;
 
-	public override void _Ready()
+    public override void _Ready()
 	{
 		ObjectRegistry = GetNode<ObjectRegistry>("/root/ObjectRegistry");
 		Events = GetNode<Events>("/root/Events");
@@ -34,8 +35,10 @@ public class PlayerShip : KinematicBody2D
 		CameraTransform = GetNode<RemoteTransform2D>("CameraTransform");
 		MoveState = GetNode<Move>("StateMachine/Move");
 		Vfx = GetNode<VFX>("VFX");
+        EnemyAccountabilityZone = GetNode<Area2D>("EnemyAccountabilityZone");
 
-		Events.Connect("Damaged", this, "OnDamaged");
+        EnemyAccountabilityZone.Connect("body_exited", this, "OnEnemyExitsAccountabilityZone");
+        Events.Connect("Damaged", this, "OnDamaged");
 		Events.Connect("UpgradeChosen", this, "OnUpgradeChosen");
 		Stats.Connect("HealthDepleted", this, "Die");
 		Stats.Initialize();
@@ -59,7 +62,6 @@ public class PlayerShip : KinematicBody2D
 		CameraTransform.RemotePath = camera.GetPath();
 	}
 
-
 	public void OnDamaged(Node target, float amount, Node origin)
 	{
 		if (target != this)
@@ -81,4 +83,9 @@ public class PlayerShip : KinematicBody2D
 				break;
 		}
 	}
+
+	public void OnEnemyExitsAccountabilityZone(PhysicsBody2D body)
+	{
+        Events.EmitSignal("EnemyAdrift", body, this.GlobalPosition);
+    }
 }
