@@ -19,6 +19,10 @@ public class Events : Node
     [Signal]
     public delegate void NodeSpawned();
 
+    /// Enemy signals
     [Signal]
     public delegate void EnemyAdrift(PhysicsBody2D body, Vector2 playerPosition);
+
+    [Signal]
+    public delegate void SpaceCrabDied();
 }

@@ -102,8 +102,11 @@ namespace StarSwarm.Project.Ships.Enemies.SpaceCrab
                 return;
 
             _health -= amount;
-            if(_health <= 0)
+            if (_health <= 0)
+            {
                 QueueFree();
+                Events.EmitSignal("SpaceCrabDied");
+            }
         }
     }
 }

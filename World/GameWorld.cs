@@ -1,8 +1,8 @@
 using Godot;
-using StarSwarm.Project.World.Spawners;
+using StarSwarm.World.Spawners;
 using System.Collections.Generic;
 
-namespace StarSwarm.Project.World
+namespace StarSwarm.World
 {
 	public class GameWorld : Node2D
 	{
@@ -25,9 +25,9 @@ namespace StarSwarm.Project.World
 
 			Rng.Randomize();
 			PlayerSpawner = GetNode<PlayerSpawner>("PlayerSpawner");
+			Player = GetNode<PlayerShip>("PlayerSpawner/PlayerShip");
 			SpaceCrabSpawner = GetNode<SpaceCrabSpawner>("SpaceCrabSpawner");
-            SpaceCrabSpawner.Initialize(Rng);
-            Player = GetNode<PlayerShip>("PlayerSpawner/PlayerShip");
+            SpaceCrabSpawner.Initialize(Player, Rng);
 			HealthBarUpdater = GetNode<HealthBarUpdater>("HealthBarUpdater");
 			Setup();
 		}

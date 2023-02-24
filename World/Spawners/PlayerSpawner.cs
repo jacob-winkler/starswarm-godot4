@@ -1,9 +1,8 @@
 using Godot;
-using StarSwarm.Project.Autoload;
-using System;
-namespace StarSwarm.Project.World.Spawners
+
+namespace StarSwarm.World.Spawners
 {
-	public class PlayerSpawner : Node2D
+    public class PlayerSpawner : Node2D
 	{
 		public PlayerShip PlayerShip { get; set; } = new PlayerShip();
 		public Events Events { get; set; } = new Events();
