@@ -40,6 +40,7 @@ namespace StarSwarm.Project.Ships.Enemies.SpaceCrab
         public GSAIKinematicBody2DAgent Agent { get; set; } = default!;
 
         private PhysicsBody2D? _meleeTarget = default;
+        private Int32 _pointValue = 500;
 
         public SpaceCrab()
         {
@@ -114,6 +115,7 @@ namespace StarSwarm.Project.Ships.Enemies.SpaceCrab
             {
                 QueueFree();
                 Events.EmitSignal("SpaceCrabDied");
+                Events.EmitSignal("AddPoints", _pointValue);
             }
         }
     }

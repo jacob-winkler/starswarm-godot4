@@ -30,4 +30,7 @@ public class Events : Node
 
     [Signal]
     public delegate void GameMinutePassed();
+
+    [Signal]
+    public delegate void AddPoints(Int32 points);
 }

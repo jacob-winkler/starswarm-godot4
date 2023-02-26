@@ -12,9 +12,18 @@ public class CountUpTimer : Label
 
     /// <summary>
     /// Tracks the number of minutes that have elapsed.
-    /// Used to send a signal each time the elapsed minutes increases.
     /// </summary>
     private Int32 _minute = 0;
+
+    /// <summary>
+    /// Tracks the number of seconds that have elapsed.
+    /// </summary>
+    private Int32 _seconds = 0;
+
+    /// <summary>
+    /// The number of points to give to the player as each second passes.
+    /// </summary>
+    private const Int32 _pointsPerSecond = 150;
 
     public override void _Ready()
     {
@@ -25,20 +34,32 @@ public class CountUpTimer : Label
     public override void _Process(float delta)
     {
         TimeElapsed += delta;
-        Text = FormatSeconds(TimeElapsed);
+        CalculateTime();
+        Text = FormatSeconds();
     }
 
-    private String FormatSeconds(float time)
+    private String FormatSeconds()
     {
-        var minutes = (Int32)(time / 60);
+        var minutes = (Int32)(TimeElapsed / 60);
+        var seconds = TimeElapsed % 60;
+
+        return String.Format("{0}:{1:00}", minutes, seconds);
+    }
+
+    private void CalculateTime()
+    {
+        var minutes = (Int32)(TimeElapsed / 60);
         if (minutes > _minute)
         {
             _minute = minutes;
             Events.EmitSignal("GameMinutePassed");
         }
 
-        var seconds = time % 60;
-
-        return String.Format("{0}:{1:00}", minutes, seconds);
+        var seconds = (Int32)TimeElapsed;
+        if (seconds > _seconds)
+        {
+            _seconds = seconds;
+            Events.EmitSignal("AddPoints", _pointsPerSecond);
+        }
     }
 }
