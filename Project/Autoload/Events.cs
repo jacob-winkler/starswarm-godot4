@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 public class Events : Node
 {
+    // Player signals
     [Signal]
     public delegate void Damaged(Node target, float amount, Node origin);
 
@@ -16,13 +17,17 @@ public class Events : Node
     [Signal]
     public delegate void PlayerSpawned(PlayerShip player);
 
-    [Signal]
-    public delegate void NodeSpawned();
-
     /// Enemy signals
     [Signal]
     public delegate void EnemyAdrift(PhysicsBody2D body, Vector2 playerPosition);
 
     [Signal]
     public delegate void SpaceCrabDied();
+
+    // Game signals
+    [Signal]
+    public delegate void NodeSpawned();
+
+    [Signal]
+    public delegate void GameMinutePassed();
 }
