@@ -67,11 +67,11 @@ namespace StarSwarm.World.Spawners
             crab.Position = newPosition - this.GlobalPosition;
         }
 
-		public void OnSpaceCrabFellAdrift(PhysicsBody2D body, Vector2 playerPosition)
+		public void OnSpaceCrabFellAdrift(PhysicsBody2D body)
 		{
             if (body is SpaceCrab)
             {
-                SetSpaceCrabPositionAroundPlayer((SpaceCrab)body, playerPosition);
+                SetSpaceCrabPositionAroundPlayer((SpaceCrab)body, _playerShip.GlobalPosition);
             }
         }
 

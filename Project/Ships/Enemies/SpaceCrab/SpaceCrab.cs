@@ -34,9 +34,9 @@ namespace StarSwarm.Project.Ships.Enemies.SpaceCrab
 
         private float _health;
 
+        public VisibilityNotifier2D VisibilityNotifier { get; set; } = default!;
         public StateMachine StateMachine = default!;
         public Events Events = default!;
-
         public GSAIKinematicBody2DAgent Agent { get; set; } = default!;
 
         private PhysicsBody2D? _meleeTarget = default;
@@ -52,6 +52,9 @@ namespace StarSwarm.Project.Ships.Enemies.SpaceCrab
         public override void _Ready()
         {
             StateMachine = GetNode<StateMachine>("StateMachine");
+
+            VisibilityNotifier = GetNode<VisibilityNotifier2D>("VisibilityNotifier");
+            VisibilityNotifier.Connect("screen_exited", this, "OnScreenExited");
 
             Agent.LinearAccelerationMax = AccelerationMax;
             Agent.LinearSpeedMax = LinearSpeedMax;
@@ -94,6 +97,11 @@ namespace StarSwarm.Project.Ships.Enemies.SpaceCrab
         public void OnBodyExitedMeleeRange(PhysicsBody2D playerBody)
         {
             _meleeTarget = null;
+        }
+
+        public void OnScreenExited()
+        {
+            Events.EmitSignal("EnemyAdrift", this);
         }
 
         public void OnDamaged(Node target, float amount, Node origin)

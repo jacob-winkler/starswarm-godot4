@@ -24,7 +24,6 @@ public class PlayerShip : KinematicBody2D
 	public RemoteTransform2D CameraTransform { get; set; } = default!;
 	public Move MoveState { get; set; } = default!;
 	public VFX Vfx { get; set; } = default!;
-    public Area2D EnemyAccountabilityZone { get; set; } = default!;
 
     public override void _Ready()
 	{
@@ -35,9 +34,7 @@ public class PlayerShip : KinematicBody2D
 		CameraTransform = GetNode<RemoteTransform2D>("CameraTransform");
 		MoveState = GetNode<Move>("StateMachine/Move");
 		Vfx = GetNode<VFX>("VFX");
-        EnemyAccountabilityZone = GetNode<Area2D>("EnemyAccountabilityZone");
-
-        EnemyAccountabilityZone.Connect("body_exited", this, "OnEnemyExitsAccountabilityZone");
+		
         Events.Connect("Damaged", this, "OnDamaged");
 		Events.Connect("UpgradeChosen", this, "OnUpgradeChosen");
 		Stats.Connect("HealthDepleted", this, "Die");
@@ -83,9 +80,4 @@ public class PlayerShip : KinematicBody2D
 				break;
 		}
 	}
-
-	public void OnEnemyExitsAccountabilityZone(PhysicsBody2D body)
-	{
-        Events.EmitSignal("EnemyAdrift", body, this.GlobalPosition);
-    }
 }
