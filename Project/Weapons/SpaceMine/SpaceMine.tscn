@@ -4,7 +4,7 @@
 [ext_resource path="res://Project/Weapons/SpaceMine/SpaceMine.cs" type="Script" id=3]
 
 [sub_resource type="CircleShape2D" id=2]
-radius = 75.1864
+radius = 75.0
 
 [sub_resource type="Animation" id=3]
 length = 4.0
