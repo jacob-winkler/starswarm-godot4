@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class SpaceMine : Sprite
+public class SpaceMine : Node2D
 {
     [Export]
     public float Damage { get; set; } = 100f;
@@ -10,36 +10,50 @@ public class SpaceMine : Sprite
 
     public Events Events { get; set; } = default!;
     public Area2D BlastRadius { get; set; } = default!;
-    public AnimationPlayer CountdownAnimationPlayer { get; set; } = default!;
+    public AnimationPlayer AnimationPlayer { get; set; } = default!;
+
+    public AnimatedSprite Explosion { get; set; } = default!;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
         Events = GetNode<Events>("/root/Events");
         BlastRadius = GetNode<Area2D>("BlastRadius");
-        CountdownAnimationPlayer = GetNode<AnimationPlayer>("CountdownAnimation");
+        AnimationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+        Explosion = GetNode<AnimatedSprite>("Explosion");
 
-        CountdownAnimationPlayer.Connect("animation_finished", this, "OnDetonation");
+        Explosion.Connect("animation_finished", this, "OnExplosionFinished");
+        AnimationPlayer.Connect("animation_finished", this, "OnDetonation");
+
         ArmSpaceMine();     
     }
 
     private void ArmSpaceMine()
     {
-        var countdownAnimation = CountdownAnimationPlayer.GetAnimation("SpaceMineCountdown");
+        var countdownAnimation = AnimationPlayer.GetAnimation("SpaceMineCountdown");
         var animationSpeed = CountdownTime / countdownAnimation.Length;
         countdownAnimation.Loop = false;
-        CountdownAnimationPlayer.Play("SpaceMineCountdown", customSpeed: animationSpeed);
+        AnimationPlayer.Play("SpaceMineCountdown", customSpeed: animationSpeed);
     }
 
     private void OnDetonation(String animationName)
     {
+        if(animationName != "SpaceMineCountdown")
+            return;
+
+        Explosion.Visible = true;
+        Explosion.Play("Explosion");
+
         var bodies = BlastRadius.GetOverlappingBodies();
 
         foreach(var body in bodies)
         {
             Events.EmitSignal("Damaged", body, Damage, this);
         }
+    }
 
+    private void OnExplosionFinished()
+    {
         QueueFree();
     }
 }
