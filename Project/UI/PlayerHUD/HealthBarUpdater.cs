@@ -13,7 +13,7 @@ public class HealthBarUpdater : Control
     {
         player.Stats.Connect("StatChanged", this, "OnStatChanged");
         player.Stats.Connect("MaxHealthUpdated", this, "OnMaxHealthUpdated");
-        HealthBar.MaxValue = 100000;
+        HealthBar.MaxValue = player.Stats.GetMaxHealth();
         HealthBar.Value = HealthBar.MaxValue;
     }
 

@@ -15,7 +15,7 @@ namespace StarSwarm.Project.Ships.Player
         public delegate void MaxHealthUpdated();
 
         [Export]
-        private float _maxHealth = 100000.0F;
+        private float _maxHealth = 10000F;
         [Export]
         private float _accelerationMax = 15.0F;
         [Export]
