@@ -52,7 +52,7 @@ namespace StarSwarm.World.Spawners
 			var spaceCrab = (SpaceCrab)SpaceCrab.Instance();
 			SetSpaceCrabPositionAroundPlayer(spaceCrab, playerPosition);
 
-			AddChild(spaceCrab);
+			CallDeferred("add_child", spaceCrab);
 			_spaceCrabsAlive++;
 		}
 

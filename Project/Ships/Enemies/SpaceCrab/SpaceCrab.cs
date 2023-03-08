@@ -12,6 +12,8 @@ namespace StarSwarm.Project.Ships.Enemies.SpaceCrab
     public class SpaceCrab : KinematicBody2D
     {
         [Export]
+        public PackedScene DisintegrateEffect = default!;
+        [Export]
         public float HealthMax = 100f;
         [Export]
         public float LinearSpeedMax = 400f;
@@ -37,10 +39,12 @@ namespace StarSwarm.Project.Ships.Enemies.SpaceCrab
         public VisibilityNotifier2D VisibilityNotifier { get; set; } = default!;
         public StateMachine StateMachine = default!;
         public Events Events = default!;
+        public ObjectRegistry ObjectRegistry = default!;
         public GSAIKinematicBody2DAgent Agent { get; set; } = default!;
 
         private PhysicsBody2D? _meleeTarget = default;
         private Int32 _pointValue = 500;
+        private float _damagePerSecond = 150f;
 
         public SpaceCrab()
         {
@@ -66,6 +70,7 @@ namespace StarSwarm.Project.Ships.Enemies.SpaceCrab
             Agent.LinearDragPercentage = DragFactor;
             Agent.AngularDragPercentage = AngularDragFactor;
 
+            ObjectRegistry = GetNode<ObjectRegistry>("/root/ObjectRegistry");
             Events = GetNode<Events>("/root/Events");
             Events.Connect("Damaged", this, "OnDamaged");
 
@@ -81,7 +86,7 @@ namespace StarSwarm.Project.Ships.Enemies.SpaceCrab
         {
             if (_meleeTarget != null)
             {
-                Events.EmitSignal("Damaged", _meleeTarget, 150f, this);
+                Events.EmitSignal("Damaged", _meleeTarget, _damagePerSecond * delta, this);
             }
         }
 
@@ -113,10 +118,20 @@ namespace StarSwarm.Project.Ships.Enemies.SpaceCrab
             _health -= amount;
             if (_health <= 0)
             {
-                QueueFree();
-                Events.EmitSignal("SpaceCrabDied");
-                Events.EmitSignal("AddPoints", _pointValue);
+                Die();
             }
+        }
+
+        private void Die()
+        {
+            var effect = (Node2D)DisintegrateEffect.Instance();
+            effect.GlobalPosition = GlobalPosition;
+            effect.GlobalRotation = GlobalRotation;
+            ObjectRegistry.RegisterEffect(effect);
+
+            QueueFree();
+            Events.EmitSignal("SpaceCrabDied");
+            Events.EmitSignal("AddPoints", _pointValue);
         }
     }
 }
