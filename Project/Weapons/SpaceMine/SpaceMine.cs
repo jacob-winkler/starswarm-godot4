@@ -50,6 +50,13 @@ public class SpaceMine : Node2D
         {
             Events.EmitSignal("Damaged", body, Damage, this);
         }
+
+        BlastRadius.Connect("body_entered", this, "OnBodyEnteredBlastRadius");
+    }
+
+    private void OnBodyEnteredBlastRadius(PhysicsBody2D body)
+    {
+        Events.EmitSignal("Damaged", body, Damage, this);
     }
 
     private void OnExplosionFinished()
