@@ -1,18 +1,17 @@
+using System;
 using Godot;
 using StarSwarm.Project.Autoload;
 using StarSwarm.Project.GSAI_Framework;
-using StarSwarm.Project.GSAI_Framework.Agents;
 using StarSwarm.Project.Ships.Player;
 using StarSwarm.Project.Ships.Player.States;
-using System;
 
 public class PlayerShip : KinematicBody2D
 {
 	[Export]
-	public StatsShip Stats = (StatsShip)ResourceLoader.Load("res://Project/Ships/Player/player_stats.tres");
-	
+	public PackedScene PackedDisintegrateEffect { get; set; } = default!;
+
 	[Export]
-	public PackedScene ExplosionEffect = default!;
+	public StatsShip Stats { get; set; } = default!;
 
 	[Signal]
 	public delegate void Died();
@@ -25,6 +24,8 @@ public class PlayerShip : KinematicBody2D
 	public Move MoveState { get; set; } = default!;
 	public VFX Vfx { get; set; } = default!;
 
+	private Boolean _isDead;
+
     public override void _Ready()
 	{
 		ObjectRegistry = GetNode<ObjectRegistry>("/root/ObjectRegistry");
@@ -34,7 +35,7 @@ public class PlayerShip : KinematicBody2D
 		CameraTransform = GetNode<RemoteTransform2D>("CameraTransform");
 		MoveState = GetNode<Move>("StateMachine/Move");
 		Vfx = GetNode<VFX>("VFX");
-		
+
         Events.Connect("Damaged", this, "OnDamaged");
 		Events.Connect("UpgradeChosen", this, "OnUpgradeChosen");
 		Stats.Connect("HealthDepleted", this, "Die");
@@ -43,16 +44,24 @@ public class PlayerShip : KinematicBody2D
 
 	public void Die()
 	{
-		var effect = ExplosionEffect.Instance<Node2D>();
-		effect.GlobalPosition = GlobalPosition;
-		ObjectRegistry.RegisterEffect(effect);
+		if(_isDead)
+			return;
 
+		_isDead = true;
 		EmitSignal("Died");
-		Events.EmitSignal("PlayerDied");
 
-		QueueFree();
+		var playerSprite = GetNode<Sprite>("Sprite");
+		playerSprite.Visible = false;
+
+		var effect = PackedDisintegrateEffect.Instance<DisintegrateEffect>();
+		effect.Texture = playerSprite.Texture;
+		effect.Speed = 0.01f;
+		effect.ZIndex = 100;
+		effect.GlobalPosition = GlobalPosition;
+		effect.GlobalRotation = GlobalRotation;
+		effect.PauseMode = PauseModeEnum.Process;
+		ObjectRegistry.RegisterEffect(effect);
 	}
-
 
 	public void GrabCamera(Camera2D camera)
 	{

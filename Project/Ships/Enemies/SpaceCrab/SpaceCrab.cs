@@ -42,9 +42,9 @@ namespace StarSwarm.Project.Ships.Enemies.SpaceCrab
         public ObjectRegistry ObjectRegistry = default!;
         public GSAIKinematicBody2DAgent Agent { get; set; } = default!;
 
-        private PhysicsBody2D? _meleeTarget = default;
-        private Int32 _pointValue = 500;
-        private float _damagePerSecond = 250f;
+        private PhysicsBody2D? _meleeTarget;
+        private readonly Int32 _pointValue = 500;
+        private readonly float _damagePerSecond = 250f;
 
         public SpaceCrab()
         {

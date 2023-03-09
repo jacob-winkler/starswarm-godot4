@@ -68,10 +68,10 @@ script = ExtResource( 14 )
 script = ExtResource( 8 )
 SpaceCrab = ExtResource( 9 )
 
-[node name="HealthBarUpdater" parent="GameWorld" instance=ExtResource( 10 )]
-
 [node name="DifficultyScaler" type="Node" parent="GameWorld"]
 script = ExtResource( 13 )
+
+[node name="HealthBarUpdater" parent="GameWorld" instance=ExtResource( 10 )]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 1 )

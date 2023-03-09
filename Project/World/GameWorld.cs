@@ -1,5 +1,6 @@
 using Godot;
 using StarSwarm.World.Spawners;
+using System;
 using System.Collections.Generic;
 
 namespace StarSwarm.World
@@ -18,6 +19,8 @@ namespace StarSwarm.World
 		public PlayerShip Player { get; set; } = default!;
 		public HealthBarUpdater HealthBarUpdater { get; set; }= default!;
 
+		private Boolean _playerDead = false;
+
 		public async override void _Ready()
 		{
 			await ToSignal(Owner, "ready");
@@ -34,6 +37,7 @@ namespace StarSwarm.World
 
 		public void Setup()
 		{
+			Player.Connect("Died", this, "OnPlayerDied");
 			var playerPosition = PlayerSpawner.SpawnPlayer();
 			SpaceCrabSpawner.SpawnSpaceCrabs(playerPosition);
 			HealthBarUpdater.Initialize(Player);
@@ -41,10 +45,24 @@ namespace StarSwarm.World
 
 		public override void _PhysicsProcess(float delta)
 		{
+			if(!_playerDead)
+				UpdateHealthBarPosition();
+		}
+
+		private void UpdateHealthBarPosition()
+		{
 			var healthBarPosition = Player.GlobalPosition;
 			healthBarPosition.x -= 16;
 			healthBarPosition.y += 24;
 			HealthBarUpdater.SetGlobalPosition(healthBarPosition);
+		}
+
+		private void OnPlayerDied()
+		{
+			_playerDead = true;
+			// Game Over screen
+
+			GetTree().Paused = true;
 		}
 	}
 }

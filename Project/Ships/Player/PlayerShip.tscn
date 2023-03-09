@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Project/Ships/Ship.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Project/SWStateMachine/StateMachine.cs" type="Script" id=2]
@@ -10,21 +10,22 @@
 [ext_resource path="res://Project/Ships/Player/VFX.cs" type="Script" id=8]
 [ext_resource path="res://Project/Ships/Player/PlayerShip_small.svg" type="Texture" id=9]
 [ext_resource path="res://Project/Weapons/SpaceMine/SpaceMineLauncher.tscn" type="PackedScene" id=10]
-
-[sub_resource type="CircleShape2D" id=1]
-radius = 700.0
+[ext_resource path="res://Project/VFX/DisintegrateEffect.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Project/Ships/Player/player_stats.tres" type="Resource" id=12]
 
 [node name="PlayerShip" instance=ExtResource( 1 )]
 collision_mask = 0
 script = ExtResource( 4 )
+PackedDisintegrateEffect = ExtResource( 11 )
+Stats = ExtResource( 12 )
 
-[node name="SpaceMineLauncher" parent="." index="0" instance=ExtResource( 10 )]
-
-[node name="Sprite" parent="." index="1"]
+[node name="Sprite" parent="." index="0"]
 texture = ExtResource( 9 )
 
-[node name="CollisionShape" parent="." index="2"]
+[node name="CollisionShape" parent="." index="1"]
 polygon = PoolVector2Array( 10, -5, 0, -16, -10, -5, -11, 12, 0, 8, 11, 12 )
+
+[node name="SpaceMineLauncher" parent="." index="2" instance=ExtResource( 10 )]
 
 [node name="StateMachine" type="Node" parent="." index="3"]
 script = ExtResource( 2 )
@@ -49,9 +50,3 @@ emitting = false
 amount = 4
 lifetime = 0.3
 initial_velocity = 200.0
-
-[node name="EnemyAccountabilityZone" type="Area2D" parent="." index="6"]
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyAccountabilityZone" index="0"]
-shape = SubResource( 1 )
