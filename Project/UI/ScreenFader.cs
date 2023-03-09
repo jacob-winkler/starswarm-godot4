@@ -17,8 +17,8 @@ namespace StarSwarm.Project.UI
         [Export]
         public float DurationFadeOut = 2.5f;
 
-        public bool IsPlaying = false;
-        public Tween Tween;
+        public bool IsPlaying;
+        public Tween Tween = default!;
 
         public override void _Ready()
         {

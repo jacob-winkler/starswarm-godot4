@@ -44,7 +44,7 @@ namespace StarSwarm.Project.Ships.Enemies.SpaceCrab
 
         private PhysicsBody2D? _meleeTarget;
         private readonly Int32 _pointValue = 500;
-        private readonly float _damagePerSecond = 250f;
+        private readonly float _damagePerSecond = 500f;
 
         public SpaceCrab()
         {

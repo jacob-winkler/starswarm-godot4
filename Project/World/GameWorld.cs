@@ -1,25 +1,23 @@
 using Godot;
+using StarSwarm.Project.Main;
 using StarSwarm.World.Spawners;
 using System;
-using System.Collections.Generic;
 
 namespace StarSwarm.World
 {
 	public class GameWorld : Node2D
 	{
-			[Export]
+		[Export]
 		public float Radius = 8000.0f;
-
-		private List<Vector2> _spawnedPositions = new List<Vector2>();
-		private List<Node2D> _worldObjects = new List<Node2D>();
 
 		public RandomNumberGenerator Rng { get; set; } = new RandomNumberGenerator();
 		public PlayerSpawner PlayerSpawner { get; set; } = default!;
 		public SpaceCrabSpawner SpaceCrabSpawner { get; set; } = default!;
 		public PlayerShip Player { get; set; } = default!;
-		public HealthBarUpdater HealthBarUpdater { get; set; }= default!;
+		public HealthBarUpdater HealthBarUpdater { get; set; } = default!;
+        public GameOver GameOverScreen { get; set; } = default!;
 
-		private Boolean _playerDead = false;
+        private Boolean _playerDead;
 
 		public async override void _Ready()
 		{
@@ -30,18 +28,21 @@ namespace StarSwarm.World
 			PlayerSpawner = GetNode<PlayerSpawner>("PlayerSpawner");
 			Player = GetNode<PlayerShip>("PlayerSpawner/PlayerShip");
 			SpaceCrabSpawner = GetNode<SpaceCrabSpawner>("SpaceCrabSpawner");
-            SpaceCrabSpawner.Initialize(Player, Rng);
 			HealthBarUpdater = GetNode<HealthBarUpdater>("HealthBarUpdater");
-			Setup();
+            GameOverScreen = GetNode<GameOver>("UI/GameOver");
+
+            Setup();
 		}
 
 		public void Setup()
 		{
 			Player.Connect("Died", this, "OnPlayerDied");
 			var playerPosition = PlayerSpawner.SpawnPlayer();
+			SpaceCrabSpawner.Initialize(Player, Rng);
 			SpaceCrabSpawner.SpawnSpaceCrabs(playerPosition);
 			HealthBarUpdater.Initialize(Player);
-		}
+            GameOverScreen.PauseMode = PauseModeEnum.Process;
+        }
 
 		public override void _PhysicsProcess(float delta)
 		{
@@ -60,9 +61,10 @@ namespace StarSwarm.World
 		private void OnPlayerDied()
 		{
 			_playerDead = true;
-			// Game Over screen
+            GameOverScreen.RectGlobalPosition = Player.GlobalPosition;
+            GameOverScreen.Start();
 
-			GetTree().Paused = true;
+            GetTree().Paused = true;
 		}
 	}
 }

@@ -3,7 +3,6 @@ using System;
 
 public class DisintegrateEffect : Sprite
 {
-    private Boolean _fadeout { get; set; } = false;
     private float _shaderValue = default!;
 
     public float Speed { get; set; } = 0.03f;
