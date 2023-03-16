@@ -3,3 +3,6 @@
 [node name="WeaponAttachment" type="Node2D"]
 
 [node name="CooldownTimer" type="Timer" parent="."]
+
+[node name="DurationTimer" type="Timer" parent="."]
+one_shot = true

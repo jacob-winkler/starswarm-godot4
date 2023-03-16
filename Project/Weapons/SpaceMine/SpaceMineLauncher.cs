@@ -13,7 +13,7 @@ public class SpaceMineLauncher : WeaponAttachment
     {
         base._Ready();
         ObjectRegistry = GetNode<ObjectRegistry>("/root/ObjectRegistry");
-        CooldownTimer.Start(Cooldown);
+        _cooldownTimer.Start(Cooldown);
     }
 
     protected override void FireWeapon()
