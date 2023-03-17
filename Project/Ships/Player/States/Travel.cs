@@ -13,7 +13,6 @@ public class Travel : PlayerState
     public override void _Ready()
     {
         base._Ready();
-        
         AudioThrusters = GetNode<LoopingAudioStreamPlayer2D>("ThrustersAudioPlayer");
     }
 
@@ -43,10 +42,5 @@ public class Travel : PlayerState
             Input.GetActionStrength("right") - Input.GetActionStrength("left"),
             Input.GetActionStrength("thrust_back") - Input.GetActionStrength("thrust_forwards")
         );
-    }
-
-    public override void UnhandledInput(InputEvent inputEvent)
-    {
-        base.UnhandledInput(inputEvent);
     }
 }

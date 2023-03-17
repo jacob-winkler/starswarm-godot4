@@ -5,7 +5,7 @@ namespace StarSwarm.Project.Weapons.LaserBeam
 {
     public class LaserBeam : RayCast2D
     {
-        public float DamagePerSecond { get; set; } = 500;
+        public float DamagePerSecond { get; set; } = 4000;
         public Tween Tween { get; set; } = default!;
         public Line2D FillLine { get; set; } = default!;
         public Particles2D CastingParticles { get; set; } = default!;

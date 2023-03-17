@@ -16,9 +16,9 @@ namespace StarSwarm.Project.Ships.Enemies.SpaceCrab
         [Export]
         public float HealthMax = 100f;
         [Export]
-        public float LinearSpeedMax = 400f;
+        public float LinearSpeedMax = 200f;
         [Export]
-        public float AccelerationMax = 600f;
+        public float AccelerationMax = 300f;
         [Export]
         public float DragFactor = 0.04f;
         [Export]

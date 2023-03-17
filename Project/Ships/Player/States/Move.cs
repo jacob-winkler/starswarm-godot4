@@ -9,7 +9,7 @@ namespace StarSwarm.Project.Ships.Player.States
         [Export]
         public float DragLinearCoefficient = 0.05F;
         [Export]
-        public float ReverseMultiplier = 0.25F;
+        public float ReverseMultiplier = 0.50F;
         [Export]
         public float DragAngularCoeff = 0.1F;
 
