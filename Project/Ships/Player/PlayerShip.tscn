@@ -32,8 +32,6 @@ polygon = PoolVector2Array( 10, -5, 0, -16, -10, -5, -11, 12, 0, 8, 11, 12 )
 [node name="BeamGenerator" parent="." index="3" instance=ExtResource( 13 )]
 position = Vector2( -150, 142 )
 rotation = -1.57079
-Cooldown = 10.0
-WeaponDuration = 9.0
 
 [node name="StateMachine" type="Node" parent="." index="4"]
 script = ExtResource( 2 )

@@ -5,11 +5,13 @@ namespace StarSwarm.Project.Weapons.LaserBeam
 {
     public class LaserBeam : RayCast2D
     {
+        public float DamagePerSecond { get; set; } = 500;
         public Tween Tween { get; set; } = default!;
         public Line2D FillLine { get; set; } = default!;
         public Particles2D CastingParticles { get; set; } = default!;
         public Particles2D CollisionParticles { get; set; } = default!;
         public Particles2D BeamParticles { get; set; } = default!;
+        public Events Events { get; set; } = default!;
 
         private Boolean _isCasting;
         private float _lineWidth;
@@ -45,19 +47,20 @@ namespace StarSwarm.Project.Weapons.LaserBeam
             CastingParticles = GetNode<Particles2D>("CastingParticles");
             CollisionParticles = GetNode<Particles2D>("CollisionParticles");
             BeamParticles = GetNode<Particles2D>("BeamParticles");
+            Events = GetNode<Events>("/root/Events");
 
             SetPhysicsProcess(false);
             FillLine.SetPointPosition(1, Vector2.Zero);
             _lineWidth = FillLine.Width;
         }
 
-        public override void _PhysicsProcess(Single delta)
+        public override void _PhysicsProcess(float delta)
         {
             CastTo = (CastTo + (Vector2.Right * 7000 * delta)).LimitLength(1400);
-            CastBeam();
+            CastBeam(delta);
         }
 
-        public void CastBeam()
+        public void CastBeam(float delta)
         {
             var castPoint = CastTo;
 
@@ -66,6 +69,7 @@ namespace StarSwarm.Project.Weapons.LaserBeam
 
             if (IsColliding())
             {
+                ApplyDamage(delta);
                 castPoint = ToLocal(GetCollisionPoint());
                 CollisionParticles.GlobalRotation = GetCollisionNormal().Angle();
                 CollisionParticles.Position = castPoint;
@@ -91,6 +95,12 @@ namespace StarSwarm.Project.Weapons.LaserBeam
             Tween.StopAll();
             Tween.InterpolateProperty(FillLine, "width", FillLine.Width, 0f, 0.1f);
             Tween.Start();
+        }
+
+        private void ApplyDamage(float delta)
+        {
+            var collider = GetCollider();
+            Events.EmitSignal("Damaged", collider, DamagePerSecond * delta, this);
         }
     }
 }

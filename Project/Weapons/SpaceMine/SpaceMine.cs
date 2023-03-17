@@ -44,9 +44,7 @@ public class SpaceMine : Node2D
         Explosion.Visible = true;
         Explosion.Play("Explosion");
 
-        var bodies = BlastRadius.GetOverlappingBodies();
-
-        foreach(var body in bodies)
+        foreach(var body in BlastRadius.GetOverlappingBodies())
         {
             Events.EmitSignal("Damaged", body, Damage, this);
         }
