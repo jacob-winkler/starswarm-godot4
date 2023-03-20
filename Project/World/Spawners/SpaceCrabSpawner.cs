@@ -59,19 +59,19 @@ namespace StarSwarm.World.Spawners
 		public void SetSpaceCrabPositionAroundPlayer(SpaceCrab crab, Vector2 playerPosition)
 		{
             var angle = Mathf.Deg2Rad(_rng.RandfRange(0, 360));
-            var newPosition = playerPosition + new Vector2(
+            var newPosition = playerPosition + (new Vector2(
                 Mathf.Cos(angle),
                 Mathf.Sin(angle)
-            ) * SpawnRadius;
+            ) * SpawnRadius);
 
             crab.Position = newPosition - this.GlobalPosition;
         }
 
 		public void OnSpaceCrabFellAdrift(PhysicsBody2D body)
 		{
-            if (body is SpaceCrab)
+            if (body is SpaceCrab spaceCrab)
             {
-                SetSpaceCrabPositionAroundPlayer((SpaceCrab)body, _playerShip.GlobalPosition);
+                SetSpaceCrabPositionAroundPlayer(spaceCrab, _playerShip.GlobalPosition);
             }
         }
 

@@ -83,6 +83,7 @@ namespace StarSwarm.Project.Weapons.LaserBeam
                 x = castPoint.Length() * 0.5f
             };
         }
+        
         private void Appear()
         {
             Tween.StopAll();

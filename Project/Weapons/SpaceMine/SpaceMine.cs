@@ -14,6 +14,8 @@ public class SpaceMine : Node2D
 
     public AnimatedSprite Explosion { get; set; } = default!;
 
+    private float _radiusAlpha = 0.3f;
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
@@ -25,7 +27,19 @@ public class SpaceMine : Node2D
         Explosion.Connect("animation_finished", this, "OnExplosionFinished");
         AnimationPlayer.Connect("animation_finished", this, "OnDetonation");
 
-        ArmSpaceMine();     
+        ArmSpaceMine();
+    }
+
+    public override void _Draw()
+    {
+        base._Draw();
+        DrawRadius();
+    }
+
+    private void DrawRadius()
+    {
+        var radius = ((CircleShape2D)GetNode<CollisionShape2D>("BlastRadius/CollisionShape2D").Shape).Radius;
+        DrawArc(Position - GlobalPosition, radius, 0, Mathf.Tau, (Int32)radius / 2, new Color(Colors.White, _radiusAlpha), 2);
     }
 
     private void ArmSpaceMine()
@@ -38,6 +52,9 @@ public class SpaceMine : Node2D
 
     private void OnDetonation(String animationName)
     {
+        _radiusAlpha = 0;
+        Update();
+
         if(animationName != "SpaceMineCountdown")
             return;
 
