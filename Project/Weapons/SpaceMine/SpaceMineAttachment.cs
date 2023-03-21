@@ -2,7 +2,7 @@ using Godot;
 using StarSwarm.Project.Autoload;
 using System;
 
-public class SpaceMineLauncher : WeaponAttachment
+public class SpaceMineAttachment : WeaponAttachment
 {
     [Export]
     public PackedScene SpaceMine { get; set; } = default!;
