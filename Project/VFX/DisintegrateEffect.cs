@@ -9,7 +9,7 @@ public class DisintegrateEffect : Sprite
 
     public override void _Ready()
     {
-         _shaderValue = 1f;
+        _shaderValue = 1f;
     }
 
     public override void _PhysicsProcess(float delta)
