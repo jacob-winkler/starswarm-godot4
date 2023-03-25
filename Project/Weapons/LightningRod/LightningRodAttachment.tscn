@@ -5,10 +5,11 @@
 [ext_resource path="res://Project/Weapons/LightningRod/LightningBolt.tscn" type="PackedScene" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 175.0
+radius = 250.0
 
 [node name="LightningRodAttachment" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+Cooldown = 4.0
 LightningBolt = ExtResource( 4 )
 MaxTargets = 1.0
 
@@ -19,6 +20,7 @@ collision_mask = 2
 shape = SubResource( 1 )
 
 [node name="Label" type="Label" parent="AttackRange" index="1"]
+visible = false
 margin_left = -24.0
 margin_top = -7.0
 margin_right = 23.0

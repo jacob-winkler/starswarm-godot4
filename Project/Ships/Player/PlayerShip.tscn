@@ -29,10 +29,12 @@ texture = ExtResource( 9 )
 polygon = PoolVector2Array( 10, -5, 0, -16, -10, -5, -11, 12, 0, 8, 11, 12 )
 
 [node name="LaserBeamAttachment" parent="." index="2" instance=ExtResource( 13 )]
+position = Vector2( 0, -16 )
 
 [node name="SpaceMineAttachment" parent="." index="3" instance=ExtResource( 10 )]
 
 [node name="LightningRodAttachment" parent="." index="4" instance=ExtResource( 14 )]
+Cooldown = 2.0
 MaxTargets = 2.0
 
 [node name="StateMachine" type="Node" parent="." index="5"]

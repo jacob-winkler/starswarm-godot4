@@ -7,79 +7,67 @@ namespace StarSwarm.Project.Weapons.LightningRod
     public class LightningBolt : Node2D
     {
         [Export]
-        public float AngleVariation { get; set; } = 15;
-        [Export]
-        public Vector2 TargetPoint = new Vector2(100, 100);
+        public List<Texture> AnimationFrames { get; set; } = default!;
 
-        public Timer Timer { get; set; } = default!;
-        public Line2D Line { get; set; } = default!;
+        public Node2D Source = default!;
+        public Node2D Target = default!;
+        public AnimationPlayer AnimationPlayer { get; set; } = default!;
+        public Line2D BoltLine { get; set; } = default!;
+        public Tween Tween { get; set; } = default!;
+        public float LifeTimeDuration { get; set; } = .75f;
 
-        private bool emitting = true;
-        private float minSegmentSize = 2;
-        private float maxSegmentSize = 10;
-        private Vector2 finalGoal;
-        private List<Vector2> points = new List<Vector2>();
+        private Vector2 _sourcePosition;
+        private Vector2 _targetPosition;
+        private List<Vector2> _points = new List<Vector2>();
 
         public override void _Ready()
         {
-            Line = GetNode<Line2D>("Line2D");
-            finalGoal = TargetPoint - GlobalPosition;
-            Timer = new Timer
-            {
-                OneShot = true
-            };
-            AddChild(Timer);
-            Timer.Connect("timeout", this, "OnTimeout");
-            Timer.Start((float)GD.RandRange(0.1f, 0.5f));
+            AnimationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+            BoltLine = GetNode<Line2D>("BoltLine");
+            Tween = GetNode<Tween>("Tween");
+
+            BoltLine.TextureMode = Line2D.LineTextureMode.Tile;
+            BoltLine.Width = 10;
+
+            AnimationPlayer.Play("ChainLightning");
+
+            Tween.Connect("tween_completed", this, "OnTweenCompleted");
+            Tween.InterpolateProperty(
+                BoltLine,
+                "modulate",
+                BoltLine.Modulate,
+                Colors.Transparent,
+                LifeTimeDuration,
+                Tween.TransitionType.Linear,
+                Tween.EaseType.Out);
+            Tween.Start();
         }
 
-        private void OnTimeout()
+        public override void _Process(Single delta)
         {
-            if (points.Count > 0)
-            {
-                points.RemoveAt(0);
-                Line.Points = points.ToArray();
-                Timer.Start((float)(0.002f + GD.RandRange(-0.001f, 0.001f)));
-            }
-            else if (emitting)
-            {
-                UpdatePoints();
-                Line.Points = points.ToArray();
-                Timer.Start((float)(0.1f + GD.RandRange(-0.02f, 0.1f)));
-                emitting = false;
-            }
-            else
-            {
-                QueueFree();
-            }
+            UpdatePoints();
+            BoltLine.Points = _points.ToArray();
+        }
+
+        public void SetTexture(int frame)
+        {
+            BoltLine.Texture = AnimationFrames[frame];
+        }
+
+        private void OnTweenCompleted(Godot.Object incomingObject, NodePath key)
+        {
+            QueueFree();
         }
 
         private void UpdatePoints()
         {
-            finalGoal = TargetPoint - GlobalPosition;
-            var currLineLen = 0f;
-            points = new List<Vector2>() { new Vector2() };
-            var startPoint = new Vector2();
-
-            minSegmentSize = Mathf.Max(finalGoal.DistanceTo(Vector2.Zero) / 40, 1);
-            maxSegmentSize = Mathf.Min(finalGoal.DistanceTo(Vector2.Zero) / 20, 10);
-
-            while (currLineLen < finalGoal.Length())
+            _sourcePosition = IsInstanceValid(Source) ? Source.GlobalPosition - GlobalPosition : _sourcePosition;
+            _targetPosition = IsInstanceValid(Target) ? Target.GlobalPosition - GlobalPosition : _targetPosition;
+            _points = new List<Vector2>
             {
-                var moveVector = startPoint.DirectionTo(finalGoal) * (float)GD.RandRange(minSegmentSize, maxSegmentSize);
-                var newPoint = startPoint + moveVector;
-                var newPointRotated = startPoint + moveVector.Rotated(Mathf.Deg2Rad((float)GD.RandRange(-AngleVariation, AngleVariation)));
-                points.Add(newPointRotated);
-                startPoint = newPoint;
-                currLineLen = startPoint.Length();
-            }
-
-            points.Add(finalGoal);
-        }
-
-        public void SetLineWidth(float amount)
-        {
-            Line.Width = amount;
+                _sourcePosition,
+                _targetPosition
+            };
         }
     }
 }

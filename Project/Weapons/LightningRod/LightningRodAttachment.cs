@@ -40,9 +40,10 @@ namespace StarSwarm.Project.Weapons.LightningRod
                     x => x.GlobalPosition.DistanceSquaredTo(GlobalPosition) == bodiesInRange.Min(x => x.GlobalPosition.DistanceSquaredTo(GlobalPosition)));
 
                 var lightningBolt = (LightningBolt)LightningBolt.Instance();
-                lightningBolt.Position = GlobalPosition;
-                lightningBolt.TargetPoint = target!.GlobalPosition;
-                ObjectRegistry.RegisterProjectiles(lightningBolt);
+                lightningBolt.Position = Position - GlobalPosition;
+                lightningBolt.Target = target;
+                lightningBolt.Source = this;
+                ObjectRegistry.AddChild(lightningBolt);
                 bodiesInRange.Remove(target);
             }
         }
