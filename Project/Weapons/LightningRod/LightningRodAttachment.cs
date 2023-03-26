@@ -12,13 +12,14 @@ namespace StarSwarm.Project.Weapons.LightningRod
         public PackedScene LightningBolt { get; set; } = default!;
         [Export]
         public float MaxTargets { get; set; } = default!;
+        [Export]
+        public float MaxBounces { get; set; } = 2f;
 
         public ObjectRegistry ObjectRegistry { get; set; } = default!;
         public Area2D AttackRange { get; set; } = default!;
 
         private readonly RandomNumberGenerator _rng = new RandomNumberGenerator();
 
-        // Called when the node enters the scene tree for the first time.
         public override void _Ready()
         {
             base._Ready();
@@ -40,12 +41,27 @@ namespace StarSwarm.Project.Weapons.LightningRod
                     x => x.GlobalPosition.DistanceSquaredTo(GlobalPosition) == bodiesInRange.Min(x => x.GlobalPosition.DistanceSquaredTo(GlobalPosition)));
 
                 var lightningBolt = (LightningBolt)LightningBolt.Instance();
+                lightningBolt.Connect("BounceTriggered", this, "OnBounceTriggered");
                 lightningBolt.Position = Position - GlobalPosition;
                 lightningBolt.Target = target;
                 lightningBolt.Source = this;
                 ObjectRegistry.AddChild(lightningBolt);
                 bodiesInRange.Remove(target);
             }
+        }
+
+        private void OnBounceTriggered(LightningBolt triggeredBolt, PhysicsBody2D target)
+        {
+            if (triggeredBolt.BounceCount >= MaxBounces)
+                return;
+
+            var newLightningBolt = (LightningBolt)LightningBolt.Instance();
+            newLightningBolt.BounceCount = triggeredBolt.BounceCount++;
+            newLightningBolt.Position = Position - GlobalPosition;
+            newLightningBolt.Target = target;
+            newLightningBolt.Source = triggeredBolt.Target;
+            newLightningBolt.SourcePosition = triggeredBolt.TargetPosition;
+            ObjectRegistry.AddChild(newLightningBolt);
         }
     }
 }

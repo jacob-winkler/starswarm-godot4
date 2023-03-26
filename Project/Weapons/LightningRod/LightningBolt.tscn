@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Project/Weapons/LightningRod/LightningBolt.cs" type="Script" id=1]
 [ext_resource path="res://Project/Weapons/LightningRod/LightningChain_2.png" type="Texture" id=2]
@@ -41,6 +41,9 @@ tracks/0/keys = {
 "values": [ null ]
 }
 
+[sub_resource type="CircleShape2D" id=6]
+radius = 150.0
+
 [node name="LightningBolt" type="Node2D"]
 script = ExtResource( 1 )
 AnimationFrames = [ ExtResource( 3 ), ExtResource( 2 ) ]
@@ -57,3 +60,20 @@ anims/ChainLightning = SubResource( 4 )
 anims/RESET = SubResource( 5 )
 
 [node name="Tween" type="Tween" parent="."]
+
+[node name="BounceTimer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+
+[node name="BounceArea" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BounceArea"]
+shape = SubResource( 6 )
+
+[node name="Label" type="Label" parent="BounceArea"]
+margin_left = -24.0
+margin_top = -7.0
+margin_right = 24.0
+margin_bottom = 7.0
+text = "Bounce"

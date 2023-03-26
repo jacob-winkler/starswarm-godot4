@@ -1,23 +1,30 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace StarSwarm.Project.Weapons.LightningRod
 {
     public class LightningBolt : Node2D
     {
+        [Signal]
+        public delegate void BounceTriggered(LightningBolt bolt, PhysicsBody2D target);
+
         [Export]
         public List<Texture> AnimationFrames { get; set; } = default!;
 
-        public Node2D Source = default!;
+        public Node2D? Source;
         public Node2D Target = default!;
+        public Vector2 SourcePosition { get; set; }
+        public Vector2 TargetPosition { get; set; }
         public AnimationPlayer AnimationPlayer { get; set; } = default!;
         public Line2D BoltLine { get; set; } = default!;
         public Tween Tween { get; set; } = default!;
-        public float LifeTimeDuration { get; set; } = .75f;
+        public Area2D BounceArea { get; set; } = default!;
+        public Timer BounceTimer { get; set; } = default!;
+        public float BounceCount { get; set; } = 1f;
 
-        private Vector2 _sourcePosition;
-        private Vector2 _targetPosition;
+        private const float _lifeTimeDuration = .75f;
         private List<Vector2> _points = new List<Vector2>();
 
         public override void _Ready()
@@ -25,6 +32,11 @@ namespace StarSwarm.Project.Weapons.LightningRod
             AnimationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
             BoltLine = GetNode<Line2D>("BoltLine");
             Tween = GetNode<Tween>("Tween");
+            BounceArea = GetNode<Area2D>("BounceArea");
+            BounceTimer = GetNode<Timer>("BounceTimer");
+
+            BounceTimer.Connect("timeout", this, "OnBounceTimeout");
+            BounceTimer.Start();
 
             BoltLine.TextureMode = Line2D.LineTextureMode.Tile;
             BoltLine.Width = 10;
@@ -37,7 +49,7 @@ namespace StarSwarm.Project.Weapons.LightningRod
                 "modulate",
                 BoltLine.Modulate,
                 Colors.Transparent,
-                LifeTimeDuration,
+                _lifeTimeDuration,
                 Tween.TransitionType.Linear,
                 Tween.EaseType.Out);
             Tween.Start();
@@ -54,20 +66,41 @@ namespace StarSwarm.Project.Weapons.LightningRod
             BoltLine.Texture = AnimationFrames[frame];
         }
 
-        private void OnTweenCompleted(Godot.Object incomingObject, NodePath key)
+        private PhysicsBody2D? GetNextTarget()
         {
-            QueueFree();
+            BounceArea.Position = TargetPosition;
+            var bodiesInRange = BounceArea.GetOverlappingBodies().Cast<PhysicsBody2D>().ToList();
+            if(!bodiesInRange.Any())
+                return null;
+
+            bodiesInRange.Remove((PhysicsBody2D)Target);
+
+            return bodiesInRange.Find(
+                x => x.GlobalPosition.DistanceSquaredTo(GlobalPosition) == bodiesInRange.Min(x => x.GlobalPosition.DistanceSquaredTo(GlobalPosition)));
         }
 
         private void UpdatePoints()
         {
-            _sourcePosition = IsInstanceValid(Source) ? Source.GlobalPosition - GlobalPosition : _sourcePosition;
-            _targetPosition = IsInstanceValid(Target) ? Target.GlobalPosition - GlobalPosition : _targetPosition;
+            SourcePosition = IsInstanceValid(Source) && Source != null ? Source.GlobalPosition - GlobalPosition : SourcePosition;
+            TargetPosition = IsInstanceValid(Target) ? Target.GlobalPosition - GlobalPosition : TargetPosition;
             _points = new List<Vector2>
             {
-                _sourcePosition,
-                _targetPosition
+                SourcePosition,
+                TargetPosition
             };
+            BounceArea.Position = TargetPosition;
+        }
+
+        private void OnBounceTimeout()
+        {
+            var target = GetNextTarget();
+            if(target != null)
+                EmitSignal("BounceTriggered", this, target);
+        }
+
+        private void OnTweenCompleted(Godot.Object incomingObject, NodePath key)
+        {
+            QueueFree();
         }
     }
 }

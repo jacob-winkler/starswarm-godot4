@@ -35,7 +35,6 @@ position = Vector2( 0, -16 )
 
 [node name="LightningRodAttachment" parent="." index="4" instance=ExtResource( 14 )]
 Cooldown = 2.0
-MaxTargets = 2.0
 
 [node name="StateMachine" type="Node" parent="." index="5"]
 script = ExtResource( 2 )
