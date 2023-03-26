@@ -128,7 +128,7 @@ namespace StarSwarm.Project.Ships.Enemies.SpaceCrab
             effect.GlobalPosition = GlobalPosition;
             effect.GlobalRotation = GlobalRotation;
             ObjectRegistry.RegisterEffect(effect);
-
+            GD.Print("crab gp: "+GlobalPosition);
             QueueFree();
             Events.EmitSignal("SpaceCrabDied");
             Events.EmitSignal("AddPoints", _pointValue);

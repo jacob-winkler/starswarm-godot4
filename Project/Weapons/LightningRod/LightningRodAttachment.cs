@@ -14,6 +14,8 @@ namespace StarSwarm.Project.Weapons.LightningRod
         public float MaxTargets { get; set; } = default!;
         [Export]
         public float MaxBounces { get; set; } = 2f;
+        [Export]
+        public float Damage { get; set; } = 100;
 
         public ObjectRegistry ObjectRegistry { get; set; } = default!;
         public Area2D AttackRange { get; set; } = default!;
@@ -45,6 +47,7 @@ namespace StarSwarm.Project.Weapons.LightningRod
                 lightningBolt.Position = Position - GlobalPosition;
                 lightningBolt.Target = target;
                 lightningBolt.Source = this;
+                lightningBolt.Damage = Damage;
                 ObjectRegistry.AddChild(lightningBolt);
                 bodiesInRange.Remove(target);
             }
@@ -60,7 +63,9 @@ namespace StarSwarm.Project.Weapons.LightningRod
             newLightningBolt.Position = Position - GlobalPosition;
             newLightningBolt.Target = target;
             newLightningBolt.Source = triggeredBolt.Target;
+            GD.Print("bolt gp: " + triggeredBolt.GlobalPosition+"/nbolt tp: " + triggeredBolt.TargetPosition);
             newLightningBolt.SourcePosition = triggeredBolt.TargetPosition;
+            newLightningBolt.Damage = Damage;
             ObjectRegistry.AddChild(newLightningBolt);
         }
     }

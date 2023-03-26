@@ -13,10 +13,13 @@ namespace StarSwarm.Project.Weapons.LightningRod
         [Export]
         public List<Texture> AnimationFrames { get; set; } = default!;
 
+        public float Damage { get; set; }
+
         public Node2D? Source;
         public Node2D Target = default!;
         public Vector2 SourcePosition { get; set; }
         public Vector2 TargetPosition { get; set; }
+        public Events Events { get; set; } = default!;
         public AnimationPlayer AnimationPlayer { get; set; } = default!;
         public Line2D BoltLine { get; set; } = default!;
         public Tween Tween { get; set; } = default!;
@@ -26,9 +29,11 @@ namespace StarSwarm.Project.Weapons.LightningRod
 
         private const float _lifeTimeDuration = .75f;
         private List<Vector2> _points = new List<Vector2>();
+        private Boolean _damageApplied = false;
 
         public override void _Ready()
         {
+            Events = GetNode<Events>("/root/Events");
             AnimationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
             BoltLine = GetNode<Line2D>("BoltLine");
             Tween = GetNode<Tween>("Tween");
@@ -59,6 +64,8 @@ namespace StarSwarm.Project.Weapons.LightningRod
         {
             UpdatePoints();
             BoltLine.Points = _points.ToArray();
+            if(!_damageApplied)
+                ApplyDamage();
         }
 
         public void SetTexture(int frame)
@@ -75,8 +82,10 @@ namespace StarSwarm.Project.Weapons.LightningRod
 
             bodiesInRange.Remove((PhysicsBody2D)Target);
 
-            return bodiesInRange.Find(
-                x => x.GlobalPosition.DistanceSquaredTo(GlobalPosition) == bodiesInRange.Min(x => x.GlobalPosition.DistanceSquaredTo(GlobalPosition)));
+            return bodiesInRange.Find(x => x.GlobalPosition.DistanceSquaredTo(
+                IsInstanceValid(Target) ? Target.GlobalPosition : TargetPosition + GlobalPosition
+            ) == bodiesInRange.Min(x => x.GlobalPosition.DistanceSquaredTo(
+                IsInstanceValid(Target) ? Target.GlobalPosition : TargetPosition + GlobalPosition)));
         }
 
         private void UpdatePoints()
@@ -101,6 +110,13 @@ namespace StarSwarm.Project.Weapons.LightningRod
         private void OnTweenCompleted(Godot.Object incomingObject, NodePath key)
         {
             QueueFree();
+        }
+
+        private void ApplyDamage()
+        {
+            _damageApplied = true;
+            if(IsInstanceValid(Target))
+                Events.EmitSignal("Damaged", Target, Damage, this);
         }
     }
 }
