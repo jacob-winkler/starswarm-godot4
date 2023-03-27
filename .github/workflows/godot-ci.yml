@@ -49,8 +49,10 @@ jobs:
           name: exports
           path: exports
       - name: Zip Exports
-        run: zip -r starswarm.zip exports/windows/starswarm-develop.exe exports/windows/starswarm-develop.pck
-             ls
+        run: |
+          zip -r starswarm.zip exports/windows/starswarm-develop.exe exports/windows/starswarm-develop.pck
+          ls
+          ls exports/windows
       - name: Download + Authorize Butler
         run: |
           curl -L -o butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default
