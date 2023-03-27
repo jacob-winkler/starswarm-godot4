@@ -28,10 +28,10 @@ jobs:
           mv /root/.local/share/godot/templates/${GODOT_VERSION}.stable.mono ~/.local/share/godot/templates/${GODOT_VERSION}.stable.mono
       - name: Make Exports Folder
         run: |
-          mkdir exports
+          mkdir -v exports
       - name: Windows Build
         run: |
-          mkdir ./exports/windows
+          mkdir -v ./exports/windows
           godot -v --export "Windows Desktop" ../exports/windows/$EXPORT_NAME.exe
           find ${{ github.workspace }}/exports/windows
       - name: Publish Export Artifact
