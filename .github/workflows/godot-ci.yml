@@ -33,8 +33,6 @@ jobs:
         run: |
           mkdir -v ./exports/windows
           godot -v --export "Windows Desktop" ./exports/windows/$EXPORT_NAME.exe
-          ls
-          ls exports
       - name: Publish Export Artifact
         uses: actions/upload-artifact@v3
         with:
@@ -51,8 +49,8 @@ jobs:
           name: exports
           path: exports
       - name: Zip Exports
-        run: ls exports/windows
-             zip -r starswarm.zip exports/windows/star-swarm.exe exports/windows/star-swarm.pck
+        run: zip -r starswarm.zip exports/windows/starswarm-develop.exe exports/windows/starswarm-develop.pck
+             ls
       - name: Download + Authorize Butler
         run: |
           curl -L -o butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default
