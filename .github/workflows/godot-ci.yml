@@ -26,9 +26,12 @@ jobs:
         run: |
           mkdir -v -p ~/.local/share/godot/templates
           mv /root/.local/share/godot/templates/${GODOT_VERSION}.stable.mono ~/.local/share/godot/templates/${GODOT_VERSION}.stable.mono
+      - name: Make Exports Folder
+        run: |
+          mkdir exports
       - name: Windows Build
         run: |
-          mkdir -v -p exports/windows
+          mkdir ./exports/windows
           godot -v --export "Windows Desktop" ../exports/windows/$EXPORT_NAME.exe
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
