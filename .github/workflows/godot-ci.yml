@@ -49,7 +49,10 @@ jobs:
           name: exports
           path: exports
       - name: Zip Exports
-        run: zip -r starswarm.zip exports/windows/$EXPORT_NAME.exe exports/windows/$EXPORT_NAME.pck
+        run: |
+          cd exports/windows
+          zip -r starswarm.zip $EXPORT_NAME.exe $EXPORT_NAME.pck
+          cd ../..
       - name: Download + Authorize Butler
         run: |
           curl -L -o butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default
@@ -59,4 +62,4 @@ jobs:
       - name: Login To Butler
         run: ./butler login
       - name: Push Windows Export To Itch
-        run: ./butler push starswarm.zip $ITCH_USERNAME/$ITCH_PROJECT_NAME:win
+        run: ./butler push exports/windows/starswarm.zip $ITCH_USERNAME/$ITCH_PROJECT_NAME:win
