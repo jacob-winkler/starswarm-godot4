@@ -34,7 +34,7 @@ jobs:
           mkdir ./exports/windows
           godot -v --export "Windows Desktop" ../exports/windows/$EXPORT_NAME.exe
       - name: Publish Export Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: exports
           path: exports
@@ -44,7 +44,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download Exports
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: exports
           path: exports
