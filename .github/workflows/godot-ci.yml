@@ -32,7 +32,7 @@ jobs:
       - name: Windows Build
         run: |
           mkdir -v ./exports/windows
-          godot -v --export "Windows Desktop" ../exports/windows/$EXPORT_NAME.exe
+          godot -v --export "Windows Desktop" ./exports/windows/$EXPORT_NAME.exe
           find ${{ github.workspace }}/exports/windows
       - name: Publish Export Artifact
         uses: actions/upload-artifact@v3
