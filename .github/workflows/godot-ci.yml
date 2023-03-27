@@ -6,7 +6,7 @@ on: push
 
 env:
   GODOT_VERSION: 3.5.1
-  EXPORT_NAME: "starmswarm-develop"
+  EXPORT_NAME: "starswarm-develop"
   BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
   ITCH_PROJECT_NAME: "star-swarm"
   ITCH_USERNAME: "capnbootyberry"
@@ -52,7 +52,9 @@ jobs:
         run: |
           ls
           ls exports/windows
-          zip -r starswarm.zip exports/windows/starswarm-develop.exe exports/windows/starswarm-develop.pck
+          zip -r starswarm.zip exports/windows/$EXPORT_NAME.exe exports/windows/starswarm-develop.pck$EXPORT_NAME.pck
+          ls
+          ls exports/windows
       - name: Download + Authorize Butler
         run: |
           curl -L -o butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default
