@@ -33,11 +33,12 @@ jobs:
         run: |
           mkdir ./exports/windows
           godot -v --export "Windows Desktop" ../exports/windows/$EXPORT_NAME.exe
+          find ${{ github.workspace }}/exports/windows
       - name: Publish Export Artifact
         uses: actions/upload-artifact@v3
         with:
           name: exports
-          path: ./exports
+          path: exports
   push-to-itch:
     needs: export-windows
     if: ${{ contains(github.ref, 'develop') }}
