@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Project/Ships/Ship.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Project/SWStateMachine/StateMachine.cs" type="Script" id=2]
@@ -12,7 +12,6 @@
 [ext_resource path="res://Project/Weapons/SpaceMine/SpaceMineAttachment.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Project/VFX/DisintegrateEffect.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Project/Ships/Player/player_stats.tres" type="Resource" id=12]
-[ext_resource path="res://Project/Weapons/LaserBeam/LaserBeamAttachment.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Project/Weapons/LightningRod/LightningRodAttachment.tscn" type="PackedScene" id=14]
 
 [node name="PlayerShip" instance=ExtResource( 1 )]
@@ -28,15 +27,14 @@ texture = ExtResource( 9 )
 [node name="CollisionShape" parent="." index="1"]
 polygon = PoolVector2Array( 10, -5, 0, -16, -10, -5, -11, 12, 0, 8, 11, 12 )
 
-[node name="LaserBeamAttachment" parent="." index="2" instance=ExtResource( 13 )]
-position = Vector2( 0, -16 )
+[node name="SpaceMineAttachment" parent="." index="2" instance=ExtResource( 10 )]
 
-[node name="SpaceMineAttachment" parent="." index="3" instance=ExtResource( 10 )]
-
-[node name="LightningRodAttachment" parent="." index="4" instance=ExtResource( 14 )]
+[node name="LightningRodAttachment" parent="." index="3" instance=ExtResource( 14 )]
 Cooldown = 2.0
+MaxBounces = 4.0
+Damage = 50.0
 
-[node name="StateMachine" type="Node" parent="." index="5"]
+[node name="StateMachine" type="Node" parent="." index="4"]
 script = ExtResource( 2 )
 InitialState = NodePath("Move/Travel")
 
@@ -48,9 +46,9 @@ script = ExtResource( 5 )
 
 [node name="ThrustersAudioPlayer" parent="StateMachine/Move/Travel" index="0" instance=ExtResource( 6 )]
 
-[node name="CameraTransform" type="RemoteTransform2D" parent="." index="6"]
+[node name="CameraTransform" type="RemoteTransform2D" parent="." index="5"]
 
-[node name="VFX" type="Node2D" parent="." index="7"]
+[node name="VFX" type="Node2D" parent="." index="6"]
 script = ExtResource( 8 )
 
 [node name="MoveTrail" parent="VFX" index="0" instance=ExtResource( 7 )]

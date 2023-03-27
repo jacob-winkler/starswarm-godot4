@@ -42,13 +42,7 @@ namespace StarSwarm.Project.Weapons.LightningRod
                 var target = bodiesInRange.Find(
                     x => x.GlobalPosition.DistanceSquaredTo(GlobalPosition) == bodiesInRange.Min(x => x.GlobalPosition.DistanceSquaredTo(GlobalPosition)));
 
-                var lightningBolt = (LightningBolt)LightningBolt.Instance();
-                lightningBolt.Connect("BounceTriggered", this, "OnBounceTriggered");
-                lightningBolt.Position = Position - GlobalPosition;
-                lightningBolt.Target = target;
-                lightningBolt.Source = this;
-                lightningBolt.Damage = Damage;
-                ObjectRegistry.AddChild(lightningBolt);
+                SpawnNewLightningBolt(target, this);
                 bodiesInRange.Remove(target);
             }
         }
@@ -58,13 +52,17 @@ namespace StarSwarm.Project.Weapons.LightningRod
             if (triggeredBolt.BounceCount >= MaxBounces)
                 return;
 
+            SpawnNewLightningBolt(target, triggeredBolt.Target, triggeredBolt.TargetPosition, triggeredBolt.BounceCount + 1);
+        }
+
+        private void SpawnNewLightningBolt(Node2D targetBody, Node2D sourceBody, Vector2 sourcePosition = default, float bounceCount = 1)
+        {
             var newLightningBolt = (LightningBolt)LightningBolt.Instance();
-            newLightningBolt.BounceCount = triggeredBolt.BounceCount++;
-            newLightningBolt.Position = Position - GlobalPosition;
-            newLightningBolt.Target = target;
-            newLightningBolt.Source = triggeredBolt.Target;
-            GD.Print("bolt gp: " + triggeredBolt.GlobalPosition+"/nbolt tp: " + triggeredBolt.TargetPosition);
-            newLightningBolt.SourcePosition = triggeredBolt.TargetPosition;
+            newLightningBolt.Connect("BounceTriggered", this, "OnBounceTriggered");
+            newLightningBolt.BounceCount = bounceCount;
+            newLightningBolt.Target = targetBody;
+            newLightningBolt.Source = sourceBody;
+            newLightningBolt.SourcePosition = sourcePosition;
             newLightningBolt.Damage = Damage;
             ObjectRegistry.AddChild(newLightningBolt);
         }
