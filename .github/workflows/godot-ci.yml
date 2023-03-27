@@ -6,7 +6,10 @@ on: push
 
 env:
   GODOT_VERSION: 3.5.1
-  EXPORT_NAME: starmswarm-develop
+  EXPORT_NAME: "starmswarm-develop"
+  BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+  ITCH_PROJECT_NAME: "star-swarm"
+  ITCH_USERNAME: "capnbootyberry"
 
 jobs:
   export-windows:
@@ -25,10 +28,30 @@ jobs:
           mv /root/.local/share/godot/templates/${GODOT_VERSION}.stable.mono ~/.local/share/godot/templates/${GODOT_VERSION}.stable.mono
       - name: Windows Build
         run: |
-          mkdir -v -p build/windows
-          godot -v --export "Windows Desktop" ../build/windows/$EXPORT_NAME.exe
+          mkdir -v -p exports/windows
+          godot -v --export "Windows Desktop" ../exports/windows/$EXPORT_NAME.exe
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
         with:
           name: windows
           path: build/windows
+  push-to-itch:
+    needs: export-windows
+    if: ${{ contains(github.ref, 'develop') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Exports
+        uses: actions/download-artifact@v2
+        with:
+          name: exports
+          path: exports
+      - name: Download + Authorize Butler
+        run: |
+          curl -L -o butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default
+          unzip butler.zip
+          chmod +x butler
+          ./butler -V
+      - name: Login To Butler
+        run: ./butler login
+      - name: Push Windows Export To Itch
+        run: ./butler push ./exports/windows/$EXPORT_NAME.exe $ITCH_USERNAME/$ITCH_PROJECT_NAME:win --userversion-file ./exports/VERSION
