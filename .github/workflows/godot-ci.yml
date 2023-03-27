@@ -34,7 +34,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: windows
-          path: build/windows
+          path: exports/windows
   push-to-itch:
     needs: export-windows
     if: ${{ contains(github.ref, 'develop') }}
