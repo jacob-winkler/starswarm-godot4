@@ -33,9 +33,6 @@ jobs:
         run: |
           mkdir ./exports/windows
           godot -v --export "Windows Desktop" ../exports/windows/$EXPORT_NAME.exe
-      - name: Add Version Number to Exports
-        run: |
-          cp ./VERSION ./exports/VERSION
       - name: Publish Export Artifact
         uses: actions/upload-artifact@v2
         with:
@@ -60,4 +57,4 @@ jobs:
       - name: Login To Butler
         run: ./butler login
       - name: Push Windows Export To Itch
-        run: ./butler push ./exports/windows/$EXPORT_NAME.exe $ITCH_USERNAME/$ITCH_PROJECT_NAME:win --userversion-file ./exports/VERSION
+        run: ./butler push ./exports/windows/$EXPORT_NAME.exe $ITCH_USERNAME/$ITCH_PROJECT_NAME:win
