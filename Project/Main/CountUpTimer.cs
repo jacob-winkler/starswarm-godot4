@@ -8,7 +8,7 @@ public class CountUpTimer : Label
     /// <summary>
     /// Gets or sets the total number of seconds that have elapsed in the game world.
     /// </summary>
-    public float TimeElapsed { get; set; } = 55f;
+    public float TimeElapsed { get; set; }
 
     /// <summary>
     /// Tracks the number of minutes that have elapsed.
@@ -41,7 +41,7 @@ public class CountUpTimer : Label
     private String FormatSeconds()
     {
         var minutes = (Int32)(TimeElapsed / 60);
-        var seconds = TimeElapsed % 60;
+        var seconds = (Int32)TimeElapsed % 60;
 
         return String.Format("{0}:{1:00}", minutes, seconds);
     }
