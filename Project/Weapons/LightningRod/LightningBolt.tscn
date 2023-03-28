@@ -70,10 +70,3 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BounceArea"]
 shape = SubResource( 6 )
-
-[node name="Label" type="Label" parent="BounceArea"]
-margin_left = -24.0
-margin_top = -7.0
-margin_right = 24.0
-margin_bottom = 7.0
-text = "Bounce"

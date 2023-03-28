@@ -52,10 +52,14 @@ namespace StarSwarm.Project.Weapons.LightningRod
             if (triggeredBolt.BounceCount >= MaxBounces)
                 return;
 
-            SpawnNewLightningBolt(target, triggeredBolt.Target, triggeredBolt.TargetPosition, triggeredBolt.BounceCount + 1);
+            triggeredBolt.ForbiddenTargets.Add(triggeredBolt.Target);
+
+            SpawnNewLightningBolt(target, triggeredBolt.Target, triggeredBolt.TargetPosition, triggeredBolt.ForbiddenTargets,
+                triggeredBolt.BounceCount + 1);
         }
 
-        private void SpawnNewLightningBolt(Node2D targetBody, Node2D sourceBody, Vector2 sourcePosition = default, float bounceCount = 1)
+        private void SpawnNewLightningBolt(Node2D targetBody, Node2D sourceBody, Vector2 sourcePosition = default,
+            List<Node2D>? forbiddenTargets = null, float bounceCount = 1)
         {
             var newLightningBolt = (LightningBolt)LightningBolt.Instance();
             newLightningBolt.Connect("BounceTriggered", this, "OnBounceTriggered");
@@ -64,6 +68,8 @@ namespace StarSwarm.Project.Weapons.LightningRod
             newLightningBolt.Source = sourceBody;
             newLightningBolt.SourcePosition = sourcePosition;
             newLightningBolt.Damage = Damage;
+            newLightningBolt.ForbiddenTargets = forbiddenTargets ?? new List<Node2D>();
+
             ObjectRegistry.AddChild(newLightningBolt);
         }
     }

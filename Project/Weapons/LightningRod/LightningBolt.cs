@@ -26,6 +26,7 @@ namespace StarSwarm.Project.Weapons.LightningRod
         public Area2D BounceArea { get; set; } = default!;
         public Timer BounceTimer { get; set; } = default!;
         public float BounceCount { get; set; } = 1f;
+        public List<Node2D> ForbiddenTargets { get; set; } = new List<Node2D>();
 
         private const float _lifeTimeDuration = .75f;
         private List<Vector2> _points = new List<Vector2>();
@@ -73,14 +74,14 @@ namespace StarSwarm.Project.Weapons.LightningRod
             BoltLine.Texture = AnimationFrames[frame];
         }
 
-        private PhysicsBody2D? GetNextTarget()
+        private Node2D? GetNextTarget()
         {
             BounceArea.Position = TargetPosition;
-            var bodiesInRange = BounceArea.GetOverlappingBodies().Cast<PhysicsBody2D>().ToList();
+            var bodiesInRange = BounceArea.GetOverlappingBodies().Cast<Node2D>().Except(ForbiddenTargets).ToList();
             if(!bodiesInRange.Any())
                 return null;
 
-            bodiesInRange.Remove((PhysicsBody2D)Target);
+            bodiesInRange.Remove(Target);
 
             return bodiesInRange.Find(x => x.GlobalPosition.DistanceSquaredTo(
                 IsInstanceValid(Target) ? Target.GlobalPosition : TargetPosition + GlobalPosition
