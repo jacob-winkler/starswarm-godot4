@@ -16,12 +16,12 @@ namespace StarSwarm.World
         {
             SpaceCrabSpawner = GetNode<SpaceCrabSpawner>("../SpaceCrabSpawner");
             Events = GetNode<Events>("/root/Events");
-            Events.Connect("GameMinutePassed", this, "OnMinutePassed");
+            Events.Connect("GameTenSecondsPassed", this, "OnTenSecondsPassed");
         }
 
-        public void OnMinutePassed()
+        public void OnTenSecondsPassed(float totalTimeElapsed)
         {
-            SpaceCrabSpawner.MaxSpaceCrabs += 5;
+            SpaceCrabSpawner.MaxSpaceCrabs += 3;
             SpaceCrabSpawner.SpawnSpaceCrabs();
         }
     }

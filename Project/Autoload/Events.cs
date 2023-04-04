@@ -29,7 +29,13 @@ public class Events : Node
     public delegate void NodeSpawned();
 
     [Signal]
-    public delegate void GameMinutePassed();
+    public delegate void GameMinutePassed(float totalTimeElapsed);
+
+    [Signal]
+    public delegate void GameThirtySecondsPassed(float totalTimeElapsed);
+
+    [Signal]
+    public delegate void GameTenSecondsPassed(float totalTimeElapsed);
 
     [Signal]
     public delegate void AddPoints(Int32 points);

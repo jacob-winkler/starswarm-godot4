@@ -52,7 +52,7 @@ public class CountUpTimer : Label
         if (minutes > _minute)
         {
             _minute = minutes;
-            Events.EmitSignal("GameMinutePassed");
+            Events.EmitSignal("GameMinutePassed", TimeElapsed);
         }
 
         var seconds = (Int32)TimeElapsed;
@@ -60,6 +60,12 @@ public class CountUpTimer : Label
         {
             _seconds = seconds;
             Events.EmitSignal("AddPoints", _pointsPerSecond);
+
+            if(_seconds % 10 == 0)
+                Events.EmitSignal("GameTenSecondsPassed", TimeElapsed);
+
+            if(_seconds % 30 == 0)
+                Events.EmitSignal("GameThirtySecondsPassed", TimeElapsed);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace StarSwarm.World.Spawners
 		[Export]
 		public Int32 CountMin = 1;
 		[Export]
-		public Int32 MaxSpaceCrabs = 5;
+		public Int32 MaxSpaceCrabs = 8;
 		[Export]
 		public float SpawnRadius = 650f;
 
