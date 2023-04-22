@@ -22,7 +22,7 @@ namespace StarSwarm.World
         public void OnTenSecondsPassed(float totalTimeElapsed)
         {
             SpaceCrabSpawner.MaxSpaceCrabs += 3;
-            SpaceCrabSpawner.SpawnSpaceCrabs();
+            SpaceCrabSpawner.SpawnSpaceCrabsAroundPlayer();
         }
     }
 }

@@ -13,6 +13,7 @@ namespace StarSwarm.World
 		public RandomNumberGenerator Rng { get; set; } = new RandomNumberGenerator();
 		public PlayerSpawner PlayerSpawner { get; set; } = default!;
 		public SpaceCrabSpawner SpaceCrabSpawner { get; set; } = default!;
+		public PlanetSpawner PlanetSpawner { get; set; } = default!;
 		public PlayerShip Player { get; set; } = default!;
 		public HealthBarUpdater HealthBarUpdater { get; set; } = default!;
         public GameOver GameOverScreen { get; set; } = default!;
@@ -25,10 +26,12 @@ namespace StarSwarm.World
 			base._Ready();
 
 			Rng.Randomize();
+
 			PlayerSpawner = GetNode<PlayerSpawner>("PlayerSpawner");
 			Player = GetNode<PlayerShip>("PlayerSpawner/PlayerShip");
 			SpaceCrabSpawner = GetNode<SpaceCrabSpawner>("SpaceCrabSpawner");
-			HealthBarUpdater = GetNode<HealthBarUpdater>("HealthBarUpdater");
+            PlanetSpawner = GetNode<PlanetSpawner>("PlanetSpawner");
+            HealthBarUpdater = GetNode<HealthBarUpdater>("HealthBarUpdater");
             GameOverScreen = GetNode<GameOver>("UI/GameOver");
 
             Setup();
@@ -37,10 +40,16 @@ namespace StarSwarm.World
 		public void Setup()
 		{
 			Player.Connect("Died", this, "OnPlayerDied");
-			var playerPosition = PlayerSpawner.SpawnPlayer();
+
+			PlayerSpawner.SpawnPlayer();
+
 			SpaceCrabSpawner.Initialize(Player, Rng);
-			SpaceCrabSpawner.SpawnSpaceCrabsAroundPosition(playerPosition);
-			HealthBarUpdater.Initialize(Player);
+			SpaceCrabSpawner.SpawnSpaceCrabsAroundPlayer();
+
+            PlanetSpawner.Initialize(Player, Rng);
+            PlanetSpawner.SpawnPlanets();
+
+            HealthBarUpdater.Initialize(Player);
             GameOverScreen.PauseMode = PauseModeEnum.Process;
         }
 
