@@ -39,7 +39,7 @@ namespace StarSwarm.World
 			Player.Connect("Died", this, "OnPlayerDied");
 			var playerPosition = PlayerSpawner.SpawnPlayer();
 			SpaceCrabSpawner.Initialize(Player, Rng);
-			SpaceCrabSpawner.SpawnSpaceCrabs(playerPosition);
+			SpaceCrabSpawner.SpawnSpaceCrabsAroundPosition(playerPosition);
 			HealthBarUpdater.Initialize(Player);
             GameOverScreen.PauseMode = PauseModeEnum.Process;
         }

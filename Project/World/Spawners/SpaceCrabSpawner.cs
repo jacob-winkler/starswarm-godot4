@@ -34,16 +34,16 @@ namespace StarSwarm.World.Spawners
             _rng = rng;
         }
 
-		public void SpawnSpaceCrabs()
+		public void SpawnSpaceCrabsAroundPlayerPosition()
 		{
-            SpawnSpaceCrabs(_playerShip.GlobalPosition);
+            SpawnSpaceCrabsAroundPosition(_playerShip.GlobalPosition);
         }
 
-        public void SpawnSpaceCrabs(Vector2 playerPosition)
+        public void SpawnSpaceCrabsAroundPosition(Vector2 position)
 		{
 			while(_spaceCrabsAlive < MaxSpaceCrabs)
 			{
-                SpawnSpaceCrab(playerPosition);
+                SpawnSpaceCrab(position);
             }
 		}
 
@@ -80,7 +80,7 @@ namespace StarSwarm.World.Spawners
             _spaceCrabsAlive--;
 			if(_spaceCrabsAlive/MaxSpaceCrabs <= .8)
 			{
-                SpawnSpaceCrabs(_playerShip.GlobalPosition);
+                SpawnSpaceCrabsAroundPosition(_playerShip.GlobalPosition);
             }
         }
 	}
