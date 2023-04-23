@@ -1,4 +1,4 @@
-extends "res://Planets/Planet.gd"
+extends "res://Project/Planets/PixelPlanets/Planet.gd"
 
 
 func set_pixels(amount):

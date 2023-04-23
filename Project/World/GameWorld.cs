@@ -47,7 +47,7 @@ namespace StarSwarm.World
 			SpaceCrabSpawner.SpawnSpaceCrabsAroundPlayer();
 
             PlanetSpawner.Initialize(Player, Rng);
-            PlanetSpawner.SpawnPlanets();
+            PlanetSpawner.SpawnInitialPlanets();
 
             HealthBarUpdater.Initialize(Player);
             GameOverScreen.PauseMode = PauseModeEnum.Process;

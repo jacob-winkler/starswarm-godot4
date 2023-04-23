@@ -34,7 +34,6 @@ glow_bicubic_upscale = true
 script = ExtResource( 5 )
 
 [node name="GameWorld" type="Node2D" parent="."]
-position = Vector2( 512, 300 )
 script = ExtResource( 2 )
 
 [node name="BackgroundStars" parent="GameWorld" instance=ExtResource( 7 )]

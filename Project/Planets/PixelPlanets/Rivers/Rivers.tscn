@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Planets/Rivers/LandRivers.shader" type="Shader" id=1]
-[ext_resource path="res://Planets/LandMasses/Clouds.shader" type="Shader" id=2]
-[ext_resource path="res://Planets/Rivers/Rivers.gd" type="Script" id=3]
+[ext_resource path="res://Project/Planets/PixelPlanets/Rivers/LandRivers.shader" type="Shader" id=1]
+[ext_resource path="res://Project/Planets/PixelPlanets/LandMasses/Clouds.shader" type="Shader" id=2]
+[ext_resource path="res://Project/Planets/PixelPlanets/Rivers/Rivers.gd" type="Script" id=3]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 1 )

@@ -9,9 +9,14 @@ public class PlanetSpawner : Spawner
     [Export]
     public PackedScene Planet { get; set; } = default!;
     [Export]
-    public int PlanetCount = 1;
+    public int MaxPlanets = 8;
+    [Export]
+    public int StartPlanets = 8;
+    [Export]
+    public float SpawnDistance = 400;
 
     public List<PackedScene> PlanetSkins = default!;
+    private List<Vector2> _availableSpawns = new List<Vector2>();
 
     private RandomNumberGenerator _rng = default!;
 
@@ -20,6 +25,12 @@ public class PlanetSpawner : Spawner
     {
         PlanetSkins = new List<PackedScene>() {
             GD.Load("res://Project/Planets/PixelPlanets/NoAtmosphere/NoAtmosphere.tscn") as PackedScene ?? throw new NullReferenceException(),
+            GD.Load("res://Project/Planets/PixelPlanets/DryTerran/DryTerran.tscn") as PackedScene ?? throw new NullReferenceException(),
+            GD.Load("res://Project/Planets/PixelPlanets/GasPlanet/GasPlanet.tscn") as PackedScene ?? throw new NullReferenceException(),
+            GD.Load("res://Project/Planets/PixelPlanets/IceWorld/IceWorld.tscn") as PackedScene ?? throw new NullReferenceException(),
+            GD.Load("res://Project/Planets/PixelPlanets/LandMasses/LandMasses.tscn") as PackedScene ?? throw new NullReferenceException(),
+            GD.Load("res://Project/Planets/PixelPlanets/LavaWorld/LavaWorld.tscn") as PackedScene ?? throw new NullReferenceException(),
+            GD.Load("res://Project/Planets/PixelPlanets/Rivers/Rivers.tscn") as PackedScene ?? throw new NullReferenceException(),
         };
     }
 
@@ -27,12 +38,17 @@ public class PlanetSpawner : Spawner
     {
         _playerShip = playerShip;
         _rng = rng;
+        CalculateSpawnPoints();
     }
 
-    public void SpawnPlanets()
+    public void SpawnInitialPlanets()
     {
-        for (var x = 0; x < PlanetCount; x++)
-            SpawnRandomPlanet(_playerShip.GlobalPosition + new Vector2(200, 200));
+        for (var x = 0; x < StartPlanets; x++)
+        {
+            var spawnIndex = _rng.RandiRange(0, _availableSpawns.Count - 1);
+            SpawnRandomPlanet(_availableSpawns[spawnIndex]);
+            _availableSpawns.RemoveAt(spawnIndex);
+        }
     }
 
     private void SpawnRandomPlanet(Vector2 position)
@@ -40,12 +56,22 @@ public class PlanetSpawner : Spawner
         var spriteInstance = (Control)PlanetSkins[_rng.RandiRange(0, PlanetSkins.Count - 1)].Instance();
         var newPlanetInstance = (Planet)Planet.Instance();
 
-        newPlanetInstance.Position = position;
-        spriteInstance.RectPosition = newPlanetInstance.Position;
-
-        newPlanetInstance.AddChild(spriteInstance);
+        newPlanetInstance.Position = position + new Vector2(-50, -50);
         AddChild(newPlanetInstance);
+        newPlanetInstance.AddChild(spriteInstance);
+        
 
         newPlanetInstance.Initialize(spriteInstance);
+    }
+
+    private void CalculateSpawnPoints()
+    {
+        for (var x = 0; x < MaxPlanets; x++)
+        {
+            _availableSpawns.Add(new Vector2(
+                SpawnDistance * Mathf.Cos(2 * Mathf.Pi * x / MaxPlanets),
+                SpawnDistance * Mathf.Sin(2 * Mathf.Pi * x / MaxPlanets)
+            ) + _playerShip.GlobalPosition);
+        }
     }
 }
