@@ -8,19 +8,28 @@ namespace StarSwarm.Project.UI.PlayerHUD
     {
         [Export]
         public Texture SpriteTexture { get; set; } = default!;
+        [Export]
+        public Texture IconTexture { get; set; } = default!;
 
         public Sprite Sprite { get; set; } = default!;
+        public Sprite Icon { get; set; } = default!;
         public Vector2? TargetPosition { get; set; } = default!;
 
         public override void _Ready()
         {
             Sprite = GetNode<Sprite>("Sprite");
+            Icon = GetNode<Sprite>("Sprite/Icon");
 
             if (SpriteTexture != null)
             {
                 var textureSize = SpriteTexture.GetSize();
                 Sprite.Offset = new Vector2(-textureSize.x / 2, Sprite.Offset.y);
                 Sprite.Texture = SpriteTexture;
+            }
+
+            if (IconTexture != null)
+            {
+                SetIconTexture(IconTexture);
             }
         }
 
@@ -82,6 +91,12 @@ namespace StarSwarm.Project.UI.PlayerHUD
         {
             var angle = (GlobalPosition - Sprite.GlobalPosition).Angle();
             Sprite.GlobalRotation = angle;
+            Icon.GlobalRotation = 0;
+        }
+
+        public void SetIconTexture(Texture iconTexture)
+        {
+            Icon.Texture = iconTexture;
         }
     }
 }

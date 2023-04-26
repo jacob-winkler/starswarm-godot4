@@ -17,23 +17,29 @@ namespace StarSwarm.World.Spawners
         [Export]
         public float SpawnDistance = 800;
 
-        public List<PackedScene> PlanetSkins = default!;
-        private List<Vector2> _availableSpawns = new List<Vector2>();
-
+        private readonly List<Vector2> _availableSpawns = new List<Vector2>();
+        private List<PackedScene> _weaponAttachments = default!;
+        private List<PackedScene> _planetSkins = default!;
         private RandomNumberGenerator _rng = default!;
 
         // Called when the node enters the scene tree for the first time.
         public override void _Ready()
         {
-            PlanetSkins = new List<PackedScene>() {
-            GD.Load("res://Project/Planets/PixelPlanets/NoAtmosphere/NoAtmosphere.tscn") as PackedScene ?? throw new NullReferenceException(),
-            GD.Load("res://Project/Planets/PixelPlanets/DryTerran/DryTerran.tscn") as PackedScene ?? throw new NullReferenceException(),
-            GD.Load("res://Project/Planets/PixelPlanets/GasPlanet/GasPlanet.tscn") as PackedScene ?? throw new NullReferenceException(),
-            GD.Load("res://Project/Planets/PixelPlanets/IceWorld/IceWorld.tscn") as PackedScene ?? throw new NullReferenceException(),
-            GD.Load("res://Project/Planets/PixelPlanets/LandMasses/LandMasses.tscn") as PackedScene ?? throw new NullReferenceException(),
-            GD.Load("res://Project/Planets/PixelPlanets/LavaWorld/LavaWorld.tscn") as PackedScene ?? throw new NullReferenceException(),
-            GD.Load("res://Project/Planets/PixelPlanets/Rivers/Rivers.tscn") as PackedScene ?? throw new NullReferenceException(),
-        };
+            _planetSkins = new List<PackedScene>() {
+                GD.Load("res://Project/Planets/PixelPlanets/NoAtmosphere/NoAtmosphere.tscn") as PackedScene ?? throw new NullReferenceException(),
+                GD.Load("res://Project/Planets/PixelPlanets/DryTerran/DryTerran.tscn") as PackedScene ?? throw new NullReferenceException(),
+                GD.Load("res://Project/Planets/PixelPlanets/GasPlanet/GasPlanet.tscn") as PackedScene ?? throw new NullReferenceException(),
+                GD.Load("res://Project/Planets/PixelPlanets/IceWorld/IceWorld.tscn") as PackedScene ?? throw new NullReferenceException(),
+                GD.Load("res://Project/Planets/PixelPlanets/LandMasses/LandMasses.tscn") as PackedScene ?? throw new NullReferenceException(),
+                GD.Load("res://Project/Planets/PixelPlanets/LavaWorld/LavaWorld.tscn") as PackedScene ?? throw new NullReferenceException(),
+                GD.Load("res://Project/Planets/PixelPlanets/Rivers/Rivers.tscn") as PackedScene ?? throw new NullReferenceException(),
+            };
+
+            _weaponAttachments = new List<PackedScene>() {
+                GD.Load("res://Project/Weapons/LightningRod/LightningRodAttachment.tscn") as PackedScene ?? throw new NullReferenceException(),
+                GD.Load("res://Project/Weapons/LaserBeam/LaserBeamAttachment.tscn") as PackedScene ?? throw new NullReferenceException(),
+                GD.Load("res://Project/Weapons/SpaceMine/SpaceMineAttachment.tscn") as PackedScene ?? throw new NullReferenceException(),
+            };
         }
 
         public void Initialize(PlayerShip playerShip, RandomNumberGenerator rng)
@@ -55,15 +61,16 @@ namespace StarSwarm.World.Spawners
 
         private void SpawnRandomPlanet(Vector2 position)
         {
-            var spriteInstance = (Control)PlanetSkins[_rng.RandiRange(0, PlanetSkins.Count - 1)].Instance();
+            var spriteInstance = (Control)_planetSkins[_rng.RandiRange(0, _planetSkins.Count - 1)].Instance();
             var newPlanetInstance = (Planet)Planet.Instance();
 
             newPlanetInstance.Position = position + new Vector2(-50, -50);
             AddChild(newPlanetInstance);
             newPlanetInstance.AddChild(spriteInstance);
 
+            var weaponAttachment = (WeaponAttachment)_weaponAttachments[_rng.RandiRange(0, _weaponAttachments.Count - 1)].Instance();
 
-            newPlanetInstance.Initialize(spriteInstance, _playerShip);
+            newPlanetInstance.Initialize(spriteInstance, _playerShip, weapon: weaponAttachment);
         }
 
         private void CalculateSpawnPoints()

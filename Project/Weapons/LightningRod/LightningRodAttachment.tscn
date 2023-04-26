@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Project/Weapons/WeaponAttachment.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Project/Weapons/LightningRod/LightningRodAttachment.cs" type="Script" id=2]
+[ext_resource path="res://Assets/UI/Icons/LightningRod_Icon_small.png" type="Texture" id=3]
 [ext_resource path="res://Project/Weapons/LightningRod/LightningBolt.tscn" type="PackedScene" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
@@ -10,6 +11,7 @@ radius = 250.0
 [node name="LightningRodAttachment" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 Cooldown = 4.0
+SmallIcon = ExtResource( 3 )
 LightningBolt = ExtResource( 4 )
 MaxTargets = 1.0
 

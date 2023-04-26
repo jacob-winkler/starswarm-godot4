@@ -74,6 +74,11 @@ script = ExtResource( 14 )
 
 [node name="GameOver" parent="GameWorld/UI" instance=ExtResource( 15 )]
 
+[node name="ResearchText" type="Label" parent="GameWorld/UI"]
+margin_right = 40.0
+margin_bottom = 14.0
+grow_horizontal = 2
+
 [node name="DifficultyScaler" type="Node" parent="GameWorld"]
 script = ExtResource( 13 )
 

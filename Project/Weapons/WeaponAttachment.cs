@@ -15,6 +15,8 @@ public abstract class WeaponAttachment : Node2D
     public float Cooldown { get; set; } = 3;
     [Export]
     public float WeaponDuration { get; set; } = 2;
+    [Export]
+    public Texture SmallIcon { get; set; } = default!;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()

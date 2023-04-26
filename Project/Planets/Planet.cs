@@ -28,6 +28,9 @@ namespace StarSwarm.Project.Planets
             spriteInstance.RectPosition = Position - GlobalPosition;
 
             _playerShip = playerShip;
+
+            if(Weapon?.SmallIcon != null)
+                Marker.SetIconTexture(Weapon.SmallIcon);
         }
     }
 }
