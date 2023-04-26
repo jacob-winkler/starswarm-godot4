@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/Thrust_Loop.wav-40870eb65a6bb19130f329e86382f4c1.sample"
+path="res://.import/Thrust_Start.wav-14f0350f9239b8b37fb4612ad62e5aee.sample"
 
 [deps]
 
-source_file="res://Project/Ships/Player/Thrust_Loop.wav"
-dest_files=[ "res://.import/Thrust_Loop.wav-40870eb65a6bb19130f329e86382f4c1.sample" ]
+source_file="res://Assets/Ships/PlayerShip/Thrust_Start.wav"
+dest_files=[ "res://.import/Thrust_Start.wav-14f0350f9239b8b37fb4612ad62e5aee.sample" ]
 
 [params]
 

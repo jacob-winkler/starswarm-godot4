@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Healthbar_under.png-c9b8f0cf29fee6e22227ae1d65b82e58.stex"
+path="res://.import/Healthbar_over.png-2d83b1d69889e6fb3d4eeccd4fb967ad.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Project/UI/PlayerHUD/Healthbar_under.png"
-dest_files=[ "res://.import/Healthbar_under.png-c9b8f0cf29fee6e22227ae1d65b82e58.stex" ]
+source_file="res://Assets/UI/PlayerHUD/Healthbar_over.png"
+dest_files=[ "res://.import/Healthbar_over.png-2d83b1d69889e6fb3d4eeccd4fb967ad.stex" ]
 
 [params]
 

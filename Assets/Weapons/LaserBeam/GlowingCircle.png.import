@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/SpaceMine_Explosion-Sheet.png-2f967474ca98f58eacb17fc442e43378.stex"
+path="res://.import/GlowingCircle.png-13834338e44beee53c5c09e181917829.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Project/Weapons/SpaceMine/SpaceMine_Explosion-Sheet.png"
-dest_files=[ "res://.import/SpaceMine_Explosion-Sheet.png-2f967474ca98f58eacb17fc442e43378.stex" ]
+source_file="res://Assets/Weapons/LaserBeam/GlowingCircle.png"
+dest_files=[ "res://.import/GlowingCircle.png-13834338e44beee53c5c09e181917829.stex" ]
 
 [params]
 

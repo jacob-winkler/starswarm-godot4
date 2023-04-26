@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/Thrust_End.wav-d36f66f5222b6a4cbae53d632df6f121.sample"
+path="res://.import/Thrust_End.wav-01e1dd1657b5db574eff588b57a8247e.sample"
 
 [deps]
 
-source_file="res://Project/Ships/Player/Thrust_End.wav"
-dest_files=[ "res://.import/Thrust_End.wav-d36f66f5222b6a4cbae53d632df6f121.sample" ]
+source_file="res://Assets/Ships/PlayerShip/Thrust_End.wav"
+dest_files=[ "res://.import/Thrust_End.wav-01e1dd1657b5db574eff588b57a8247e.sample" ]
 
 [params]
 

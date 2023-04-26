@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/SpaceCrab.png-8544437fb39c12fdd3df661ce4f12c93.stex"
+path="res://.import/PixelNoise.png-3ef821fe38f587576402195b5c55843d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Project/Ships/Enemies/SpaceCrab/SpaceCrab.png"
-dest_files=[ "res://.import/SpaceCrab.png-8544437fb39c12fdd3df661ce4f12c93.stex" ]
+source_file="res://Assets/VFX/PixelNoise.png"
+dest_files=[ "res://.import/PixelNoise.png-3ef821fe38f587576402195b5c55843d.stex" ]
 
 [params]
 

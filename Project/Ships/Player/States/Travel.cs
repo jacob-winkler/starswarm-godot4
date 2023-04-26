@@ -26,9 +26,17 @@ public class Travel : PlayerState
 
         AudioThrusters.GlobalPosition = ((PlayerShip)Owner).GlobalPosition;
         if (movement.y < 0.0 && !AudioThrusters.Playing)
+        {
+            GD.Print(movement);
+            GD.Print(AudioThrusters.Playing);
             AudioThrusters.Start();
+        }
         else if (Mathf.IsEqualApprox(movement.y, 0.0f) && !AudioThrusters.Ending)
+        {
+            GD.Print(movement);
+            GD.Print(AudioThrusters.Ending);
             AudioThrusters.End();
+        }
 
         ((Move)_parent!).LinearVelocity += movement.y * direction * ((Move)_parent!).AccelerationMax * (Reversing ? ((Move)_parent!).ReverseMultiplier : 1) * delta;
         ((Move)_parent!).AngularVelocity += movement.x * ((Move)_parent!).Agent.AngularAccelerationMax * delta;

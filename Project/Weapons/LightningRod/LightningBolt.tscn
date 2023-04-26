@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Project/Weapons/LightningRod/LightningBolt.cs" type="Script" id=1]
-[ext_resource path="res://Project/Weapons/LightningRod/LightningChain_2.png" type="Texture" id=2]
-[ext_resource path="res://Project/Weapons/LightningRod/LightningChain_1.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Weapons/LightningRod/LightningChain_2.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Weapons/LightningRod/LightningChain_1.png" type="Texture" id=3]
 
 [sub_resource type="Animation" id=4]
 resource_name = "ChainLightning"

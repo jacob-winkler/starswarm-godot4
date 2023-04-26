@@ -1,11 +1,13 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Project/Ships/Player/Thrust_End.wav" type="AudioStream" id=1]
-[ext_resource path="res://Project/Ships/Player/Thrust_Loop.wav" type="AudioStream" id=2]
-[ext_resource path="res://Project/Ships/Player/Thrust_Start.wav" type="AudioStream" id=3]
+[ext_resource path="res://Assets/Ships/PlayerShip/Thrust_End.wav" type="AudioStream" id=1]
+[ext_resource path="res://Assets/Ships/PlayerShip/Thrust_Loop.wav" type="AudioStream" id=2]
+[ext_resource path="res://Assets/Ships/PlayerShip/Thrust_Start.wav" type="AudioStream" id=3]
 [ext_resource path="res://Project/Common/LoopingAudioStreamPlayer2D.cs" type="Script" id=4]
 
 [node name="ThrustersAudioPlayer" type="AudioStreamPlayer2D"]
+stream = ExtResource( 2 )
+bus = "Thrusters"
 script = ExtResource( 4 )
 SoundStart = ExtResource( 3 )
 SoundLoop = ExtResource( 2 )

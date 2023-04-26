@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/SpaceCrab_small.svg-3c082a091cd6ad3a15f4456d6369c2ff.stex"
+path="res://.import/SpaceMine_Sheet.png-78fb1c87ad1b5b8e8ecc1d3ea60e2e5b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Project/Ships/Enemies/SpaceCrab/SpaceCrab_small.svg"
-dest_files=[ "res://.import/SpaceCrab_small.svg-3c082a091cd6ad3a15f4456d6369c2ff.stex" ]
+source_file="res://Assets/Weapons/SpaceMine/SpaceMine_Sheet.png"
+dest_files=[ "res://.import/SpaceMine_Sheet.png-78fb1c87ad1b5b8e8ecc1d3ea60e2e5b.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
