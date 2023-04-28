@@ -18,7 +18,6 @@ namespace StarSwarm.World.Spawners
         public float SpawnDistance = 800;
 
         private readonly List<Vector2> _availableSpawns = new List<Vector2>();
-        private List<PackedScene> _weaponAttachments = default!;
         private List<PackedScene> _planetSkins = default!;
         private RandomNumberGenerator _rng = default!;
 
@@ -33,12 +32,6 @@ namespace StarSwarm.World.Spawners
                 GD.Load("res://Project/Planets/PixelPlanets/LandMasses/LandMasses.tscn") as PackedScene ?? throw new NullReferenceException(),
                 GD.Load("res://Project/Planets/PixelPlanets/LavaWorld/LavaWorld.tscn") as PackedScene ?? throw new NullReferenceException(),
                 GD.Load("res://Project/Planets/PixelPlanets/Rivers/Rivers.tscn") as PackedScene ?? throw new NullReferenceException(),
-            };
-
-            _weaponAttachments = new List<PackedScene>() {
-                GD.Load("res://Project/Weapons/LightningRod/LightningRodAttachment.tscn") as PackedScene ?? throw new NullReferenceException(),
-                GD.Load("res://Project/Weapons/LaserBeam/LaserBeamAttachment.tscn") as PackedScene ?? throw new NullReferenceException(),
-                GD.Load("res://Project/Weapons/SpaceMine/SpaceMineAttachment.tscn") as PackedScene ?? throw new NullReferenceException(),
             };
         }
 
@@ -68,9 +61,7 @@ namespace StarSwarm.World.Spawners
             AddChild(newPlanetInstance);
             newPlanetInstance.AddChild(spriteInstance);
 
-            var weaponAttachment = (WeaponAttachment)_weaponAttachments[_rng.RandiRange(0, _weaponAttachments.Count - 1)].Instance();
-
-            newPlanetInstance.Initialize(spriteInstance, _playerShip, weapon: weaponAttachment);
+            newPlanetInstance.Initialize(spriteInstance, _playerShip, _rng);
         }
 
         private void CalculateSpawnPoints()
