@@ -7,6 +7,8 @@ namespace StarSwarm.Project.Planets
 {
     public class Planet : Node2D
     {
+        public TweenAura Tween { get; set; } = default!;
+        public Sprite PlanetAura { get; set; } = default!;
         public Sprite UpgradeIcon { get; set; } = default!;
         public Area2D ActivateResearchArea { get; set; } = default!;
         public ResearchBar ResearchBar { get; set; } = default!;
@@ -23,6 +25,8 @@ namespace StarSwarm.Project.Planets
 
         public override void _Ready()
         {
+            Tween = GetNode<TweenAura>("TweenAura");
+            PlanetAura = GetNode<Sprite>("PlanetAura");
             UpgradeIcon = GetNode<Sprite>("UpgradeIcon");
             ActivateResearchArea = GetNode<Area2D>("ActivateResearchArea");
             ResearchBar = GetNode<ResearchBar>("ResearchBar");
@@ -84,6 +88,10 @@ namespace StarSwarm.Project.Planets
             if (_playerShip == playerBody)
             {
                 _activatable = true;
+
+                if(Tween.IsActive())
+                    Tween.StopAll();
+                Tween.MakeAppear(PlanetAura);
             }
         }
 
@@ -92,6 +100,10 @@ namespace StarSwarm.Project.Planets
             if (_playerShip == playerBody)
             {
                 _activatable = false;
+
+                if(Tween.IsActive())
+                    Tween.StopAll();
+                Tween.MakeDisappear(PlanetAura);
             }
         }
 
