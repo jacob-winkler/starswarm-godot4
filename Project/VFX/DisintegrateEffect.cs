@@ -5,7 +5,7 @@ public class DisintegrateEffect : Sprite
 {
     private float _shaderValue = default!;
 
-    public float Speed { get; set; } = 0.03f;
+    public float Speed { get; set; } = 0.02f;
 
     public override void _Ready()
     {

@@ -26,6 +26,7 @@ void fragment()
 }"
 
 [sub_resource type="ShaderMaterial" id=2]
+resource_local_to_scene = true
 shader = SubResource( 1 )
 shader_param/value = 1.0
 shader_param/noise_texture = ExtResource( 2 )

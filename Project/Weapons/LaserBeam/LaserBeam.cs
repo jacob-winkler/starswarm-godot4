@@ -56,7 +56,7 @@ namespace StarSwarm.Project.Weapons.LaserBeam
 
         public override void _PhysicsProcess(float delta)
         {
-            CastTo = (CastTo + (Vector2.Right * 7000 * delta)).LimitLength(1400);
+            CastTo = (CastTo + (Vector2.Right * 7000 * delta)).LimitLength(400);
             CastBeam(delta);
         }
 
