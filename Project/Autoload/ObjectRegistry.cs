@@ -35,9 +35,8 @@ namespace StarSwarm.Project.Autoload
 
         public void RegisterDistortionEffect(Node2D effect)
         {
-            if(_distortions != null)
-                _distortions.AddChild(effect);
-        }
+			_distortions?.AddChild(effect);
+		}
 
         public void RegisterDistortionParent(Viewport viewport)
         {
