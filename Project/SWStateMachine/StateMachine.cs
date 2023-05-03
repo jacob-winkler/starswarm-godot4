@@ -46,8 +46,7 @@ namespace StarSwarm.Project.SWStateMachine
 
 		public void TransitionTo(string targetStatePath, Dictionary<string, Godot.Object>? msg = null)
 		{
-			if(msg == null)
-				msg = new Dictionary<string, Godot.Object>();
+			msg ??= new Dictionary<string, Godot.Object>();
 
 			if(!HasNode(targetStatePath))
 				return;
