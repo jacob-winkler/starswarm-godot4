@@ -7,6 +7,8 @@ namespace StarSwarm.Project.Planets
 {
     public class Planet : Node2D
     {
+        public AudioStreamPlayer CompleteResearchAudio { get; set; } = default!;
+        public AudioStreamPlayer2D ConfirmResearchAudio { get; set; } = default!;
         public TweenAura Tween { get; set; } = default!;
         public Sprite PlanetAura { get; set; } = default!;
         public Sprite UpgradeIcon { get; set; } = default!;
@@ -25,6 +27,8 @@ namespace StarSwarm.Project.Planets
 
         public override void _Ready()
         {
+            CompleteResearchAudio = GetNode<AudioStreamPlayer>("CompleteResearchAudio");
+            ConfirmResearchAudio = GetNode<AudioStreamPlayer2D>("ConfirmResearchAudio");
             Tween = GetNode<TweenAura>("TweenAura");
             PlanetAura = GetNode<Sprite>("PlanetAura");
             UpgradeIcon = GetNode<Sprite>("UpgradeIcon");
@@ -56,6 +60,7 @@ namespace StarSwarm.Project.Planets
                 {
                     ((CollisionShape2D)ActivateResearchArea.GetChild(0)).Disabled = true;
                     _activatable = false;
+                    ConfirmResearchAudio.Play();
                     ResearchBar.BeginResearch(_researchTime);
                 }
             }
@@ -81,6 +86,8 @@ namespace StarSwarm.Project.Planets
             ((CollisionShape2D)ActivateResearchArea.GetChild(0)).Disabled = false;
             if(ActivateResearchArea.OverlapsBody(_playerShip))
                 _activatable = true;
+
+            CompleteResearchAudio.Play();
         }
 
         private void OnBodyEnteredActivationRange(PhysicsBody2D playerBody)

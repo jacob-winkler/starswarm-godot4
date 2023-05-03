@@ -20,6 +20,7 @@ _data = [ Vector2( 0, 1 ), 0.0, -0.653409, 0, 0, Vector2( 1, 0.218182 ), -0.4487
 curve = SubResource( 11 )
 
 [sub_resource type="ParticlesMaterial" id=12]
+resource_local_to_scene = true
 trail_divisor = 10
 trail_size_modifier = SubResource( 8 )
 emission_shape = 2
