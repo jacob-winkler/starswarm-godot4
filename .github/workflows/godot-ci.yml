@@ -2,7 +2,7 @@
 # For more information see: https://github.com/marketplace/actions/build-godot
 
 name: "godot-ci export"
-on: push
+on: [push, pull_request]
 
 env:
   GODOT_VERSION: 3.5.1
