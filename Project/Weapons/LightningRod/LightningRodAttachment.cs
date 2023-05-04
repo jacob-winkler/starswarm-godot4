@@ -69,7 +69,6 @@ namespace StarSwarm.Project.Weapons.LightningRod
             newLightningBolt.SourcePosition = sourcePosition;
             newLightningBolt.Damage = Damage;
             newLightningBolt.ForbiddenTargets = forbiddenTargets ?? new List<Node2D>();
-
             ObjectRegistry.AddChild(newLightningBolt);
         }
     }

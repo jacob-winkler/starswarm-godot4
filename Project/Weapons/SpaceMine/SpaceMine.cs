@@ -8,6 +8,7 @@ public class SpaceMine : Node2D
     [Export]
     public float CountdownTime { get; set; } = 5;
 
+    public AudioStreamPlayer2D ExplosionAudio { get; set; } = default!;
     public Events Events { get; set; } = default!;
     public Area2D BlastRadius { get; set; } = default!;
     public AnimationPlayer AnimationPlayer { get; set; } = default!;
@@ -19,6 +20,7 @@ public class SpaceMine : Node2D
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
+        ExplosionAudio = GetNode<AudioStreamPlayer2D>("ExplosionAudio");
         Events = GetNode<Events>("/root/Events");
         BlastRadius = GetNode<Area2D>("BlastRadius");
         AnimationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
@@ -59,6 +61,7 @@ public class SpaceMine : Node2D
             return;
 
         Explosion.Visible = true;
+        ExplosionAudio.Play();
         Explosion.Play("Explosion");
 
         foreach(var body in BlastRadius.GetOverlappingBodies())

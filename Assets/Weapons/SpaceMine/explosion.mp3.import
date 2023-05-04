@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/explosion.mp3-d8426e7d770406a358e3268a3d91c00e.mp3str"
+
+[deps]
+
+source_file="res://Assets/Weapons/SpaceMine/explosion.mp3"
+dest_files=[ "res://.import/explosion.mp3-d8426e7d770406a358e3268a3d91c00e.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

@@ -1,4 +1,5 @@
 using Godot;
+using StarSwarm.Project.Autoload;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace StarSwarm.Project.Weapons.LightningRod
 
         public float Damage { get; set; }
 
+        public AudioManager AudioManager { get; set; } = default!;
         public Node2D? Source;
         public Node2D Target = default!;
         public Vector2 SourcePosition { get; set; }
@@ -34,6 +36,7 @@ namespace StarSwarm.Project.Weapons.LightningRod
 
         public override void _Ready()
         {
+            AudioManager = GetNode<AudioManager>("/root/AudioManager");
             Events = GetNode<Events>("/root/Events");
             AnimationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
             BoltLine = GetNode<Line2D>("BoltLine");
@@ -47,6 +50,7 @@ namespace StarSwarm.Project.Weapons.LightningRod
             BoltLine.TextureMode = Line2D.LineTextureMode.Tile;
             BoltLine.Width = 10;
 
+            AudioManager.Play(KnownAudioStreams.LightningRod, Target.GlobalPosition);
             AnimationPlayer.Play("ChainLightning");
 
             Tween.Connect("tween_completed", this, "OnTweenCompleted");

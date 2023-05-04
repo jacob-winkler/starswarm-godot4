@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/bugsplat.mp3-3369133a2e1c279ae10d23cb34598edb.mp3str"
+
+[deps]
+
+source_file="res://Assets/Ships/Enemies/SpaceCrab/bugsplat.mp3"
+dest_files=[ "res://.import/bugsplat.mp3-3369133a2e1c279ae10d23cb34598edb.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

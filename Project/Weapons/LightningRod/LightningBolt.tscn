@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Project/Weapons/LightningRod/LightningBolt.cs" type="Script" id=1]
 [ext_resource path="res://Assets/Weapons/LightningRod/LightningChain_2.png" type="Texture" id=2]
 [ext_resource path="res://Assets/Weapons/LightningRod/LightningChain_1.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Weapons/LightningRod/electriccrack1.mp3" type="AudioStream" id=4]
 
 [sub_resource type="Animation" id=4]
 resource_name = "ChainLightning"
@@ -47,6 +48,12 @@ radius = 150.0
 [node name="LightningBolt" type="Node2D"]
 script = ExtResource( 1 )
 AnimationFrames = [ ExtResource( 3 ), ExtResource( 2 ) ]
+
+[node name="BoltAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 4 )
+volume_db = -20.975
+max_distance = 1000.0
+attenuation = 3.605
 
 [node name="BoltLine" type="Line2D" parent="."]
 modulate = Color( 1.50196, 1.50196, 1.50196, 1 )

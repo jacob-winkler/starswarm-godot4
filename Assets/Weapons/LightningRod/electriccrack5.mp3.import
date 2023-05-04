@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/electriccrack5.mp3-4f424f94b1a812b029b007f9b144d78a.mp3str"
+
+[deps]
+
+source_file="res://Assets/Weapons/LightningRod/electriccrack5.mp3"
+dest_files=[ "res://.import/electriccrack5.mp3-4f424f94b1a812b029b007f9b144d78a.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0
