@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/powerful_shock_bolt4.mp3-fcc159f4420eec58f82cb2ec84fc8263.mp3str"
+
+[deps]
+
+source_file="res://Assets/Weapons/LightningRod/powerful_shock_bolt4.mp3"
+dest_files=[ "res://.import/powerful_shock_bolt4.mp3-fcc159f4420eec58f82cb2ec84fc8263.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

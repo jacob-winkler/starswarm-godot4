@@ -36,7 +36,7 @@ namespace StarSwarm.Project.Ships.Enemies.SpaceCrab
 
         private float _health;
 
-        public AudioManager AudioManager { get; set; } = default!;
+        public AudioManager2D AudioManager2D { get; set; } = default!;
         public VisibilityNotifier2D VisibilityNotifier { get; set; } = default!;
         public StateMachine StateMachine = default!;
         public Events Events = default!;
@@ -71,7 +71,7 @@ namespace StarSwarm.Project.Ships.Enemies.SpaceCrab
             Agent.LinearDragPercentage = DragFactor;
             Agent.AngularDragPercentage = AngularDragFactor;
 
-            AudioManager = GetNode<AudioManager>("/root/AudioManager");
+            AudioManager2D = GetNode<AudioManager2D>("/root/AudioManager2D");
             ObjectRegistry = GetNode<ObjectRegistry>("/root/ObjectRegistry");
             Events = GetNode<Events>("/root/Events");
             Events.Connect("Damaged", this, "OnDamaged");
@@ -130,7 +130,7 @@ namespace StarSwarm.Project.Ships.Enemies.SpaceCrab
             effect.GlobalPosition = GlobalPosition;
             effect.GlobalRotation = GlobalRotation;
             ObjectRegistry.RegisterEffect(effect);
-            AudioManager.Play(KnownAudioStreams.SpaceCrabDeath, GlobalPosition);
+            AudioManager2D.Play(KnownAudioStreams.SpaceCrabDeath, GlobalPosition);
             QueueFree();
             Events.EmitSignal("SpaceCrabDied");
             Events.EmitSignal("AddPoints", _pointValue);

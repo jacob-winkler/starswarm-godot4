@@ -1,11 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Project/Autoload/AudioLibraries/AudioLibrary.cs" type="Script" id=1]
-[ext_resource path="res://Assets/Weapons/LightningRod/electriccrack1.mp3" type="AudioStream" id=2]
-[ext_resource path="res://Assets/Weapons/LightningRod/electriccrack5.mp3" type="AudioStream" id=3]
-[ext_resource path="res://Assets/Weapons/LightningRod/electriccrack2.mp3" type="AudioStream" id=4]
-[ext_resource path="res://Assets/Weapons/LightningRod/electriccrack3.mp3" type="AudioStream" id=5]
-[ext_resource path="res://Assets/Weapons/LightningRod/electriccrack4.mp3" type="AudioStream" id=6]
+[ext_resource path="res://Assets/Weapons/LightningRod/powerful_shock_bolt.mp3" type="AudioStream" id=2]
+[ext_resource path="res://Assets/Weapons/LightningRod/poweful_shock_bolt2.mp3" type="AudioStream" id=3]
+[ext_resource path="res://Assets/Weapons/LightningRod/powerful_shock_bolt3.mp3" type="AudioStream" id=4]
+[ext_resource path="res://Assets/Weapons/LightningRod/powerful_shock_bolt4.mp3" type="AudioStream" id=5]
 
 [node name="LightningRodAudioLibrary" type="Node2D"]
 script = ExtResource( 1 )
@@ -17,25 +16,19 @@ max_distance = 1000.0
 attenuation = 2.6
 
 [node name="LightningBoltAudio2" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 4 )
+stream = ExtResource( 3 )
 volume_db = -15.0
 max_distance = 1000.0
 attenuation = 2.6
 
 [node name="LightningBoltAudio3" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 5 )
+stream = ExtResource( 4 )
 volume_db = -15.0
 max_distance = 1000.0
 attenuation = 2.6
 
 [node name="LightningBoltAudio4" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 6 )
-volume_db = -15.0
-max_distance = 1000.0
-attenuation = 2.6
-
-[node name="LightningBoltAudio5" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 3 )
+stream = ExtResource( 5 )
 volume_db = -15.0
 max_distance = 1000.0
 attenuation = 2.6
