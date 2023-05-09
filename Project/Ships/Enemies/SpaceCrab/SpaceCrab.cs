@@ -130,7 +130,7 @@ namespace StarSwarm.Project.Ships.Enemies.SpaceCrab
             effect.GlobalPosition = GlobalPosition;
             effect.GlobalRotation = GlobalRotation;
             ObjectRegistry.RegisterEffect(effect);
-            AudioManager2D.Play(KnownAudioStreams.SpaceCrabDeath, GlobalPosition);
+            AudioManager2D.Play(KnownAudioStream2Ds.SpaceCrabDeath, GlobalPosition);
             QueueFree();
             Events.EmitSignal("SpaceCrabDied");
             Events.EmitSignal("AddPoints", _pointValue);

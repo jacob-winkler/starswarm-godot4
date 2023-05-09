@@ -1,8 +1,6 @@
-using Godot;
-
 namespace StarSwarm.Project.Autoload
 {
-    public enum KnownAudioStreams
+    public enum KnownAudioStream2Ds
     {
         SpaceCrabDeath,
         LightningRod,

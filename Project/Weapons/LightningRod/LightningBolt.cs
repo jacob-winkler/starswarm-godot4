@@ -50,7 +50,7 @@ namespace StarSwarm.Project.Weapons.LightningRod
             BoltLine.TextureMode = Line2D.LineTextureMode.Tile;
             BoltLine.Width = 10;
 
-            AudioManager.Play(KnownAudioStreams.LightningRod, Target.GlobalPosition);
+            AudioManager.Play(KnownAudioStream2Ds.LightningRod, Target.GlobalPosition);
             AnimationPlayer.Play("ChainLightning");
 
             Tween.Connect("tween_completed", this, "OnTweenCompleted");
