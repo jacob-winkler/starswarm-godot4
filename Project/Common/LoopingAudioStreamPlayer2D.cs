@@ -4,11 +4,11 @@ using System;
 public class LoopingAudioStreamPlayer2D : AudioStreamPlayer2D
 {
     [Export]
-    public AudioStream SoundStart;
+    public AudioStream SoundStart = default!;
     [Export]
-    public AudioStream SoundLoop;
+    public AudioStream SoundLoop = default!;
     [Export]
-    public AudioStream SoundTail;
+    public AudioStream SoundTail = default!;
 
     public bool Ending = false;
 
@@ -25,7 +25,7 @@ public class LoopingAudioStreamPlayer2D : AudioStreamPlayer2D
         Play();
     }
 
-    public void End()
+    public virtual void End()
     {
         Stream = SoundTail;
         Ending = true;

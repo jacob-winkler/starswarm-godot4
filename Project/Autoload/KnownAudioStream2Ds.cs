@@ -4,5 +4,7 @@ namespace StarSwarm.Project.Autoload
     {
         SpaceCrabDeath,
         LightningRod,
+        StartResearch,
+        SpaceMine,
     }
 }

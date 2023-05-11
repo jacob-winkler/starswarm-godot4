@@ -16,7 +16,8 @@ public class PlayerShip : KinematicBody2D
 	[Signal]
 	public delegate void Died();
 
-	public ObjectRegistry ObjectRegistry { get; set; } = default!;
+    public AudioManager AudioManager { get; set; } = default!;
+    public ObjectRegistry ObjectRegistry { get; set; } = default!;
 	public Events Events { get; set; } = default!;
 	public CollisionPolygon2D Shape { get; set; } = default!;
 	public GSAISteeringAgent Agent { get; set; } = default!;
@@ -28,6 +29,7 @@ public class PlayerShip : KinematicBody2D
 
     public override void _Ready()
 	{
+		AudioManager = GetNode<AudioManager>("/root/AudioManager");
 		ObjectRegistry = GetNode<ObjectRegistry>("/root/ObjectRegistry");
 		Events = GetNode<Events>("/root/Events");
 		Shape = GetNode<CollisionPolygon2D>("CollisionShape");
@@ -53,7 +55,8 @@ public class PlayerShip : KinematicBody2D
 		var playerSprite = GetNode<Sprite>("Sprite");
 		playerSprite.Visible = false;
 
-		var effect = PackedDisintegrateEffect.Instance<DisintegrateEffect>();
+        AudioManager.Play(KnownAudioStreams.PlayerDeath, PauseModeEnum.Process);
+        var effect = PackedDisintegrateEffect.Instance<DisintegrateEffect>();
 		effect.Texture = playerSprite.Texture;
 		effect.Speed = 0.01f;
 		effect.ZIndex = 100;

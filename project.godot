@@ -19,6 +19,7 @@ config/icon="res://icon.png"
 Events="*res://Project/Autoload/Events.cs"
 ObjectRegistry="*res://Project/Autoload/ObjectRegistry.tscn"
 AudioManager2D="*res://Project/Autoload/AudioManager2D.tscn"
+AudioManager="*res://Project/Autoload/AudioManager.tscn"
 
 [display]
 

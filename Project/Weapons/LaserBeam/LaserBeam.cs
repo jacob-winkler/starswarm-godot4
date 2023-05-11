@@ -6,6 +6,8 @@ namespace StarSwarm.Project.Weapons.LaserBeam
     public class LaserBeam : RayCast2D
     {
         public float DamagePerSecond { get; set; } = 4000;
+
+        public LaserAudioPlayer AudioPlayer { get; set; } = default!;
         public Tween Tween { get; set; } = default!;
         public Line2D FillLine { get; set; } = default!;
         public Particles2D CastingParticles { get; set; } = default!;
@@ -42,6 +44,7 @@ namespace StarSwarm.Project.Weapons.LaserBeam
 
         public override void _Ready()
         {
+            AudioPlayer = GetNode<LaserAudioPlayer>("LaserAudioPlayer");
             Tween = GetNode<Tween>("Tween");
             FillLine = GetNode<Line2D>("FillLine");
             CastingParticles = GetNode<Particles2D>("CastingParticles");
@@ -89,6 +92,7 @@ namespace StarSwarm.Project.Weapons.LaserBeam
             Tween.StopAll();
             Tween.InterpolateProperty(FillLine, "width", 0f, _lineWidth, 0.2f);
             Tween.Start();
+            AudioPlayer.Start();
         }
 
         private void Disappear()
@@ -96,6 +100,7 @@ namespace StarSwarm.Project.Weapons.LaserBeam
             Tween.StopAll();
             Tween.InterpolateProperty(FillLine, "width", FillLine.Width, 0f, 0.1f);
             Tween.Start();
+            AudioPlayer.End();
         }
 
         private void ApplyDamage(float delta)

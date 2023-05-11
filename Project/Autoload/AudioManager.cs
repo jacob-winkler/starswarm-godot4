@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Godot;
 using StarSwarm.Project.Autoload.AudioLibraries;
 using StarSwarm.Project.Common;
@@ -8,11 +9,17 @@ using StarSwarm.Project.Common;
 namespace StarSwarm.Project.Autoload
 {
     [Tool]
-    public class AudioManager2D : Node2D
+    public class AudioManager : Node
     {
-        public void Play(KnownAudioStream2Ds audioStream, Vector2? position = null)
+        public override void _Ready()
         {
-            var audioPlayer = GetAudioPlayer(audioStream, position);
+            PauseMode = PauseModeEnum.Process;
+        }
+
+        public void Play(KnownAudioStreams audioStream, PauseModeEnum pauseModeEnum = PauseModeEnum.Stop)
+        {
+            var audioPlayer = GetAudioPlayer(audioStream);
+            audioPlayer.PauseMode = pauseModeEnum;
 
             audioPlayer.PlayAndDispose();
         }
@@ -20,7 +27,7 @@ namespace StarSwarm.Project.Autoload
         public override String _GetConfigurationWarning()
         {
             var warning = String.Empty;
-            var enumValues = Enum.GetValues(typeof(KnownAudioStream2Ds)).OfType<object>().Select(x => x.ToString());
+            var enumValues = Enum.GetValues(typeof(KnownAudioStreams)).OfType<object>().Select(x => x.ToString());
             
             foreach (var stream in enumValues)
             {
@@ -32,13 +39,13 @@ namespace StarSwarm.Project.Autoload
             foreach(var child in GetChildren())
             {
                 if(!enumValues.Contains(((Node)child).Name))
-                    warning += $"Missing KnownAudioStream2Ds enum value: '{((Node)child).Name}'\n";
+                    warning += $"Missing KnownAudioStreams enum value: '{((Node)child).Name}'\n";
             }
 
             return warning.TrimEnd('\n');
         }
 
-        private DisposableAudioStreamPlayer GetAudioPlayer(KnownAudioStream2Ds audioStream, Vector2? position)
+        private DisposableAudioStreamPlayer GetAudioPlayer(KnownAudioStreams audioStream)
         {
             var audioPlayer = GetNode<Node>(audioStream.ToString());
 
@@ -47,13 +54,10 @@ namespace StarSwarm.Project.Autoload
                 audioPlayer = library.GetAudioPlayer();
             }
 
-            var disposableAudioPlayer = new DisposableAudioStreamPlayer((AudioStreamPlayer2D)audioPlayer);
+            audioPlayer = audioPlayer.Duplicate();
+            var disposableAudioPlayer = new DisposableAudioStreamPlayer((AudioStreamPlayer)audioPlayer);
 
             AddChild(disposableAudioPlayer);
-
-            if(position != null)
-                disposableAudioPlayer.SetPosition(position.Value);
-
             return disposableAudioPlayer;
         }
     }
