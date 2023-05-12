@@ -11,11 +11,6 @@ namespace StarSwarm.Project.Autoload
     [Tool]
     public class AudioManager : Node
     {
-        public override void _Ready()
-        {
-            PauseMode = PauseModeEnum.Process;
-        }
-
         public void Play(KnownAudioStreams audioStream, PauseModeEnum pauseModeEnum = PauseModeEnum.Stop)
         {
             var audioPlayer = GetAudioPlayer(audioStream);

@@ -47,6 +47,7 @@ namespace StarSwarm.Project.Autoload
                 audioPlayer = library.GetAudioPlayer();
             }
 
+            audioPlayer = audioPlayer.Duplicate();
             var disposableAudioPlayer = new DisposableAudioStreamPlayer((AudioStreamPlayer2D)audioPlayer);
 
             AddChild(disposableAudioPlayer);
