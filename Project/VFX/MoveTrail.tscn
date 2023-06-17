@@ -1,21 +1,18 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://bwt1lhyweajcn"]
 
-[ext_resource path="res://Assets/Ships/PlayerShip/PlayerShip_small.svg" type="Texture" id=1]
+[ext_resource type="Texture2D" uid="uid://57vs6joqjs0w" path="res://Assets/Ships/PlayerShip/PlayerShip_small.svg" id="1"]
 
-
-[sub_resource type="Gradient" id=2]
-offsets = PoolRealArray( 0, 0.00552486 )
-colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 0.407843 )
+[sub_resource type="Gradient" id="2"]
+offsets = PackedFloat32Array(0, 0.00552486)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.407843)
 
 [node name="MoveTrail" type="CPUParticles2D"]
 show_behind_parent = true
 lifetime = 0.2
-local_coords = false
 draw_order = 1
-texture = ExtResource( 1 )
-flag_align_y = true
-direction = Vector2( 0, 1 )
+texture = ExtResource("1")
+particle_flag_align_y = true
+direction = Vector2(0, 1)
 spread = 0.0
-gravity = Vector2( 0, 0 )
-initial_velocity = 1.0
-color_ramp = SubResource( 2 )
+gravity = Vector2(0, 0)
+color_ramp = SubResource("2")

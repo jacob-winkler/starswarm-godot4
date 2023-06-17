@@ -3,17 +3,18 @@ using System;
 
 namespace StarSwarm.Project.Weapons.LaserBeam
 {
-    public class LaserBeam : RayCast2D
+    public partial class LaserBeam : RayCast2D
     {
         public float DamagePerSecond { get; set; } = 4000;
 
         public LaserAudioPlayer AudioPlayer { get; set; } = default!;
-        public Tween Tween { get; set; } = default!;
         public Line2D FillLine { get; set; } = default!;
-        public Particles2D CastingParticles { get; set; } = default!;
-        public Particles2D CollisionParticles { get; set; } = default!;
-        public Particles2D BeamParticles { get; set; } = default!;
+        public GpuParticles2D CastingParticles { get; set; } = default!;
+        public GpuParticles2D CollisionParticles { get; set; } = default!;
+        public GpuParticles2D BeamParticles { get; set; } = default!;
         public Events Events { get; set; } = default!;
+        public Tween? Tween { get; set; }
+
 
         private Boolean _isCasting;
         private float _lineWidth;
@@ -26,8 +27,8 @@ namespace StarSwarm.Project.Weapons.LaserBeam
 
                 if (_isCasting)
                 {
-                    CastTo = Vector2.Zero;
-                    FillLine.Points[1] = CastTo;
+                    TargetPosition = Vector2.Zero;
+                    FillLine.Points[1] = TargetPosition;
                     Appear();
                 }
                 else
@@ -45,11 +46,10 @@ namespace StarSwarm.Project.Weapons.LaserBeam
         public override void _Ready()
         {
             AudioPlayer = GetNode<LaserAudioPlayer>("LaserAudioPlayer");
-            Tween = GetNode<Tween>("Tween");
             FillLine = GetNode<Line2D>("FillLine");
-            CastingParticles = GetNode<Particles2D>("CastingParticles");
-            CollisionParticles = GetNode<Particles2D>("CollisionParticles");
-            BeamParticles = GetNode<Particles2D>("BeamParticles");
+            CastingParticles = GetNode<GpuParticles2D>("CastingParticles");
+            CollisionParticles = GetNode<GpuParticles2D>("CollisionParticles");
+            BeamParticles = GetNode<GpuParticles2D>("BeamParticles");
             Events = GetNode<Events>("/root/Events");
 
             SetPhysicsProcess(false);
@@ -57,15 +57,15 @@ namespace StarSwarm.Project.Weapons.LaserBeam
             _lineWidth = FillLine.Width;
         }
 
-        public override void _PhysicsProcess(float delta)
+        public override void _PhysicsProcess(double delta)
         {
-            CastTo = (CastTo + (Vector2.Right * 7000 * delta)).LimitLength(400);
+            TargetPosition = (TargetPosition + (Vector2.Right * 7000 * (float)delta)).LimitLength(400);
             CastBeam(delta);
         }
 
-        public void CastBeam(float delta)
+        public void CastBeam(double delta)
         {
-            var castPoint = CastTo;
+            var castPoint = TargetPosition;
 
             ForceRaycastUpdate();
             CollisionParticles.Emitting = IsColliding();
@@ -80,30 +80,38 @@ namespace StarSwarm.Project.Weapons.LaserBeam
 
             FillLine.SetPointPosition(1, castPoint);
             BeamParticles.Position = castPoint * 0.5f;
-            ParticlesMaterial material = (ParticlesMaterial)BeamParticles.ProcessMaterial;
-            material.EmissionBoxExtents = new Vector3(material.EmissionBoxExtents)
+            ParticleProcessMaterial material = (ParticleProcessMaterial)BeamParticles.ProcessMaterial;
+            material.EmissionBoxExtents = new Vector3()
             {
-                x = castPoint.Length() * 0.5f
+                X = castPoint.Length() * 0.5f,
+                Y = material.EmissionBoxExtents.Y,
+                Z = material.EmissionBoxExtents.Z
             };
         }
         
         private void Appear()
         {
-            Tween.StopAll();
-            Tween.InterpolateProperty(FillLine, "width", 0f, _lineWidth, 0.2f);
-            Tween.Start();
+            if(Tween != null)
+                Tween.Kill();
+            Tween = CreateTween();
+
+            Tween.TweenProperty(FillLine, "width", _lineWidth, 0.2f);
+            Tween.Play();
             AudioPlayer.Start();
         }
 
         private void Disappear()
         {
-            Tween.StopAll();
-            Tween.InterpolateProperty(FillLine, "width", FillLine.Width, 0f, 0.1f);
-            Tween.Start();
+            if (Tween != null)
+                Tween.Kill();
+            Tween = CreateTween();
+
+            Tween.TweenProperty(FillLine, "width", 0f, 0.1f);
+            Tween.Play();
             AudioPlayer.End();
         }
 
-        private void ApplyDamage(float delta)
+        private void ApplyDamage(double delta)
         {
             var collider = GetCollider();
             Events.EmitSignal("Damaged", collider, DamagePerSecond * delta, this);

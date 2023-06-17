@@ -3,7 +3,7 @@ using Godot;
 
 namespace StarSwarm.Project.GSAI_Framework.Behaviors
 {
-    public class GSAIMatchOrientation : GSAISteeringBehavior
+    public partial class GSAIMatchOrientation : GSAISteeringBehavior
     {
         public Boolean UseZ { get; set; }
         public GSAIAgentLocation Target { get; set; } = default!;

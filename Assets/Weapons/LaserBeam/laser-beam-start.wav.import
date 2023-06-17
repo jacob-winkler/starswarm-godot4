@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/laser-beam-start.wav-320eebf8640f78372e10bde61a6122e3.sample"
+type="AudioStreamWAV"
+uid="uid://btcvk0jwabj6o"
+path="res://.godot/imported/laser-beam-start.wav-320eebf8640f78372e10bde61a6122e3.sample"
 
 [deps]
 
 source_file="res://Assets/Weapons/LaserBeam/laser-beam-start.wav"
-dest_files=[ "res://.import/laser-beam-start.wav-320eebf8640f78372e10bde61a6122e3.sample" ]
+dest_files=["res://.godot/imported/laser-beam-start.wav-320eebf8640f78372e10bde61a6122e3.sample"]
 
 [params]
 

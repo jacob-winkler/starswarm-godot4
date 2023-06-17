@@ -5,7 +5,7 @@ using System;
 
 namespace StarSwarm.World
 {
-	public class GameWorld : Node2D
+	public partial class GameWorld : Node2D
 	{
 		[Export]
 		public float Radius = 8000.0f;
@@ -39,7 +39,7 @@ namespace StarSwarm.World
 
 		public void Setup()
 		{
-			Player.Connect("Died", this, "OnPlayerDied");
+			Player.Connect("Died", new Callable(this, "OnPlayerDied"));
 
 			PlayerSpawner.SpawnPlayer();
 
@@ -50,10 +50,10 @@ namespace StarSwarm.World
             PlanetSpawner.SpawnInitialPlanets();
 
             HealthBarUpdater.Initialize(Player);
-            GameOverScreen.PauseMode = PauseModeEnum.Process;
+            GameOverScreen.ProcessMode = ProcessModeEnum.Always;
         }
 
-		public override void _PhysicsProcess(float delta)
+		public override void _PhysicsProcess(double delta)
 		{
 			if(!_playerDead)
 				UpdateHealthBarPosition();
@@ -62,15 +62,15 @@ namespace StarSwarm.World
 		private void UpdateHealthBarPosition()
 		{
 			var healthBarPosition = Player.GlobalPosition;
-			healthBarPosition.x -= 16;
-			healthBarPosition.y += 24;
+			healthBarPosition.X -= 16;
+			healthBarPosition.Y += 24;
 			HealthBarUpdater.SetGlobalPosition(healthBarPosition);
 		}
 
 		private void OnPlayerDied()
 		{
 			_playerDead = true;
-            GameOverScreen.RectGlobalPosition = Player.GlobalPosition;
+            GameOverScreen.GlobalPosition = Player.GlobalPosition;
             GameOverScreen.Start();
 
             GetTree().Paused = true;

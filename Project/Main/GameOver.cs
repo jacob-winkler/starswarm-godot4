@@ -4,7 +4,7 @@ using System;
 
 namespace StarSwarm.Project.Main
 {
-    public class GameOver : TextureRect
+    public partial class GameOver : TextureRect
     {
         public Label GameOverLabel { get; set; } = default!;
         public ScreenFader ScreenFader { get; set; } = default!;

@@ -3,7 +3,7 @@ using System;
 
 namespace StarSwarm.Project.GSAI_Framework.Behaviors
 {
-    public class GSAISteeringBehavior
+    public partial class GSAISteeringBehavior
     {
         public Boolean IsEnabled = true;
         public GSAISteeringAgent Agent { get; set; } = new GSAISteeringAgent();

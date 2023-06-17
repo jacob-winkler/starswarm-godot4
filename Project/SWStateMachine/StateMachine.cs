@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace StarSwarm.Project.SWStateMachine
 {
-	public class StateMachine : Node
+	public partial class StateMachine : Node
 	{
 		[Export]
 		public NodePath InitialState { get; set; } = new NodePath();
@@ -39,14 +39,14 @@ namespace StarSwarm.Project.SWStateMachine
 		   State.UnhandledInput(inputEvent);
 		}
 
-		public override void _PhysicsProcess(float delta)
+		public override void _PhysicsProcess(double delta)
 		{
 			State.PhysicsProcess(delta);
 		}
 
-		public void TransitionTo(string targetStatePath, Dictionary<string, Godot.Object>? msg = null)
+		public void TransitionTo(string targetStatePath, Dictionary<string, GodotObject>? msg = null)
 		{
-			msg ??= new Dictionary<string, Godot.Object>();
+			msg ??= new Dictionary<string, GodotObject>();
 
 			if(!HasNode(targetStatePath))
 				return;

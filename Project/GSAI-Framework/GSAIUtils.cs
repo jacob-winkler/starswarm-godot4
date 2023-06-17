@@ -1,4 +1,4 @@
-﻿using Godot;
+using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace StarSwarm.Project.GSAI_Framework
 {
-    public class GSAIUtils
+    public partial class GSAIUtils
     {
         public static Vector2 ToVector2(Vector3 vector)
         {
-            return new Vector2(vector.x, vector.y);
+            return new Vector2(vector.X, vector.Y);
         }
 
         public static Vector3 ToVector3(Vector2 vector)
         {
-            return new Vector3(vector.x, vector.y, 0);
+            return new Vector3(vector.X, vector.Y, 0);
         }
 
         public static Vector3 ClampedV3(Vector3 vector, float limit)
@@ -36,12 +36,12 @@ namespace StarSwarm.Project.GSAI_Framework
 
         public static float Vector3ToAngle(Vector3 vector)
         {
-            return Mathf.Atan2(vector.x, vector.y);
+            return Mathf.Atan2(vector.X, vector.Y);
         }
 
         public static float Vector2ToAngle(Vector2 vector)
         {
-            return Mathf.Atan2(vector.x, -vector.y);
+            return Mathf.Atan2(vector.X, -vector.Y);
         }
     }
 }

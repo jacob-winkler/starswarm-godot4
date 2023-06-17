@@ -7,7 +7,7 @@ using StarSwarm.Project.Autoload;
 //  the original's position in the world using a `RemoteTransform2D`.
 
 //  The camera supports zooming and camera shake.
-public class PlayerCamera : Camera2D
+public partial class PlayerCamera : Camera2D
 {
 
     public const float SHAKE_EXPONENT = 1.8f;
@@ -41,8 +41,7 @@ public class PlayerCamera : Camera2D
     public Events Events;
     public RemoteTransform2D RemoteMap;
     public RemoteTransform2D RemoteDistort;
-    public Tween Tween;
-    public OpenSimplexNoise Noise = new OpenSimplexNoise();
+    public FastNoiseLite Noise = new FastNoiseLite();
 
 
     public override void _Ready() 
@@ -53,7 +52,6 @@ public class PlayerCamera : Camera2D
         ObjectRegistry = GetNode<ObjectRegistry>("/root/ObjectRegistry");
         RemoteMap = GetNode<RemoteTransform2D>("RemoteMap");
         RemoteDistort = GetNode<RemoteTransform2D>("RemoteDistort");
-        Tween = GetNode<Tween>("Tween");
 
         SetPhysicsProcess(false);
 
@@ -62,14 +60,15 @@ public class PlayerCamera : Camera2D
 
         GD.Randomize();
         Noise.Seed = (int)GD.Randi();
-        Noise.Period = 4;
-        Noise.Octaves = 2;
+        Noise.NoiseType = FastNoiseLite.NoiseTypeEnum.Simplex;
+        Noise.Frequency = 24;
+        Noise.FractalOctaves = 2;
     }
 
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
-        ShakeAmount -= DecayRate * delta;
+        ShakeAmount -= DecayRate * (float)delta;
         Shake();
     }
 
@@ -79,40 +78,10 @@ public class PlayerCamera : Camera2D
         var amount = Mathf.Pow(ShakeAmount, SHAKE_EXPONENT);
 
         NoiseY += 1.0f;
-        Rotation = MaxRotation * amount * Noise.GetNoise2d(Noise.Seed, NoiseY);
+        Rotation = MaxRotation * amount * Noise.GetNoise2D(Noise.Seed, NoiseY);
         Offset = new Vector2(
-            MaxOffset.x * amount * Noise.GetNoise2d(Noise.Seed * 2, NoiseY),
-            MaxOffset.y * amount * Noise.GetNoise2d(Noise.Seed * 3, NoiseY)
+            MaxOffset.X * amount * Noise.GetNoise2D(Noise.Seed * 2, NoiseY),
+            MaxOffset.Y * amount * Noise.GetNoise2D(Noise.Seed * 3, NoiseY)
         );
     }
-
-    public void SetupDistortionCamera()
-    {
-        var distortCamera = (PlayerCamera)this.Duplicate();
-        ObjectRegistry.RegisterDistortionEffect(distortCamera);
-        RemoteDistort.RemotePath = distortCamera.GetPath();
-    }
-
-
-    // func _toggle_map(show: bool, duration: float) -> void:
-    //     if show:
-    //         tween.interpolate_property(
-    //             self, "zoom", zoom, _start_zoom, duration, Tween.TRANS_LINEAR, Tween.EASE_OUT_IN
-    //         )
-    //     else:
-    //         _start_position = position
-    //         tween.interpolate_property(
-    //             self,
-    //             "zoom",
-    //             zoom,
-    //             Vector2(max_zoom, max_zoom),
-    //             duration,
-    //             Tween.TRANS_LINEAR,
-    //             Tween.EASE_OUT_IN
-    //         )
-    //     tween.start()
-
-
-    // func _on_Events_explosion_occurred() -> void:
-    //     self.shake_amount += 0.6
 }

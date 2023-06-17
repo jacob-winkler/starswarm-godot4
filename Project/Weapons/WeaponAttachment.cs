@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public abstract class WeaponAttachment : Node2D
+public abstract partial class WeaponAttachment : Node2D
 {
     protected Timer _cooldownTimer { get; set; } = default!;
 
@@ -16,15 +16,15 @@ public abstract class WeaponAttachment : Node2D
     [Export]
     public float WeaponDuration { get; set; } = 2;
     [Export]
-    public Texture SmallIcon { get; set; } = default!;
+    public Texture2D SmallIcon { get; set; } = default!;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
         _cooldownTimer = GetNode<Timer>("CooldownTimer");
-        _cooldownTimer.Connect("timeout", this, "OnCooldownExpired");
+        _cooldownTimer.Connect("timeout", new Callable(this, "OnCooldownExpired"));
         _durationTimer = GetNode<Timer>("DurationTimer");
-        _durationTimer.Connect("timeout", this, "OnDurationUp");
+        _durationTimer.Connect("timeout", new Callable(this, "OnDurationUp"));
     }
 
     /// <summary>

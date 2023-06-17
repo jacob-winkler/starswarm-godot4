@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class LoopingAudioStreamPlayer2D : AudioStreamPlayer2D
+public partial class LoopingAudioStreamPlayer2D : AudioStreamPlayer2D
 {
     [Export]
     public AudioStream SoundStart = default!;
@@ -15,7 +15,7 @@ public class LoopingAudioStreamPlayer2D : AudioStreamPlayer2D
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        Connect("finished", this, "OnFinished");
+        Connect("finished", new Callable(this, "OnFinished"));
     }
 
     public void Start()

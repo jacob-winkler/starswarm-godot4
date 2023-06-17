@@ -1,46 +1,47 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=8 format=3 uid="uid://l05qslq7ulnx"]
 
-[ext_resource path="res://Project/Planets/Planet.cs" type="Script" id=1]
-[ext_resource path="res://Project/UI/PlayerHUD/OffScreenMarker.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Project/Planets/ResearchBar.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Assets/Planets/PlanetAura.png" type="Texture" id=4]
-[ext_resource path="res://Project/Planets/TweenAura.cs" type="Script" id=5]
-[ext_resource path="res://Assets/Planets/complete-research.wav" type="AudioStream" id=7]
+[ext_resource type="Script" path="res://Project/Planets/Planet.cs" id="1"]
+[ext_resource type="PackedScene" path="res://Project/UI/PlayerHUD/OffScreenMarker.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://Project/Planets/ResearchBar.tscn" id="3"]
+[ext_resource type="Texture2D" uid="uid://bw6t0lkxf4cmj" path="res://Assets/Planets/PlanetAura.png" id="4"]
+[ext_resource type="Script" path="res://Project/Planets/TweenAura.cs" id="5"]
+[ext_resource type="AudioStream" uid="uid://nrorf63u6072" path="res://Assets/Planets/complete-research.wav" id="7"]
 
-[sub_resource type="CircleShape2D" id=1]
+[sub_resource type="CircleShape2D" id="1"]
 radius = 300.0
 
 [node name="Planet" type="Node2D"]
-script = ExtResource( 1 )
+script = ExtResource("1")
 
 [node name="CompleteResearchAudio" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 7 )
+stream = ExtResource("7")
 
-[node name="TweenAura" type="Tween" parent="."]
-script = ExtResource( 5 )
+[node name="TweenAura" type="Node2D" parent="."]
+script = ExtResource("5")
 
-[node name="PlanetAura" type="Sprite" parent="."]
+[node name="PlanetAura" type="Sprite2D" parent="."]
 visible = false
-modulate = Color( 1, 1, 1, 0.431373 )
-position = Vector2( 50, 50 )
-scale = Vector2( 1e-05, 1e-05 )
-texture = ExtResource( 4 )
+modulate = Color(1, 1, 1, 0.431373)
+position = Vector2(50, 50)
+scale = Vector2(1e-05, 1e-05)
+texture = ExtResource("4")
 
-[node name="ResearchBar" parent="." instance=ExtResource( 3 )]
-margin_left = -20.0
-margin_top = 120.0
-margin_right = 120.0
-margin_bottom = 134.0
+[node name="ResearchBar" parent="." instance=ExtResource("3")]
+anchors_preset = 15
+offset_left = -20.0
+offset_top = 120.0
+offset_right = 120.0
+offset_bottom = 134.0
 
-[node name="OffScreenMarker" parent="." instance=ExtResource( 2 )]
-position = Vector2( 50, 50 )
+[node name="OffScreenMarker" parent="." instance=ExtResource("2")]
+position = Vector2(50, 50)
 
 [node name="ActivateResearchArea" type="Area2D" parent="."]
-position = Vector2( 50, 50 )
+position = Vector2(50, 50)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ActivateResearchArea"]
-shape = SubResource( 1 )
+shape = SubResource("1")
 
-[node name="UpgradeIcon" type="Sprite" parent="."]
-position = Vector2( 50, 50 )
+[node name="UpgradeIcon" type="Sprite2D" parent="."]
 z_index = 1
+position = Vector2(50, 50)

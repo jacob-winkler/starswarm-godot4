@@ -2,7 +2,7 @@ using Godot;
 
 namespace StarSwarm.World.Spawners
 {
-    public class PlayerSpawner : Node2D
+    public partial class PlayerSpawner : Node2D
 	{
 		public PlayerShip PlayerShip { get; set; } = new PlayerShip();
 		public Events Events { get; set; } = new Events();

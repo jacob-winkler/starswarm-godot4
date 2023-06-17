@@ -4,10 +4,10 @@ using System;
 
 namespace StarSwarm.Project.World
 {
-	public class GameInitializer : Node
+	public partial class GameInitializer : Node
 	{
 		public ObjectRegistry ObjectRegistry { get; set; } = new ObjectRegistry();
-		public PlayerCamera Camera { get; set; } = new PlayerCamera();
+		public PlayerCamera Camera3D { get; set; } = new PlayerCamera();
 		public Events Events { get; set; } = new Events();
 
 		// Called when the node enters the scene tree for the first time.
@@ -15,17 +15,14 @@ namespace StarSwarm.Project.World
 		{
 			Events = GetNode<Events>("/root/Events");
 			ObjectRegistry = GetNode<ObjectRegistry>("/root/ObjectRegistry");
-			Camera = GetNode<PlayerCamera>("GameWorld/Camera");
+			Camera3D = GetNode<PlayerCamera>("GameWorld/Camera3D");
 
-			Events.Connect("PlayerSpawned", this, "OnPlayerSpawned");
-
-			//ObjectRegistry.RegisterDistortionParent(GetNode<Viewport>("DistortMaskView/Viewport"));
-			Camera.SetupDistortionCamera();
+			Events.Connect("PlayerSpawned", new Callable(this, "OnPlayerSpawned"));
 		}
 
 		public void OnPlayerSpawned(PlayerShip player)
 		{
-			player.GrabCamera(Camera);
+			player.GrabCamera(Camera3D);
 			Events.EmitSignal("NodeSpawned", player);
 		}
 	}

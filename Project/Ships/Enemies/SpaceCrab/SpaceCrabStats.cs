@@ -3,7 +3,7 @@ using System;
 
 namespace StarSwarm.Project.Ships.Enemies.SpaceCrab
 {
-    public class SpaceCrabStats : Node
+    public partial class SpaceCrabStats : Node
     {
         // Declare member variables here. Examples:
         // private int a = 2;
@@ -16,7 +16,7 @@ namespace StarSwarm.Project.Ships.Enemies.SpaceCrab
         }
 
     //  // Called every frame. 'delta' is the elapsed time since the previous frame.
-    //  public override void _Process(float delta)
+    //  public override void _Process(double delta)
     //  {
     //      
     //  }

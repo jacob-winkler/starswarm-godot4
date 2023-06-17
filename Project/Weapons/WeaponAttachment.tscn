@@ -1,4 +1,4 @@
-[gd_scene format=2]
+[gd_scene format=3 uid="uid://dblevrbfgd58g"]
 
 [node name="WeaponAttachment" type="Node2D"]
 

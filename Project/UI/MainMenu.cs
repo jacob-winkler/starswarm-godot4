@@ -1,8 +1,9 @@
 using Godot;
 using StarSwarm.Project.UI;
 using System;
+using System.Diagnostics;
 
-public class MainMenu : Control
+public partial class MainMenu : Control
 {
 	private const float FADE_IN_TIME = 0.2f;
 	private const float FADE_OUT_TIME = 2.5f;
@@ -23,7 +24,7 @@ public class MainMenu : Control
 		{
 			ScreenFader.FadeOut();
 			await ToSignal(ScreenFader, "AnimationFinished");
-			GetTree().ChangeScene("res://Project/Main/Game.tscn");
+			GetTree().ChangeSceneToFile("res://Project/Main/Game.tscn");
 		}
 	}
 }

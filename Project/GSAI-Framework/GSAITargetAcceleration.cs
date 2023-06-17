@@ -1,4 +1,4 @@
-﻿using Godot;
+using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace StarSwarm.Project.GSAI_Framework
 {
-    public class GSAITargetAcceleration
+    public partial class GSAITargetAcceleration
     {
         /// <summary>
         /// Gets or sets an angular acceleration value.

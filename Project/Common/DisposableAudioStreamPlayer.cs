@@ -6,7 +6,7 @@ using Godot;
 
 namespace StarSwarm.Project.Common
 {
-    public class DisposableAudioStreamPlayer : Node
+    public partial class DisposableAudioStreamPlayer : Node
     {
         public DisposableAudioStreamPlayer(Node audioPlayer)
         {
@@ -17,7 +17,7 @@ namespace StarSwarm.Project.Common
             else
                 throw new ArgumentException("Bad audio stream player");
 
-            audioPlayer.PauseMode = PauseModeEnum.Inherit;
+            audioPlayer.ProcessMode = ProcessModeEnum.Inherit;
             AddChild(audioPlayer);
         }
 
@@ -28,13 +28,13 @@ namespace StarSwarm.Project.Common
         {
             if (_audioPlayer != null)
             {
-                _audioPlayer.Connect("finished", this, "Dispose");
+                _audioPlayer.Connect("finished", new Callable(this, "Dispose"));
                 _audioPlayer.Play();
             }
 
             if (_audioPlayer2D != null)
             {
-                _audioPlayer2D.Connect("finished", this, "Dispose");
+                _audioPlayer2D.Connect("finished", new Callable(this, "Dispose"));
                 _audioPlayer2D.Play();
             }
         }

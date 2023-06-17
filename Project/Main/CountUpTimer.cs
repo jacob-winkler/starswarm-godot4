@@ -1,14 +1,14 @@
 using Godot;
 using System;
 
-public class CountUpTimer : Label
+public partial class CountUpTimer : Label
 {
     public Events Events { get; set; } = default!;
 
     /// <summary>
     /// Gets or sets the total number of seconds that have elapsed in the game world.
     /// </summary>
-    public float TimeElapsed { get; set; }
+    public double TimeElapsed { get; set; }
 
     /// <summary>
     /// Tracks the number of minutes that have elapsed.
@@ -31,7 +31,7 @@ public class CountUpTimer : Label
     }
 
     // Called when the node enters the scene tree for the first time.
-    public override void _Process(float delta)
+    public override void _Process(double delta)
     {
         TimeElapsed += delta;
         CalculateTime();

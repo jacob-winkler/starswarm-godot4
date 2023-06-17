@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace StarSwarm.Project.Ships.Enemies.SpaceCrab.States
 {
-    public class Attack : SpaceCrabState
+    public partial class Attack : SpaceCrabState
     {
         [Export]
         public float MinDistanceFromTarget = 0f;
@@ -17,10 +17,9 @@ namespace StarSwarm.Project.Ships.Enemies.SpaceCrab.States
         GSAIBlend Blend { get; set; } = default!;
         GSAITargetAcceleration Acceleration { get; set; } = new GSAITargetAcceleration();
 
-        public async override void _Ready()
+        public override void _Ready()
         {
             base._Ready();
-            await ToSignal(Owner, "ready");
             Pursue = new GSAIPursue(Ship.Agent, Target);
             Face = new GSAIFace(Ship.Agent, Target);
             Blend = new GSAIBlend(Ship.Agent);
@@ -29,7 +28,7 @@ namespace StarSwarm.Project.Ships.Enemies.SpaceCrab.States
             Blend.Add(Face, 1);
         }
 
-        public override void Enter(Dictionary<String, Godot.Object>? msg = null)
+        public override void Enter(Dictionary<String, GodotObject>? msg = null)
         {
             if(msg == null) return;
 
@@ -38,7 +37,7 @@ namespace StarSwarm.Project.Ships.Enemies.SpaceCrab.States
             Face.Target = Target;
         }
 
-        public override void PhysicsProcess(float delta)
+        public override void PhysicsProcess(double delta)
         {
             Blend.CalculateSteering(Acceleration);
             Ship.Agent.ApplySteering(Acceleration, delta);

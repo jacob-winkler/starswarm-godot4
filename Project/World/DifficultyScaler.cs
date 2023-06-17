@@ -7,7 +7,7 @@ using StarSwarm.World.Spawners;
 
 namespace StarSwarm.World
 {
-    public class DifficultyScaler : Node
+    public partial class DifficultyScaler : Node
     {
         public Events Events { get; set; } = default!;
         public SpaceCrabSpawner SpaceCrabSpawner { get; set; } = default!;
@@ -16,7 +16,7 @@ namespace StarSwarm.World
         {
             SpaceCrabSpawner = GetNode<SpaceCrabSpawner>("../SpaceCrabSpawner");
             Events = GetNode<Events>("/root/Events");
-            Events.Connect("GameTenSecondsPassed", this, "OnTenSecondsPassed");
+            Events.Connect("GameTenSecondsPassed", new Callable(this, "OnTenSecondsPassed"));
         }
 
         public void OnTenSecondsPassed(float totalTimeElapsed)

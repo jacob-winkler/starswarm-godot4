@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace StarSwarm.Project.Weapons.LightningRod
 {
-    public class LightningRodAttachment : WeaponAttachment
+    public partial class LightningRodAttachment : WeaponAttachment
     {
         [Export]
         public PackedScene LightningBolt { get; set; } = default!;
@@ -61,8 +61,8 @@ namespace StarSwarm.Project.Weapons.LightningRod
         private void SpawnNewLightningBolt(Node2D targetBody, Node2D sourceBody, Vector2 sourcePosition = default,
             List<Node2D>? forbiddenTargets = null, float bounceCount = 1)
         {
-            var newLightningBolt = (LightningBolt)LightningBolt.Instance();
-            newLightningBolt.Connect("BounceTriggered", this, "OnBounceTriggered");
+            var newLightningBolt = (LightningBolt)LightningBolt.Instantiate();
+            newLightningBolt.Connect("BounceTriggered", new Callable(this, "OnBounceTriggered"));
             newLightningBolt.BounceCount = bounceCount;
             newLightningBolt.Target = targetBody;
             newLightningBolt.Source = sourceBody;

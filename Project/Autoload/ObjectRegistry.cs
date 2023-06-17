@@ -1,4 +1,4 @@
-﻿using Godot;
+using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +11,11 @@ namespace StarSwarm.Project.Autoload
     /// Creates, maintains, and organizes spawned special effects or projectiles; 
     /// objects that should be untied from their spawners' lifespan when freed.
     /// </summary>
-    public class ObjectRegistry : Node
+    public partial class ObjectRegistry : Node
     {
         private Node2D _projectiles = new Node2D();
         private Node2D _effects = new Node2D();
-        private Viewport _distortions = new Viewport();
+        private SubViewport _distortions = new SubViewport();
 
         public override void _Ready()
         {
@@ -38,7 +38,7 @@ namespace StarSwarm.Project.Autoload
             _distortions?.AddChild(effect);
         }
 
-        public void RegisterDistortionParent(Viewport viewport)
+        public void RegisterDistortionParent(SubViewport viewport)
         {
             _distortions = viewport;
         }

@@ -2,7 +2,7 @@ using Godot;
 using StarSwarm.Project.Autoload;
 using System;
 
-public class SpaceMineAttachment : WeaponAttachment
+public partial class SpaceMineAttachment : WeaponAttachment
 {
     [Export]
     public PackedScene SpaceMine { get; set; } = default!;
@@ -18,7 +18,7 @@ public class SpaceMineAttachment : WeaponAttachment
 
     protected override void FireWeapon()
     {
-        var spaceMine = (SpaceMine)SpaceMine.Instance();
+        var spaceMine = (SpaceMine)SpaceMine.Instantiate();
         spaceMine.Position = GlobalPosition;
         ObjectRegistry.RegisterProjectiles(spaceMine);
     }

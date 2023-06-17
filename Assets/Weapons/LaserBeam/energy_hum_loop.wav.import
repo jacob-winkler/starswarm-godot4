@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/energy_hum_loop.wav-5193e3c60953e05c00f8dad39577976d.sample"
+type="AudioStreamWAV"
+uid="uid://ypyi740lowtj"
+path="res://.godot/imported/energy_hum_loop.wav-5193e3c60953e05c00f8dad39577976d.sample"
 
 [deps]
 
 source_file="res://Assets/Weapons/LaserBeam/energy_hum_loop.wav"
-dest_files=[ "res://.import/energy_hum_loop.wav-5193e3c60953e05c00f8dad39577976d.sample" ]
+dest_files=["res://.godot/imported/energy_hum_loop.wav-5193e3c60953e05c00f8dad39577976d.sample"]
 
 [params]
 

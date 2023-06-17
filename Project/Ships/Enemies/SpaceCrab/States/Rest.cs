@@ -4,11 +4,11 @@ using System;
 
 namespace StarSwarm.Project.Ships.Enemies.SpaceCrab.States
 {
-    public class Rest : SpaceCrabState
+    public partial class Rest : SpaceCrabState
     {
         private GSAITargetAcceleration _acceleration = new GSAITargetAcceleration(); 
 
-        public override void _PhysicsProcess(float delta)
+        public override void _PhysicsProcess(double delta)
         {
             Ship.Agent.ApplySteering(_acceleration, delta);
         }

@@ -1,8 +1,9 @@
 using Godot;
 using StarSwarm.Project.Autoload;
 using System;
+using static Godot.Animation;
 
-public class SpaceMine : Node2D
+public partial class SpaceMine : Node2D
 {
     [Export]
     public float Damage { get; set; } = 100f;
@@ -14,7 +15,7 @@ public class SpaceMine : Node2D
     public Area2D BlastRadius { get; set; } = default!;
     public AnimationPlayer AnimationPlayer { get; set; } = default!;
 
-    public AnimatedSprite Explosion { get; set; } = default!;
+    public AnimatedSprite2D Explosion { get; set; } = default!;
 
     private float _radiusAlpha = 0.3f;
 
@@ -25,10 +26,10 @@ public class SpaceMine : Node2D
         Events = GetNode<Events>("/root/Events");
         BlastRadius = GetNode<Area2D>("BlastRadius");
         AnimationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
-        Explosion = GetNode<AnimatedSprite>("Explosion");
+        Explosion = GetNode<AnimatedSprite2D>("Explosion");
 
-        Explosion.Connect("animation_finished", this, "OnExplosionFinished");
-        AnimationPlayer.Connect("animation_finished", this, "OnDetonation");
+        Explosion.Connect("animation_finished", new Callable(this, "OnExplosionFinished"));
+        AnimationPlayer.Connect("animation_finished", new Callable(this, "OnDetonation"));
 
         ArmSpaceMine();
     }
@@ -49,14 +50,13 @@ public class SpaceMine : Node2D
     {
         var countdownAnimation = AnimationPlayer.GetAnimation("SpaceMineCountdown");
         var animationSpeed = CountdownTime / countdownAnimation.Length;
-        countdownAnimation.Loop = false;
+        countdownAnimation.LoopMode = LoopModeEnum.None;
         AnimationPlayer.Play("SpaceMineCountdown", customSpeed: animationSpeed);
     }
 
     private void OnDetonation(String animationName)
     {
         _radiusAlpha = 0;
-        Update();
 
         if(animationName != "SpaceMineCountdown")
             return;
@@ -70,7 +70,7 @@ public class SpaceMine : Node2D
             Events.EmitSignal("Damaged", body, Damage, this);
         }
 
-        BlastRadius.Connect("body_entered", this, "OnBodyEnteredBlastRadius");
+        BlastRadius.Connect("body_entered", new Callable(this, "OnBodyEnteredBlastRadius"));
     }
 
     private void OnBodyEnteredBlastRadius(PhysicsBody2D body)

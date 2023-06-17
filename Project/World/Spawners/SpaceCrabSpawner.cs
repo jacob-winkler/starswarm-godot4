@@ -4,7 +4,7 @@ using System;
 
 namespace StarSwarm.World.Spawners
 {
-	public class SpaceCrabSpawner : Spawner
+	public partial class SpaceCrabSpawner : Spawner
 	{
 		[Export]
 		public PackedScene SpaceCrab { get; set; } = default!;
@@ -24,8 +24,8 @@ namespace StarSwarm.World.Spawners
         public override void _Ready()
 		{
             Events = GetNode<Events>("/root/Events");
-            Events.Connect("EnemyAdrift", this, "OnSpaceCrabFellAdrift");
-            Events.Connect("SpaceCrabDied", this, "OnSpaceCrabDied");
+            Events.Connect("EnemyAdrift", new Callable(this, "OnSpaceCrabFellAdrift"));
+            Events.Connect("SpaceCrabDied", new Callable(this, "OnSpaceCrabDied"));
         }
 
 		public void Initialize(PlayerShip playerShip, RandomNumberGenerator rng)
@@ -49,7 +49,7 @@ namespace StarSwarm.World.Spawners
 
 		public void SpawnSpaceCrab(Vector2 playerPosition)
 		{
-			var spaceCrab = (SpaceCrab)SpaceCrab.Instance();
+			var spaceCrab = (SpaceCrab)SpaceCrab.Instantiate();
 			SetSpaceCrabPositionAroundPlayer(spaceCrab, playerPosition);
 
 			CallDeferred("add_child", spaceCrab);
@@ -58,7 +58,7 @@ namespace StarSwarm.World.Spawners
 
 		public void SetSpaceCrabPositionAroundPlayer(SpaceCrab crab, Vector2 playerPosition)
 		{
-            var angle = Mathf.Deg2Rad(_rng.RandfRange(0, 360));
+            var angle = Mathf.DegToRad(_rng.RandfRange(0, 360));
             var newPosition = playerPosition + (new Vector2(
                 Mathf.Cos(angle),
                 Mathf.Sin(angle)

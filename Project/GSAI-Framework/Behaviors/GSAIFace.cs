@@ -3,7 +3,7 @@ using Godot;
 
 namespace StarSwarm.Project.GSAI_Framework.Behaviors
 {
-    public class GSAIFace : GSAIMatchOrientation
+    public partial class GSAIFace : GSAIMatchOrientation
     {
         public GSAIFace(GSAISteeringAgent agent, GSAIAgentLocation target, Boolean useZ = false)
             : base(agent, target, useZ)

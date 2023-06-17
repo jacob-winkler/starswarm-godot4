@@ -9,7 +9,7 @@ using StarSwarm.Project.Utils;
 
 namespace StarSwarm.Project.Ships.Enemies.SpaceCrab
 {
-    public class SpaceCrab : KinematicBody2D
+    public partial class SpaceCrab : CharacterBody2D
     {
         [Export]
         public PackedScene DisintegrateEffect = default!;
@@ -31,13 +31,13 @@ namespace StarSwarm.Project.Ships.Enemies.SpaceCrab
         public float DistanceFromTargetMin = 200f;
         [Export]
         public float DistanceFromObstaclesMin = 200f;
-        [Export(PropertyHint.Layers2dPhysics)]
+        [Export(PropertyHint.Layers2DPhysics)]
         public Int64 ProjectileMask = 0;
 
         private float _health;
 
         public AudioManager2D AudioManager2D { get; set; } = default!;
-        public VisibilityNotifier2D VisibilityNotifier { get; set; } = default!;
+        public VisibleOnScreenNotifier2D VisibleOnScreenNotifier3D { get; set; } = default!;
         public StateMachine StateMachine = default!;
         public Events Events = default!;
         public ObjectRegistry ObjectRegistry = default!;
@@ -59,14 +59,14 @@ namespace StarSwarm.Project.Ships.Enemies.SpaceCrab
         {
             StateMachine = GetNode<StateMachine>("StateMachine");
 
-            VisibilityNotifier = GetNode<VisibilityNotifier2D>("VisibilityNotifier");
-            VisibilityNotifier.Connect("screen_exited", this, "OnScreenExited");
+            VisibleOnScreenNotifier3D = GetNode<VisibleOnScreenNotifier2D>("VisibleOnScreenNotifier3D");
+            VisibleOnScreenNotifier3D.Connect("screen_exited", new Callable(this, "OnScreenExited"));
 
             Agent.LinearAccelerationMax = AccelerationMax;
             Agent.LinearSpeedMax = LinearSpeedMax;
 
-            Agent.AngularAccelerationMax = Mathf.Deg2Rad(AngularAccelerationMax);
-            Agent.AngularSpeedMax = Mathf.Deg2Rad(AngularSpeedMax);
+            Agent.AngularAccelerationMax = Mathf.DegToRad(AngularAccelerationMax);
+            Agent.AngularSpeedMax = Mathf.DegToRad(AngularSpeedMax);
 
             Agent.LinearDragPercentage = DragFactor;
             Agent.AngularDragPercentage = AngularDragFactor;
@@ -74,17 +74,17 @@ namespace StarSwarm.Project.Ships.Enemies.SpaceCrab
             AudioManager2D = GetNode<AudioManager2D>("/root/AudioManager2D");
             ObjectRegistry = GetNode<ObjectRegistry>("/root/ObjectRegistry");
             Events = GetNode<Events>("/root/Events");
-            Events.Connect("Damaged", this, "OnDamaged");
+            Events.Connect("Damaged", new Callable(this, "OnDamaged"));
 
             var AggroArea = GetNode<Area2D>("AggroArea");
-            AggroArea.Connect("body_entered", this, "OnBodyEnteredAggroRadius");
+            AggroArea.Connect("body_entered", new Callable(this, "OnBodyEnteredAggroRadius"));
 
             var MeleeRange = GetNode<Area2D>("MeleeRange");
-            MeleeRange.Connect("body_entered", this, "OnBodyEnteredMeleeRange");
-            MeleeRange.Connect("body_exited", this, "OnBodyExitedMeleeRange");
+            MeleeRange.Connect("body_entered", new Callable(this, "OnBodyEnteredMeleeRange"));
+            MeleeRange.Connect("body_exited", new Callable(this, "OnBodyExitedMeleeRange"));
         }
 
-        public override void _PhysicsProcess(float delta)
+        public override void _PhysicsProcess(double delta)
         {
             if (_meleeTarget != null)
             {
@@ -94,7 +94,7 @@ namespace StarSwarm.Project.Ships.Enemies.SpaceCrab
 
         public void OnBodyEnteredAggroRadius(PhysicsBody2D collider)
         {
-            StateMachine.TransitionTo("Attack", new Dictionary<String, Godot.Object> { ["target"] = collider });
+            StateMachine.TransitionTo("Attack", new Dictionary<String, GodotObject> { ["target"] = collider });
         }
 
         public void OnBodyEnteredMeleeRange(PhysicsBody2D playerBody)
@@ -126,7 +126,7 @@ namespace StarSwarm.Project.Ships.Enemies.SpaceCrab
 
         private void Die()
         {
-            var effect = (Node2D)DisintegrateEffect.Instance();
+            var effect = (Node2D)DisintegrateEffect.Instantiate();
             effect.GlobalPosition = GlobalPosition;
             effect.GlobalRotation = GlobalRotation;
             ObjectRegistry.RegisterEffect(effect);

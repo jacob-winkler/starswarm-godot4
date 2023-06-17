@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/Thrust_Start.wav-14f0350f9239b8b37fb4612ad62e5aee.sample"
+type="AudioStreamWAV"
+uid="uid://61gv325d8ojl"
+path="res://.godot/imported/Thrust_Start.wav-14f0350f9239b8b37fb4612ad62e5aee.sample"
 
 [deps]
 
 source_file="res://Assets/Ships/PlayerShip/Thrust_Start.wav"
-dest_files=[ "res://.import/Thrust_Start.wav-14f0350f9239b8b37fb4612ad62e5aee.sample" ]
+dest_files=["res://.godot/imported/Thrust_Start.wav-14f0350f9239b8b37fb4612ad62e5aee.sample"]
 
 [params]
 
