@@ -2,8 +2,6 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StarSwarm.Project.Ships
 {
@@ -16,10 +14,10 @@ namespace StarSwarm.Project.Ships
 	/// Each stat should be a floating point value, and we recommend to make them private properties, as
 	/// they should be read-only. To get a stat's calculated value, with modifiers, see `get_stat()`.
 	/// </summary>
-	public class Stats : Resource
+	public partial class Stats : Resource
 	{
 		[Signal]
-		public delegate void StatChanged(String statName, float oldValue, float newValue);
+		public delegate void StatChangedEventHandler(String statName, float oldValue, float newValue);
 
 		// Stores a cached array of property names that are stats as strings, that we use to find and
 		// calculate the stats with upgrades from the base stats.
@@ -87,7 +85,7 @@ namespace StarSwarm.Project.Ships
 
 		public void Update(String statName = "")
         {
-            float valueStart = Convert.ToSingle(Get(_statsList[statName]));
+            float valueStart = Get(_statsList[statName]).AsSingle();
 			var value = valueStart;
 			foreach (var modifier in _modifiers[statName])
 				value += modifier;
@@ -119,10 +117,10 @@ namespace StarSwarm.Project.Ships
 			{
 				if (property["name"].ToString()[0].ToString().Capitalize() == property["name"].ToString()[0].ToString())
 					continue;
-				if (ignore.Contains(property["name"]))
+				if (ignore.Contains(property["name"].ToString()))
 					continue;
 
-				stats[property["name"].ToString().LStrip("_")] = property["name"].ToString();
+				stats[property["name"].ToString().TrimStart('_')] = property["name"].ToString();
 			}
 
 			return stats;

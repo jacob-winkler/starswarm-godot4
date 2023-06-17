@@ -3,16 +3,17 @@ using StarSwarm.Project.Autoload;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using static Godot.Tween;
 
 namespace StarSwarm.Project.Weapons.LightningRod
 {
-    public class LightningBolt : Node2D
+    public partial class LightningBolt : Node2D
     {
         [Signal]
-        public delegate void BounceTriggered(LightningBolt bolt, PhysicsBody2D target);
+        public delegate void BounceTriggeredEventHandler(LightningBolt bolt, PhysicsBody2D target);
 
         [Export]
-        public List<Texture> AnimationFrames { get; set; } = default!;
+        public Godot.Collections.Array<Texture2D> AnimationFrames { get; set; } = default!;
 
         public float Damage { get; set; }
 
@@ -24,7 +25,6 @@ namespace StarSwarm.Project.Weapons.LightningRod
         public Events Events { get; set; } = default!;
         public AnimationPlayer AnimationPlayer { get; set; } = default!;
         public Line2D BoltLine { get; set; } = default!;
-        public Tween Tween { get; set; } = default!;
         public Area2D BounceArea { get; set; } = default!;
         public Timer BounceTimer { get; set; } = default!;
         public float BounceCount { get; set; } = 1f;
@@ -40,11 +40,10 @@ namespace StarSwarm.Project.Weapons.LightningRod
             Events = GetNode<Events>("/root/Events");
             AnimationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
             BoltLine = GetNode<Line2D>("BoltLine");
-            Tween = GetNode<Tween>("Tween");
             BounceArea = GetNode<Area2D>("BounceArea");
             BounceTimer = GetNode<Timer>("BounceTimer");
 
-            BounceTimer.Connect("timeout", this, "OnBounceTimeout");
+            BounceTimer.Connect("timeout", new Callable(this, "OnBounceTimeout"));
             BounceTimer.Start();
 
             BoltLine.TextureMode = Line2D.LineTextureMode.Tile;
@@ -53,19 +52,15 @@ namespace StarSwarm.Project.Weapons.LightningRod
             AudioManager.Play(KnownAudioStream2Ds.LightningRod, Target.GlobalPosition);
             AnimationPlayer.Play("ChainLightning");
 
-            Tween.Connect("tween_completed", this, "OnTweenCompleted");
-            Tween.InterpolateProperty(
-                BoltLine,
-                "modulate",
-                BoltLine.Modulate,
-                Colors.Transparent,
-                _lifeTimeDuration,
-                Tween.TransitionType.Linear,
-                Tween.EaseType.Out);
-            Tween.Start();
+            var tween = CreateTween();
+            tween.TweenProperty(BoltLine, "modulate", Colors.Transparent, _lifeTimeDuration)
+                .SetEase(EaseType.Out)
+                .SetTrans(TransitionType.Linear)
+                .Connect("finished", new Callable(this, "OnTweenCompleted"));
+            tween.Play();
         }
 
-        public override void _Process(Single delta)
+        public override void _Process(double delta)
         {
             UpdatePoints();
             BoltLine.Points = _points.ToArray();
@@ -112,7 +107,7 @@ namespace StarSwarm.Project.Weapons.LightningRod
                 EmitSignal("BounceTriggered", this, target);
         }
 
-        private void OnTweenCompleted(Godot.Object incomingObject, NodePath key)
+        private void OnTweenCompleted()
         {
             QueueFree();
         }

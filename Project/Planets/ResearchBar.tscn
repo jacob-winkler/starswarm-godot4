@@ -11,7 +11,7 @@ ProgressBar/styles/fg = SubResource( 1 )
 [node name="ResearchBar" type="ProgressBar"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = -780.0
-margin_bottom = -526.0
+offset_right = -780.0
+offset_bottom = -526.0
 theme = SubResource( 2 )
 script = ExtResource( 1 )

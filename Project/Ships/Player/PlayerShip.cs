@@ -5,7 +5,7 @@ using StarSwarm.Project.GSAI_Framework;
 using StarSwarm.Project.Ships.Player;
 using StarSwarm.Project.Ships.Player.States;
 
-public class PlayerShip : KinematicBody2D
+public partial class PlayerShip : CharacterBody2D
 {
 	[Export]
 	public PackedScene PackedDisintegrateEffect { get; set; } = default!;
@@ -14,12 +14,12 @@ public class PlayerShip : KinematicBody2D
 	public StatsShip Stats { get; set; } = default!;
 
 	[Signal]
-	public delegate void Died();
+	public delegate void DiedEventHandler();
 
     public AudioManager AudioManager { get; set; } = default!;
     public ObjectRegistry ObjectRegistry { get; set; } = default!;
 	public Events Events { get; set; } = default!;
-	public CollisionPolygon2D Shape { get; set; } = default!;
+	public CollisionPolygon2D Shape3D { get; set; } = default!;
 	public GSAISteeringAgent Agent { get; set; } = default!;
 	public RemoteTransform2D CameraTransform { get; set; } = default!;
 	public Move MoveState { get; set; } = default!;
@@ -32,16 +32,15 @@ public class PlayerShip : KinematicBody2D
 		AudioManager = GetNode<AudioManager>("/root/AudioManager");
 		ObjectRegistry = GetNode<ObjectRegistry>("/root/ObjectRegistry");
 		Events = GetNode<Events>("/root/Events");
-		Shape = GetNode<CollisionPolygon2D>("CollisionShape");
+		Shape3D = GetNode<CollisionPolygon2D>("CollisionShape3D");
 		Agent = GetNode<Move>("StateMachine/Move").Agent;
 		CameraTransform = GetNode<RemoteTransform2D>("CameraTransform");
 		MoveState = GetNode<Move>("StateMachine/Move");
 		Vfx = GetNode<VFX>("VFX");
 
-        Events.Connect("Damaged", this, "OnDamaged");
-		Events.Connect("UpgradeChosen", this, "OnUpgradeChosen");
-		Stats.Connect("HealthDepleted", this, "Die");
-		Stats.Initialize();
+        Events.Connect("Damaged", new Callable(this, "OnDamaged"));
+		Events.Connect("UpgradeChosen", new Callable(this, "OnUpgradeChosen"));
+		Stats.Connect("HealthDepleted", new Callable(this, "Die"));
 	}
 
 	public void Die()
@@ -52,17 +51,17 @@ public class PlayerShip : KinematicBody2D
 		_isDead = true;
 		EmitSignal("Died");
 
-		var playerSprite = GetNode<Sprite>("Sprite");
+		var playerSprite = GetNode<Sprite2D>("Sprite2D");
 		playerSprite.Visible = false;
 
-        AudioManager.Play(KnownAudioStreams.PlayerDeath, PauseModeEnum.Process);
-        var effect = PackedDisintegrateEffect.Instance<DisintegrateEffect>();
+        AudioManager.Play(KnownAudioStreams.PlayerDeath, ProcessModeEnum.Always);
+        var effect = PackedDisintegrateEffect.Instantiate<DisintegrateEffect>();
 		effect.Texture = playerSprite.Texture;
 		effect.Speed = 0.01f;
 		effect.ZIndex = 100;
 		effect.GlobalPosition = GlobalPosition;
 		effect.GlobalRotation = GlobalRotation;
-		effect.PauseMode = PauseModeEnum.Process;
+		effect.ProcessMode = ProcessModeEnum.Always;
 		ObjectRegistry.RegisterEffect(effect);
 	}
 

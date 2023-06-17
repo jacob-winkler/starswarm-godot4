@@ -1,4 +1,4 @@
-﻿using Godot;
+using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,25 +7,28 @@ using System.Threading.Tasks;
 
 namespace StarSwarm.Project.Ships.Player
 {
-    public class StatsShip : Stats
+    public partial class StatsShip : Stats
     {
         [Signal]
-        public delegate void HealthDepleted();
+        public delegate void HealthDepletedEventHandler();
         [Signal]
-        public delegate void MaxHealthUpdated();
+        public delegate void MaxHealthUpdatedEventHandler();
 
         [Export]
-        private readonly float _maxHealth = 10000F;
+        private float _maxHealth = 10000F;
         [Export]
-        private readonly float _accelerationMax = 15.0F;
+        private float _accelerationMax = 15.0F;
         [Export]
-        private readonly float _linearSpeedMax = 350.0F;
+        private float _linearSpeedMax = 350.0F;
         [Export]
-        private readonly float _angularSpeedMax = 120.0F;
+        private float _angularSpeedMax = 120.0F;
         [Export]
-        private readonly float _angularAccelerationMax = 45.0F;
-
+        private float _angularAccelerationMax = 45.0F;
+        [Export]
         private float _health;
+
+        public String TestProperty { get; set; }
+
         public float Health { get { return _health; }  set {
                 _health = Mathf.Clamp(value, 0.0F, _maxHealth);
                 if (Mathf.IsEqualApprox(Health, 0.0F))

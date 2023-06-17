@@ -1,4 +1,4 @@
-﻿using Godot;
+using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace StarSwarm.Project.UI
 {
-    public class ScreenFader : TextureRect
+    public partial class ScreenFader : TextureRect
     {
         [Signal]
-        public delegate void AnimationFinished();
+        public delegate void AnimationFinishedEventHandler();
 
         [Export]
         public float DurationFadeIn = 0.5f;
@@ -18,30 +18,19 @@ namespace StarSwarm.Project.UI
         public float DurationFadeOut = 2.5f;
 
         public bool IsPlaying;
-        public Tween Tween = default!;
-
-        public override void _Ready()
-        {
-            Tween = GetNode<Tween>("Tween");
-            Tween.Connect("tween_completed", this, "OnTweenCompleted");
-        }
 
         /// <summary>
         /// Animate from the current modulate color until the node is fully transparent.
         /// </summary>
         public void FadeIn()
         {
-            Tween.InterpolateProperty(
-                this,
-                "modulate",
-                Modulate,
-                Colors.Transparent,
-                DurationFadeIn,
-                Tween.TransitionType.Linear,
-                Tween.EaseType.Out
-            );
+            var tween = CreateTween();
+            tween.TweenProperty(this, "modulate", Colors.Transparent, DurationFadeIn)
+                .SetEase(Tween.EaseType.Out)
+                .SetTrans(Tween.TransitionType.Linear)
+                .Connect("finished", new Callable(this, "OnTweenCompleted"));
             Show();
-            Tween.Start();
+            tween.Play();
             IsPlaying = true;
         }
 
@@ -50,22 +39,18 @@ namespace StarSwarm.Project.UI
         /// </summary>
         public void FadeOut(bool isDelayed = false)
         {
-            Tween.InterpolateProperty(
-                this,
-                "modulate",
-                Modulate,
-                Colors.White,
-                DurationFadeOut,
-                Tween.TransitionType.Linear,
-                Tween.EaseType.Out,
-                isDelayed ? DurationFadeOut : 0.0f
-            );
+            var tween = CreateTween();
+            tween.TweenInterval(isDelayed ? DurationFadeOut : 0.0f);
+            tween.TweenProperty(this, "modulate", Colors.White, DurationFadeOut)
+                .SetEase(Tween.EaseType.Out)
+                .SetTrans(Tween.TransitionType.Linear)
+                .Connect("finished", new Callable(this, "OnTweenCompleted"));
             Show();
-            Tween.Start();
+            tween.Play();
             IsPlaying = true;
         }
 
-        public void OnTweenCompleted(Godot.Object incomingObject, NodePath key)
+        public void OnTweenCompleted()
         {
             EmitSignal("AnimationFinished");
             if (Modulate == Colors.Transparent)

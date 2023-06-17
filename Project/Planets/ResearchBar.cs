@@ -1,10 +1,10 @@
 using Godot;
 using System;
 
-public class ResearchBar : ProgressBar
+public partial class ResearchBar : ProgressBar
 {
     [Signal]
-    public delegate void ResearchFinished();
+    public delegate void ResearchFinishedEventHandler();
     private Boolean _researching = false;
 
     // Called when the node enters the scene tree for the first time.
@@ -21,7 +21,7 @@ public class ResearchBar : ProgressBar
         _researching = true;
     }
 
-    public override void _Process(float delta)
+    public override void _Process(double delta)
     {
         if (_researching)
         {

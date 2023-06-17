@@ -1,4 +1,4 @@
-﻿using Godot;
+using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,25 +25,25 @@ namespace StarSwarm.Project.Utils
             var b = vertices[1];
             var c = vertices[2];
 
-            var A = b.x - a.x;
-            var B = b.y - a.y;
-            var C = c.x - a.x;
-            var D = c.y - a.y;
-            var E = A * (a.x + b.x) + B * (a.y + b.y);
-            var F = C * (a.x + c.x) + D * (a.y + c.y);
-            var G = 2 * (A * (c.y - b.y) - B * (c.x - b.x));
+            var A = b.X - a.X;
+            var B = b.Y - a.Y;
+            var C = c.X - a.X;
+            var D = c.Y - a.Y;
+            var E = A * (a.X + b.X) + B * (a.Y + b.Y);
+            var F = C * (a.X + c.X) + D * (a.Y + c.Y);
+            var G = 2 * (A * (c.Y - b.Y) - B * (c.X - b.X));
             float dx;
             float dy;
 
             if (Mathf.Abs(G) < 0.000001f)
             {
-                dx = (Mathf.Max(a.x, Mathf.Max(b.x, c.x))) * 0.5f;
-                dy = (Mathf.Max(a.y, Mathf.Max(b.y, c.y))) * 0.5f;
+                dx = (Mathf.Max(a.X, Mathf.Max(b.X, c.X))) * 0.5f;
+                dy = (Mathf.Max(a.Y, Mathf.Max(b.Y, c.Y))) * 0.5f;
             }
             else
             {
-                dx = ((D * E - B * F) / G) - a.x;
-                dy = ((A * F - C * E) / G) - a.y;
+                dx = ((D * E - B * F) / G) - a.X;
+                dy = ((A * F - C * E) / G) - a.Y;
             }
 
             return Mathf.Sqrt(dx * dx + dy * dy);

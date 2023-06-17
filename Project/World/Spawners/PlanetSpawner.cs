@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace StarSwarm.World.Spawners
 {
-    public class PlanetSpawner : Spawner
+    public partial class PlanetSpawner : Spawner
     {
         [Export]
         public PackedScene Planet { get; set; } = default!;
@@ -54,8 +54,8 @@ namespace StarSwarm.World.Spawners
 
         private void SpawnRandomPlanet(Vector2 position)
         {
-            var spriteInstance = (Control)_planetSkins[_rng.RandiRange(0, _planetSkins.Count - 1)].Instance();
-            var newPlanetInstance = (Planet)Planet.Instance();
+            var spriteInstance = (Control)_planetSkins[_rng.RandiRange(0, _planetSkins.Count - 1)].Instantiate();
+            var newPlanetInstance = (Planet)Planet.Instantiate();
 
             newPlanetInstance.Position = position + new Vector2(-50, -50);
             AddChild(newPlanetInstance);

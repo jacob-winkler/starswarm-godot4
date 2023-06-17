@@ -1,10 +1,10 @@
-﻿using Godot;
+using Godot;
 using StarSwarm.Project.GSAI_Framework.Agents;
 using StarSwarm.Project.Utils;
 
 namespace StarSwarm.Project.Ships.Player.States
 {
-    public class Move : PlayerState
+    public partial class Move : PlayerState
     {
         [Export]
         public float DragLinearCoefficient = 0.05F;
@@ -25,14 +25,14 @@ namespace StarSwarm.Project.Ships.Player.States
 
         public GSAIKinematicBody2DAgent Agent { get; set; } = null!;
 
-        public override async void _Ready()
+        public override void _Ready()
         {
             base._Ready();
             
             Agent = new GSAIKinematicBody2DAgent();
-            Agent.Initialize((KinematicBody2D)Owner);
+            Agent.Initialize((CharacterBody2D)Owner);
 
-            await ToSignal(Owner, "ready");
+            Ship.Stats.Initialize();
 
             AccelerationMax = Ship.Stats.GetAccelerationMax();
             LinearSpeedMax = Ship.Stats.GetLinearSpeedMax();
@@ -41,22 +41,23 @@ namespace StarSwarm.Project.Ships.Player.States
 
             Agent.LinearAccelerationMax = AccelerationMax * ReverseMultiplier;
             Agent.LinearSpeedMax = LinearSpeedMax;
-            Agent.AngularAccelerationMax = Mathf.Deg2Rad(AngularAccelerationMax);
-            Agent.AngularSpeedMax = Mathf.Deg2Rad(AngularSpeedMax);
+            Agent.AngularAccelerationMax = Mathf.DegToRad(AngularAccelerationMax);
+            Agent.AngularSpeedMax = Mathf.DegToRad(AngularSpeedMax);
             //Agent.BoundingRadius = MathUtils.GetTriangleCircumcircleRadius(Ship.Shape.Polygon);
         }
 
-        public override void PhysicsProcess(float delta)
+        public override void PhysicsProcess(double delta)
         {
             LinearVelocity = LinearVelocity.LimitLength(LinearSpeedMax);
-            LinearVelocity = LinearVelocity.LinearInterpolate(Vector2.Zero, DragLinearCoefficient);
+            LinearVelocity = LinearVelocity.Lerp(Vector2.Zero, DragLinearCoefficient);
 
             AngularVelocity = Mathf.Clamp(AngularVelocity, -Agent.AngularSpeedMax, Agent.AngularSpeedMax);
             AngularVelocity = Mathf.Lerp(AngularVelocity, 0, DragAngularCoeff);
 
-            LinearVelocity = Ship.MoveAndSlide(LinearVelocity);
-            Ship.Rotation += AngularVelocity * delta;
-            Ship.Vfx.MakeTrail(LinearVelocity.Length());
+            Ship.Velocity = LinearVelocity;
+            Ship.MoveAndSlide();
+            Ship.Rotation += AngularVelocity * (float)delta;
+            Ship.Vfx.MakeTrail(Ship.Velocity.Length());
         }
     }
 }

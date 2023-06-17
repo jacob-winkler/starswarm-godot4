@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/game_over.wav-fc049c10d24ddaa1b96b6caefbc6037b.sample"
+type="AudioStreamWAV"
+uid="uid://cnqceumdnkft0"
+path="res://.godot/imported/game_over.wav-fc049c10d24ddaa1b96b6caefbc6037b.sample"
 
 [deps]
 
 source_file="res://Assets/Ships/PlayerShip/game_over.wav"
-dest_files=[ "res://.import/game_over.wav-fc049c10d24ddaa1b96b6caefbc6037b.sample" ]
+dest_files=["res://.godot/imported/game_over.wav-fc049c10d24ddaa1b96b6caefbc6037b.sample"]
 
 [params]
 

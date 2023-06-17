@@ -1,10 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=6 format=3 uid="uid://djx887kkmmbw6"]
 
-[ext_resource path="res://Assets/Ships/Enemies/SpaceCrab/SpaceCrab_small.svg" type="Texture" id=1]
-[ext_resource path="res://Assets/VFX/PixelNoise.png" type="Texture" id=2]
-[ext_resource path="res://Project/VFX/DisintegrateEffect.cs" type="Script" id=3]
+[ext_resource type="Texture2D" uid="uid://oyw64ydfhcf8" path="res://Assets/Ships/Enemies/SpaceCrab/SpaceCrab_small.svg" id="1"]
+[ext_resource type="Texture2D" uid="uid://ije0cndbmxau" path="res://Assets/VFX/PixelNoise.png" id="2"]
+[ext_resource type="Script" path="res://Project/VFX/DisintegrateEffect.cs" id="3"]
 
-[sub_resource type="Shader" id=1]
+[sub_resource type="Shader" id="1"]
 code = "shader_type canvas_item;
 
 uniform float value : hint_range(0,1);
@@ -25,13 +25,13 @@ void fragment()
 	}
 }"
 
-[sub_resource type="ShaderMaterial" id=2]
+[sub_resource type="ShaderMaterial" id="2"]
 resource_local_to_scene = true
-shader = SubResource( 1 )
-shader_param/value = 1.0
-shader_param/noise_texture = ExtResource( 2 )
+shader = SubResource("1")
+shader_parameter/value = 1.0
+shader_parameter/noise_texture = ExtResource("2")
 
-[node name="DisintegrateEffect" type="Sprite"]
-material = SubResource( 2 )
-texture = ExtResource( 1 )
-script = ExtResource( 3 )
+[node name="DisintegrateEffect" type="Sprite2D"]
+material = SubResource("2")
+texture = ExtResource("1")
+script = ExtResource("3")

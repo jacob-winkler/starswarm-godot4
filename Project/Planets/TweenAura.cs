@@ -1,8 +1,10 @@
 using Godot;
+using System;
+using static Godot.Tween;
 
 namespace StarSwarm.Project.Planets
 {
-    public class TweenAura : Tween
+    public partial class TweenAura : Node
     {
         [Export]
         public Vector2 ScaleHidden { get; set; } = Vector2.Zero;
@@ -13,43 +15,51 @@ namespace StarSwarm.Project.Planets
         [Export]
         public float DurationDisappear { get; set; } = 0.5f;
 
-        // Called when the node enters the scene tree for the first time.
-        public override void _Ready()
-        {
+        private Tween? AuraTween { get; set; }
 
-        }
-
-        public void MakeAppear(Sprite aura)
+        public void MakeAppear(Sprite2D aura)
         {
-            if (IsActive())
-                return;
+            if (AuraTween != null)
+                AuraTween.Kill();
 
             if (aura.Visible)
                 return;
 
-            InterpolateProperty(
-                aura, "scale", aura.Scale, ScaleFinal, DurationAppear, TransitionType.Elastic, EaseType.Out
-            );
+            AuraTween = CreateTween();
+
+            AuraTween.TweenProperty(aura, "scale", ScaleFinal, DurationAppear)
+                .SetTrans(TransitionType.Elastic)
+                .SetEase(EaseType.Out);
 
             aura.Visible = true;
-            Start();
+            AuraTween.Play();
         }
 
-        public async void MakeDisappear(Sprite aura)
+        public async void MakeDisappear(Sprite2D aura)
         {
-            if (IsActive())
-                return;
+            if (AuraTween != null)
+                AuraTween.Kill();
 
             if (!aura.Visible)
                 return;
 
-            InterpolateProperty(
-                aura, "scale", aura.Scale, ScaleHidden, DurationDisappear, TransitionType.Back, EaseType.In
-            );
+            AuraTween = CreateTween();
 
-            Start();
-            await ToSignal(this, "tween_completed");
+            AuraTween.TweenProperty(aura, "scale", ScaleHidden, DurationDisappear)
+                .SetTrans(TransitionType.Back)
+                .SetEase(EaseType.In);
+
+            AuraTween.Play();
+            await ToSignal(AuraTween, "finished");
             aura.Visible = false;
+        }
+
+        public Boolean IsRunning() { return AuraTween  == null ? false : AuraTween.IsRunning();}
+
+        public void Pause() 
+        {
+            if (AuraTween != null)
+                AuraTween.Kill();
         }
     }
 }

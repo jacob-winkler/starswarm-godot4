@@ -3,7 +3,7 @@ using System;
 
 namespace StarSwarm.Project.Weapons.LaserBeam
 {
-    public class LaserBeamAttachment : WeaponAttachment
+    public partial class LaserBeamAttachment : WeaponAttachment
     {
         public LaserBeam LaserBeam { get; set; } = default!;
 

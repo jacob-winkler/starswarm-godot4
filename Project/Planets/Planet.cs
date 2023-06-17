@@ -6,18 +6,18 @@ using StarSwarm.Project.UI.PlayerHUD;
 
 namespace StarSwarm.Project.Planets
 {
-    public class Planet : Node2D
+    public partial class Planet : Node2D
     {
         public AudioManager AudioManager { get; set; } = default!;
         public AudioManager2D AudioManager2D { get; set; } = default!;
         public TweenAura Tween { get; set; } = default!;
-        public Sprite PlanetAura { get; set; } = default!;
-        public Sprite UpgradeIcon { get; set; } = default!;
+        public Sprite2D PlanetAura { get; set; } = default!;
+        public Sprite2D UpgradeIcon { get; set; } = default!;
         public Area2D ActivateResearchArea { get; set; } = default!;
         public ResearchBar ResearchBar { get; set; } = default!;
         public OffScreenMarker Marker { get; set; } = default!;
         public WeaponAttachment? Weapon { get; set; } = default!;
-        public Control Sprite { get; set; } = default!;
+        public Control Sprite2D { get; set; } = default!;
 
         private float _researchTime = 5;
         private PlayerShip _playerShip { get; set; } = default!;
@@ -31,15 +31,15 @@ namespace StarSwarm.Project.Planets
             AudioManager = GetNode<AudioManager>("/root/AudioManager");
             AudioManager2D = GetNode<AudioManager2D>("/root/AudioManager2D");
             Tween = GetNode<TweenAura>("TweenAura");
-            PlanetAura = GetNode<Sprite>("PlanetAura");
-            UpgradeIcon = GetNode<Sprite>("UpgradeIcon");
+            PlanetAura = GetNode<Sprite2D>("PlanetAura");
+            UpgradeIcon = GetNode<Sprite2D>("UpgradeIcon");
             ActivateResearchArea = GetNode<Area2D>("ActivateResearchArea");
             ResearchBar = GetNode<ResearchBar>("ResearchBar");
             Marker = GetNode<OffScreenMarker>("OffScreenMarker");
 
-            ActivateResearchArea.Connect("body_entered", this, "OnBodyEnteredActivationRange");
-            ActivateResearchArea.Connect("body_exited", this, "OnBodyExitedActivationRange");
-            ResearchBar.Connect("ResearchFinished", this, "OnResearchFinished");
+            ActivateResearchArea.Connect("body_entered", new Callable(this, "OnBodyEnteredActivationRange"));
+            ActivateResearchArea.Connect("body_exited", new Callable(this, "OnBodyExitedActivationRange"));
+            ResearchBar.Connect("ResearchFinished", new Callable(this, "OnResearchFinished"));
 
             _weaponAttachments = new List<PackedScene>() {
                 GD.Load("res://Project/Weapons/LightningRod/LightningRodAttachment.tscn") as PackedScene ?? throw new NullReferenceException(),
@@ -48,7 +48,7 @@ namespace StarSwarm.Project.Planets
             };
         }
 
-        public override void _Process(float delta)
+        public override void _Process(double delta)
         {
             Marker.TargetPosition = _playerShip.GlobalPosition;
         }
@@ -70,8 +70,8 @@ namespace StarSwarm.Project.Planets
         public void Initialize(Control spriteInstance, PlayerShip playerShip, RandomNumberGenerator rng)
         {
             _rng = rng;
-            Sprite = spriteInstance;
-            spriteInstance.RectPosition = Position - GlobalPosition;
+            Sprite2D = spriteInstance;
+            spriteInstance.Position = Position - GlobalPosition;
 
             _playerShip = playerShip;
 
@@ -97,8 +97,8 @@ namespace StarSwarm.Project.Planets
             {
                 _activatable = true;
 
-                if(Tween.IsActive())
-                    Tween.StopAll();
+                if(Tween.IsRunning())
+                    Tween.Pause();
                 Tween.MakeAppear(PlanetAura);
             }
         }
@@ -109,15 +109,15 @@ namespace StarSwarm.Project.Planets
             {
                 _activatable = false;
 
-                if(Tween.IsActive())
-                    Tween.StopAll();
+                if(Tween.IsRunning())
+                    Tween.Pause();
                 Tween.MakeDisappear(PlanetAura);
             }
         }
 
         private void RefreshHousedUpgrade()
         {
-            Weapon = (WeaponAttachment)_weaponAttachments[_rng.RandiRange(0, _weaponAttachments.Count - 1)].Instance();
+            Weapon = (WeaponAttachment)_weaponAttachments[_rng.RandiRange(0, _weaponAttachments.Count - 1)].Instantiate();
             if (Weapon?.SmallIcon != null)
             {
                 Marker.SetIconTexture(Weapon.SmallIcon);

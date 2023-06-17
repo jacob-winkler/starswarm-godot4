@@ -1,4 +1,4 @@
-﻿using Godot;
+using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace StarSwarm.Project.Ships.Player
 {
-    public class StatsGun : Stats
+    public partial class StatsGun : Stats
     {
         [Export]
         private float _damage = 4.0F;

@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace StarSwarm.Project.GSAI_Framework.Agents
 {
-	public class GSAIKinematicBody2DAgent : GSAISpecializedAgent
+	public partial class GSAIKinematicBody2DAgent : GSAISpecializedAgent
 	{
-		protected KinematicBody2D body = default!;
+		protected CharacterBody2D body = default!;
 		protected KnownMovementType MovementType { get; set; }
 
 		private Vector2 _lastPosition { get; set; } = default!;
 		private WeakRef _bodyRef { get; set; } = default!;
-		public KinematicBody2D Body
+		public CharacterBody2D Body
 		{
 			set
 			{
@@ -34,7 +34,7 @@ namespace StarSwarm.Project.GSAI_Framework.Agents
 		public GSAIKinematicBody2DAgent()
 		{ }
 
-		public async void Initialize(KinematicBody2D body,
+		public async void Initialize(CharacterBody2D body,
 			KnownMovementType movementType = KnownMovementType.Slide)
 		{
 			if(!body.IsInsideTree())
@@ -43,10 +43,10 @@ namespace StarSwarm.Project.GSAI_Framework.Agents
 			_bodyRef = WeakRef(body);
 			MovementType = movementType;
 
-			body.GetTree().Connect("physics_frame", this, "OnSceneTreePhysicsFrame");
+			body.GetTree().Connect("physics_frame", new Callable(this, "OnSceneTreePhysicsFrame"));
 		}
 
-		public override void ApplySteering(GSAITargetAcceleration acceleration, float delta)
+		public override void ApplySteering(GSAITargetAcceleration acceleration, double delta)
 		{
 			_appliedSteering = true;
 			switch(MovementType)
@@ -65,57 +65,60 @@ namespace StarSwarm.Project.GSAI_Framework.Agents
 			ApplyOrientationSteering(acceleration.Angular, delta);
 		}
 
-		public void ApplySlidingSteering(Vector3 accel, float delta)
+		public void ApplySlidingSteering(Vector3 accel, double delta)
 		{
-			KinematicBody2D body = (KinematicBody2D)_bodyRef.GetRef();
+			CharacterBody2D body = (CharacterBody2D)_bodyRef.GetRef();
 			if (body == null)
 				return;
 
-			var velocity = GSAIUtils.ToVector2(LinearVelocity + accel * delta).Clamped(LinearSpeedMax);
+			var velocity = GSAIUtils.ToVector2(LinearVelocity + accel * (float)delta).LimitLength(LinearSpeedMax);
 			if(ApplyLinearDrag)
-				velocity = velocity.LinearInterpolate(Vector2.Zero, LinearDragPercentage);
-			velocity = body.MoveAndSlide(velocity);
-			if(CalculateVelocities)
-				LinearVelocity = GSAIUtils.ToVector3(velocity);
+				velocity = velocity.Lerp(Vector2.Zero, LinearDragPercentage);
+
+			body.Velocity = velocity;
+			body.MoveAndSlide();
+
+			if (CalculateVelocities)
+				LinearVelocity = GSAIUtils.ToVector3(body.Velocity);
 		}
 
-		public void ApplyCollideSteering(Vector3 accel, float delta)
+		public void ApplyCollideSteering(Vector3 accel, double delta)
 		{
-			KinematicBody2D body = (KinematicBody2D)_bodyRef.GetRef();
+			CharacterBody2D body = (CharacterBody2D)_bodyRef.GetRef();
 			if (body == null)
 				return;
 
-			var velocity = GSAIUtils.ClampedV3(LinearVelocity + accel * delta, LinearSpeedMax);
+			var velocity = GSAIUtils.ClampedV3(LinearVelocity + accel * (float)delta, LinearSpeedMax);
 			if (ApplyLinearDrag)
-				velocity = velocity.LinearInterpolate(Vector3.Zero, LinearDragPercentage);
+				velocity = velocity.Lerp(Vector3.Zero, LinearDragPercentage);
 
-			body.MoveAndCollide(GSAIUtils.ToVector2(velocity) * delta);
+			body.MoveAndCollide(GSAIUtils.ToVector2(velocity) * (float)delta);
 			if (CalculateVelocities)
 				LinearVelocity = velocity;
 		}
 
-		public void ApplyPositionSteering(Vector3 accel, float delta)
+		public void ApplyPositionSteering(Vector3 accel, double delta)
 		{
-			KinematicBody2D body = (KinematicBody2D)_bodyRef.GetRef();
+			CharacterBody2D body = (CharacterBody2D)_bodyRef.GetRef();
 			if (body == null)
 				return;
 
-			var velocity = GSAIUtils.ClampedV3(LinearVelocity + accel * delta, LinearSpeedMax);
+			var velocity = GSAIUtils.ClampedV3(LinearVelocity + accel * (float)delta, LinearSpeedMax);
 			if (ApplyLinearDrag)
-				velocity = velocity.LinearInterpolate(Vector3.Zero, LinearDragPercentage);
+				velocity = velocity.Lerp(Vector3.Zero, LinearDragPercentage);
 
-			body.GlobalPosition += GSAIUtils.ToVector2(velocity) * delta;
+			body.GlobalPosition += GSAIUtils.ToVector2(velocity) * (float)delta;
 			if (CalculateVelocities)
 				LinearVelocity = velocity;
 		}
 
-		public void ApplyOrientationSteering(float angular_acceleration, float delta)
+		public void ApplyOrientationSteering(float angular_acceleration, double delta)
 		{
-			KinematicBody2D body = (KinematicBody2D)_bodyRef.GetRef();
+			CharacterBody2D body = (CharacterBody2D)_bodyRef.GetRef();
 			if (body == null)
 				return;
 
-			var velocity = Mathf.Clamp(
+			var velocity = (float)Mathf.Clamp(
 				AngularVelocity + angular_acceleration * delta,
 				-AngularAccelerationMax,
 				AngularAccelerationMax
@@ -123,7 +126,7 @@ namespace StarSwarm.Project.GSAI_Framework.Agents
 			if (ApplyLinearDrag)
 				velocity = Mathf.Lerp(velocity, 0, AngularDragPercentage);
 
-			body.Rotation += velocity * delta;
+			body.Rotation += velocity * (float)delta;
 			if (CalculateVelocities)
 				AngularVelocity = velocity;
 		}
@@ -131,11 +134,11 @@ namespace StarSwarm.Project.GSAI_Framework.Agents
 		public void OnSceneTreePhysicsFrame()
 		{
 			var body = _bodyRef.GetRef();
-			if(body == null)
+			if(body.VariantType == Variant.Type.Nil)
 				return;
 
-			var currentPosition = ((KinematicBody2D)body).GlobalPosition;
-			var currentOrientation = ((KinematicBody2D)body).Rotation;
+			var currentPosition = ((CharacterBody2D)body).GlobalPosition;
+			var currentOrientation = ((CharacterBody2D)body).Rotation;
 
 			Position = GSAIUtils.ToVector3(currentPosition);
 			Orientation = currentOrientation;
@@ -151,7 +154,7 @@ namespace StarSwarm.Project.GSAI_Framework.Agents
 					);
 					if (ApplyLinearDrag)
 					{
-						LinearVelocity = LinearVelocity.LinearInterpolate(
+						LinearVelocity = LinearVelocity.Lerp(
 							Vector3.Zero, LinearDragPercentage);
 					}
 

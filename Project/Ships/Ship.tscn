@@ -1,12 +1,11 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://dn5o4qavw2yiq"]
 
-[sub_resource type="StreamTexture" id=1]
-load_path = "res://.import/PlayerShip_small.svg-745f0a5066feeea14357df5d635d06a9.stex"
+[sub_resource type="CompressedTexture2D" id="1"]
 
-[node name="Ship" type="KinematicBody2D"]
+[node name="Ship" type="CharacterBody2D"]
 
-[node name="Sprite" type="Sprite" parent="."]
-texture = SubResource( 1 )
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("1")
 
-[node name="CollisionShape" type="CollisionPolygon2D" parent="."]
-polygon = PoolVector2Array( 28, 22, 0, -32, -28, 22 )
+[node name="CollisionShape3D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(28, 22, 0, -32, -28, 22)

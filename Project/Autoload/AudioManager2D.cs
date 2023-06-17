@@ -8,7 +8,7 @@ using StarSwarm.Project.Common;
 namespace StarSwarm.Project.Autoload
 {
     [Tool]
-    public class AudioManager2D : Node2D
+    public partial class AudioManager2D : Node2D
     {
         public void Play(KnownAudioStream2Ds audioStream, Vector2? position = null)
         {
@@ -17,25 +17,27 @@ namespace StarSwarm.Project.Autoload
             audioPlayer.PlayAndDispose();
         }
 
-        public override String _GetConfigurationWarning()
+        public override String[] _GetConfigurationWarnings()
         {
-            var warning = String.Empty;
+            var warning = new List<String>();
             var enumValues = Enum.GetValues(typeof(KnownAudioStream2Ds)).OfType<object>().Select(x => x.ToString());
+            if (enumValues == null)
+                return warning.ToArray();
             
             foreach (var stream in enumValues)
             {
-                var node = GetNode(stream.ToString());
+                var node = GetNode(stream?.ToString());
                 if (node == null)
-                    warning += $"Missing audio node: '{stream}'\n";
+                    warning.Add($"Missing audio node: '{stream}'");
             }
 
             foreach(var child in GetChildren())
             {
-                if(!enumValues.Contains(((Node)child).Name))
-                    warning += $"Missing KnownAudioStream2Ds enum value: '{((Node)child).Name}'\n";
+                if (!enumValues.Contains(child.Name.ToString()))
+                    warning.Add($"Missing KnownAudioStream2Ds enum value: '{child.Name}'");
             }
 
-            return warning.TrimEnd('\n');
+            return warning.ToArray();
         }
 
         private DisposableAudioStreamPlayer GetAudioPlayer(KnownAudioStream2Ds audioStream, Vector2? position)

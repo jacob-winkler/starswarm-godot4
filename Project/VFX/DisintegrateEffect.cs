@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class DisintegrateEffect : Sprite
+public partial class DisintegrateEffect : Sprite2D
 {
     private float _shaderValue = default!;
 
@@ -12,12 +12,12 @@ public class DisintegrateEffect : Sprite
         _shaderValue = 1f;
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         _shaderValue -= Speed;
 
         _shaderValue = Mathf.Clamp(_shaderValue, 0f, 1f);
-        (Material as ShaderMaterial)!.SetShaderParam("value", _shaderValue);
+        (Material as ShaderMaterial)!.SetShaderParameter("value", _shaderValue);
 
         if(_shaderValue == 0)
             QueueFree();

@@ -2,7 +2,7 @@ using Godot;
 
 namespace StarSwarm.Project.GSAI_Framework.Behaviors
 {
-    public class GSAIPursue : GSAISteeringBehavior
+    public partial class GSAIPursue : GSAISteeringBehavior
     {
         public GSAISteeringAgent Target { get; set; } = default!;
         public float PredictTimeMax { get; set; }

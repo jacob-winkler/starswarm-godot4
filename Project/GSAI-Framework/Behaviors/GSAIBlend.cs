@@ -3,7 +3,7 @@ using Godot;
 
 namespace StarSwarm.Project.GSAI_Framework.Behaviors
 {
-    public class GSAIBlend : GSAISteeringBehavior
+    public partial class GSAIBlend : GSAISteeringBehavior
     {
         private List<(GSAISteeringBehavior behavior, float weight)> _behaviors = new List<(GSAISteeringBehavior behavior, float weight)>();
         private GSAITargetAcceleration _accel = new GSAITargetAcceleration();

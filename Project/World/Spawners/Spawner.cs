@@ -6,7 +6,7 @@ using Godot;
 
 namespace StarSwarm.World.Spawners
 {
-    public abstract class Spawner : Node2D
+    public abstract partial class Spawner : Node2D
     {
         protected PlayerShip _playerShip = default!;
     }

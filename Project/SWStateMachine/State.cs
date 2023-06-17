@@ -1,4 +1,4 @@
-﻿using Godot;
+using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +13,7 @@ namespace StarSwarm.Project.SWStateMachine
     /// It's up to the user to call the parent state's functions, e.g. `_parent.physics_process(delta)`
     /// Use State as a child of a StateMachine node.
     /// </summary>
-    public class State : Node
+    public partial class State : Node
     {
         protected StateMachine? _stateMachine;
         protected State? _parent = null;
@@ -28,10 +28,10 @@ namespace StarSwarm.Project.SWStateMachine
         public virtual void UnhandledInput(InputEvent inputEvent)
         { }
 
-        public virtual void PhysicsProcess(float delta)
+        public virtual void PhysicsProcess(double delta)
         { }
 
-        public virtual void Enter(Dictionary<String, Godot.Object>? msg = null)
+        public virtual void Enter(Dictionary<String, GodotObject>? msg = null)
         { }
 
         public virtual void Exit()

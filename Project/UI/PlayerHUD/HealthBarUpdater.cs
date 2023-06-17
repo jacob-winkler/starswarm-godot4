@@ -1,18 +1,18 @@
 using Godot;
 using System;
 
-public class HealthBarUpdater : Control
+public partial class HealthBarUpdater : Control
 {
-    public TextureProgress HealthBar { get; set; } = default!;
+    public TextureProgressBar HealthBar { get; set; } = default!;
     public override void _Ready()
     {
-        HealthBar = GetNode<TextureProgress>("HealthBar");
+        HealthBar = GetNode<TextureProgressBar>("HealthBar");
     }
 
     public void Initialize(PlayerShip player)
     {
-        player.Stats.Connect("StatChanged", this, "OnStatChanged");
-        player.Stats.Connect("MaxHealthUpdated", this, "OnMaxHealthUpdated");
+        player.Stats.Connect("StatChanged", new Callable(this, "OnStatChanged"));
+        player.Stats.Connect("MaxHealthUpdated", new Callable(this, "OnMaxHealthUpdated"));
         HealthBar.MaxValue = player.Stats.GetMaxHealth();
         HealthBar.Value = HealthBar.MaxValue;
     }

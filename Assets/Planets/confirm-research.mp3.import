@@ -2,14 +2,18 @@
 
 importer="mp3"
 type="AudioStreamMP3"
-path="res://.import/confirm-research.mp3-4abd3d7668ccf9646237fbe0583814d5.mp3str"
+uid="uid://b2t3ew5ppg802"
+path="res://.godot/imported/confirm-research.mp3-4abd3d7668ccf9646237fbe0583814d5.mp3str"
 
 [deps]
 
 source_file="res://Assets/Planets/confirm-research.mp3"
-dest_files=[ "res://.import/confirm-research.mp3-4abd3d7668ccf9646237fbe0583814d5.mp3str" ]
+dest_files=["res://.godot/imported/confirm-research.mp3-4abd3d7668ccf9646237fbe0583814d5.mp3str"]
 
 [params]
 
 loop=false
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

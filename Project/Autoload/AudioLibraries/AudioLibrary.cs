@@ -6,7 +6,7 @@ using Godot;
 
 namespace StarSwarm.Project.Autoload.AudioLibraries
 {
-    public class AudioLibrary : Node2D
+    public partial class AudioLibrary : Node2D
     {
         private readonly RandomNumberGenerator _rng = new RandomNumberGenerator();
 

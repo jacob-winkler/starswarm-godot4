@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/complete-research.wav-f50e32aca4aba57bb1e221ccc42d198a.sample"
+type="AudioStreamWAV"
+uid="uid://nrorf63u6072"
+path="res://.godot/imported/complete-research.wav-f50e32aca4aba57bb1e221ccc42d198a.sample"
 
 [deps]
 
 source_file="res://Assets/Planets/complete-research.wav"
-dest_files=[ "res://.import/complete-research.wav-f50e32aca4aba57bb1e221ccc42d198a.sample" ]
+dest_files=["res://.godot/imported/complete-research.wav-f50e32aca4aba57bb1e221ccc42d198a.sample"]
 
 [params]
 
