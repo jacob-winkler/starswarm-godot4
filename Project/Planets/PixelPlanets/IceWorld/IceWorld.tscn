@@ -97,7 +97,9 @@ void fragment() {
 	
 	// give planet a tilt
 	uv = rotate(uv, rotation);
-
+	
+	float d_circle = distance(uv, vec2(0.5));
+	
 //	// map to sphere
 	uv = spherify(uv);
 	
@@ -119,7 +121,7 @@ void fragment() {
 	}
 	
 	float a = step(lake_cutoff, lake);
-	a *= step(distance(vec2(0.5), uv), 0.5);
+	a *= step(d_circle, 0.5);
 	COLOR = vec4(col.rgb, a * col.a);
 }
 "
@@ -167,6 +169,8 @@ layout_mode = 3
 anchors_preset = 15
 offset_right = -412.0
 offset_bottom = -200.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("3")
 
 [node name="PlanetUnder" type="ColorRect" parent="." index="0"]
