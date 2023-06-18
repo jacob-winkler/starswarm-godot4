@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://blshftrctvs4a" path="res://Project/World/ShakingCamera.tscn" id="4"]
 [ext_resource type="Script" path="res://Project/World/GameInitializer.cs" id="5"]
 [ext_resource type="Script" path="res://Project/World/Spawners/PlayerSpawner.cs" id="6"]
-[ext_resource type="PackedScene" path="res://Project/VFX/BackgroundStars.tscn" id="7"]
+[ext_resource type="PackedScene" uid="uid://dt887huwtojkf" path="res://Project/VFX/BackgroundStars.tscn" id="7"]
 [ext_resource type="Script" path="res://Project/World/Spawners/SpaceCrabSpawner.cs" id="8"]
 [ext_resource type="PackedScene" path="res://Project/Ships/Enemies/SpaceCrab/SpaceCrab.tscn" id="9"]
 [ext_resource type="PackedScene" path="res://Project/UI/PlayerHUD/HealthBarUpdater.tscn" id="10"]
@@ -66,8 +66,9 @@ script = ExtResource("5")
 script = ExtResource("2")
 
 [node name="BackgroundStars" parent="GameWorld" instance=ExtResource("7")]
-
-[node name="Camera3D" parent="GameWorld" instance=ExtResource("4")]
+scroll_offset = Vector2(0, 0)
+scroll_base_scale = Vector2(0.2, 0.2)
+scroll_limit_end = Vector2(0, 0)
 
 [node name="PlayerSpawner" type="Node2D" parent="GameWorld"]
 script = ExtResource("6")
@@ -128,6 +129,8 @@ offset_right = 0.0
 offset_bottom = 0.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Camera2D" parent="GameWorld" instance=ExtResource("4")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("1")
