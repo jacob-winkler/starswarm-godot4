@@ -34,9 +34,7 @@ color_ramp = SubResource("GradientTexture1D_c34qv")
 color_initial_ramp = SubResource("GradientTexture1D_blhek")
 
 [node name="BackgroundStars" type="ParallaxBackground"]
-scroll_offset = Vector2(100, 100)
-scroll_base_scale = Vector2(0.5, 0.5)
-scroll_limit_end = Vector2(1920, 1080)
+scroll_ignore_camera_zoom = true
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="."]
 motion_scale = Vector2(0.8, 0.8)
@@ -50,6 +48,7 @@ lifetime = 5.0
 preprocess = 2.0
 randomness = 1.0
 visibility_rect = Rect2(-960, -540, 1920, 1080)
+local_coords = true
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="."]
 motion_scale = Vector2(0.4, 0.4)
@@ -57,9 +56,10 @@ metadata/_edit_group_ = true
 
 [node name="Stars" type="GPUParticles2D" parent="ParallaxLayer2"]
 position = Vector2(449, 240)
-amount = 1000
+amount = 350
 process_material = SubResource("12")
 lifetime = 15.0
 preprocess = 10.0
 randomness = 1.0
 visibility_rect = Rect2(-970, -540, 1920, 1080)
+local_coords = true
