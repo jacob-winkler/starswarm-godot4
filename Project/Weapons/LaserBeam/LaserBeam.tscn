@@ -19,12 +19,19 @@ point_count = 3
 curve = SubResource("4")
 
 [sub_resource type="ParticleProcessMaterial" id="6"]
+direction = Vector3(5, 0, 0)
+spread = 55.0
 gravity = Vector3(0, 0, 0)
+initial_velocity_min = 55.0
+initial_velocity_max = 100.0
 scale_curve = SubResource("5")
 color_ramp = SubResource("3")
 
 [sub_resource type="ParticleProcessMaterial" id="7"]
+spread = 55.0
 gravity = Vector3(0, 0, 0)
+initial_velocity_min = 60.0
+initial_velocity_max = 150.0
 scale_curve = SubResource("5")
 color_ramp = SubResource("3")
 
@@ -33,14 +40,25 @@ _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.483146, 1), 0.0, 0.0, 0, 0, Ve
 point_count = 3
 
 [sub_resource type="CurveTexture" id="10"]
+width = 2048
 curve = SubResource("9")
 
 [sub_resource type="ParticleProcessMaterial" id="8"]
-emission_shape = 2
-emission_sphere_radius = 1.0
+emission_shape = 3
+emission_box_extents = Vector3(60, 20, 1)
+particle_flag_align_y = true
+particle_flag_disable_z = true
 direction = Vector3(-1, 0, 0)
 spread = 0.0
 gravity = Vector3(0, 0, 0)
+initial_velocity_min = 30.0
+initial_velocity_max = 30.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+tangential_accel_min = 90.0
+tangential_accel_max = 110.0
+scale_min = 0.3
+scale_max = 0.3
 scale_curve = SubResource("10")
 
 [node name="LaserBeam" type="RayCast2D"]
@@ -51,6 +69,7 @@ script = ExtResource("2")
 
 [node name="FillLine" type="Line2D" parent="."]
 modulate = Color(1.5, 1.5, 1.5, 1)
+self_modulate = Color(1.5, 1.5, 1.5, 1)
 points = PackedVector2Array(0, 0, 100, 0)
 width = 4.0
 default_color = Color(0.301961, 0.65098, 1, 1)
@@ -62,17 +81,19 @@ sharp_limit = 8.0
 antialiased = true
 
 [node name="CastingParticles" type="GPUParticles2D" parent="."]
-emitting = false
+amount = 30
 process_material = SubResource("6")
 texture = ExtResource("1")
-lifetime = 0.3
+lifetime = 0.6
 visibility_rect = Rect2(0, -18, 29, 38.4)
+local_coords = true
 
 [node name="CollisionParticles" type="GPUParticles2D" parent="."]
 emitting = false
 process_material = SubResource("7")
 texture = ExtResource("1")
 lifetime = 0.3
+local_coords = true
 
 [node name="BeamParticles" type="GPUParticles2D" parent="."]
 emitting = false
