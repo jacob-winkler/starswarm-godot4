@@ -56,7 +56,7 @@ cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
 [sub_resource type="Environment" id="1"]
 background_mode = 4
 glow_enabled = true
-glow_intensity = 0.5
+glow_strength = 1.6
 glow_blend_mode = 0
 
 [node name="GameIntializer" type="Node"]
@@ -66,9 +66,7 @@ script = ExtResource("5")
 script = ExtResource("2")
 
 [node name="BackgroundStars" parent="GameWorld" instance=ExtResource("7")]
-scroll_offset = Vector2(0, 0)
 scroll_base_scale = Vector2(0.2, 0.2)
-scroll_limit_end = Vector2(0, 0)
 
 [node name="PlayerSpawner" type="Node2D" parent="GameWorld"]
 script = ExtResource("6")
