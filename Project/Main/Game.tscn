@@ -54,10 +54,13 @@ cache/0/16/0/scale = 1.0
 cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
 
 [sub_resource type="Environment" id="1"]
-background_mode = 4
+background_mode = 3
 glow_enabled = true
+glow_levels/3 = 3.0
 glow_strength = 1.6
 glow_blend_mode = 0
+glow_hdr_threshold = 1.6
+glow_hdr_luminance_cap = 256.0
 
 [node name="GameIntializer" type="Node"]
 script = ExtResource("5")

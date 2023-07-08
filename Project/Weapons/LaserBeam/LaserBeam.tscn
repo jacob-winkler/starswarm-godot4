@@ -81,6 +81,7 @@ sharp_limit = 8.0
 antialiased = true
 
 [node name="CastingParticles" type="GPUParticles2D" parent="."]
+emitting = false
 amount = 30
 process_material = SubResource("6")
 texture = ExtResource("1")
