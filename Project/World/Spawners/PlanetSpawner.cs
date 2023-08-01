@@ -17,7 +17,7 @@ namespace StarSwarm.World.Spawners
         [Export]
         public float SpawnDistance = 800;
 
-        private readonly List<Vector2> _availableSpawns = new List<Vector2>();
+        private readonly List<Vector2> _availableSpawns = new();
         private List<PackedScene> _planetSkins = default!;
         private RandomNumberGenerator _rng = default!;
 

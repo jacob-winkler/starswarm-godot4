@@ -8,7 +8,7 @@ namespace StarSwarm.Project.Autoload.AudioLibraries
 {
     public partial class AudioLibrary : Node2D
     {
-        private readonly RandomNumberGenerator _rng = new RandomNumberGenerator();
+        private readonly RandomNumberGenerator _rng = new();
 
         public Node GetAudioPlayer(String? nodePath = null)
         {

@@ -31,7 +31,7 @@ namespace StarSwarm.Project.Weapons.LightningRod
         public List<Node2D> ForbiddenTargets { get; set; } = new List<Node2D>();
 
         private const float _lifeTimeDuration = .75f;
-        private List<Vector2> _points = new List<Vector2>();
+        private List<Vector2> _points = new();
         private Boolean _damageApplied = false;
 
         public override void _Ready()

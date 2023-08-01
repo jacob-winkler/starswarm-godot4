@@ -20,7 +20,7 @@ namespace StarSwarm.Project.Weapons.LightningRod
         public ObjectRegistry ObjectRegistry { get; set; } = default!;
         public Area2D AttackRange { get; set; } = default!;
 
-        private readonly RandomNumberGenerator _rng = new RandomNumberGenerator();
+        private readonly RandomNumberGenerator _rng = new();
 
         public override void _Ready()
         {

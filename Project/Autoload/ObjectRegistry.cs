@@ -13,9 +13,9 @@ namespace StarSwarm.Project.Autoload
     /// </summary>
     public partial class ObjectRegistry : Node
     {
-        private Node2D _projectiles = new Node2D();
-        private Node2D _effects = new Node2D();
-        private SubViewport _distortions = new SubViewport();
+        private Node2D _projectiles = new();
+        private Node2D _effects = new();
+        private SubViewport _distortions = new();
 
         public override void _Ready()
         {

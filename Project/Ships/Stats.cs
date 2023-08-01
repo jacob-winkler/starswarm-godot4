@@ -25,10 +25,10 @@ namespace StarSwarm.Project.Ships
 
 		// Modifiers has a list of modifiers for each property in `_stats_list`. A modifier is a dict that
 		// requires a key named `value`. The value of a modifier can be positive or negative.
-		protected Dictionary<string, List<float>> _modifiers = new Dictionary<string, List<float>>();
+		protected Dictionary<string, List<float>> _modifiers = new();
 
 		// Stores the cached values for the computed stats
-		protected Dictionary<string, float> _cache = new Dictionary<string, float>();
+		protected Dictionary<string, float> _cache = new();
 
 
 		// Initializes the keys in the modifiers dict, ensuring they all exist, without going through the

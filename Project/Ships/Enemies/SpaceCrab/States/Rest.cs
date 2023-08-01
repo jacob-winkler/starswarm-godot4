@@ -6,7 +6,7 @@ namespace StarSwarm.Project.Ships.Enemies.SpaceCrab.States
 {
     public partial class Rest : SpaceCrabState
     {
-        private GSAITargetAcceleration _acceleration = new GSAITargetAcceleration(); 
+        private GSAITargetAcceleration _acceleration = new(); 
 
         public override void _PhysicsProcess(double delta)
         {

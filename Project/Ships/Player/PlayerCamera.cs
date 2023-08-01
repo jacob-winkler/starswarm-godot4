@@ -18,7 +18,7 @@ public partial class PlayerCamera : Camera2D
     [Export]
     public float DecayRate = 1.0f;
     [Export]
-    public Vector2 MaxOffset = new Vector2(100.0f, 100.0f);
+    public Vector2 MaxOffset = new(100.0f, 100.0f);
     
     [Export]
     public float MaxRotation = 0.1f;
@@ -41,7 +41,7 @@ public partial class PlayerCamera : Camera2D
     public Events Events;
     public RemoteTransform2D RemoteMap;
     public RemoteTransform2D RemoteDistort;
-    public FastNoiseLite Noise = new FastNoiseLite();
+    public FastNoiseLite Noise = new();
 
 
     public override void _Ready() 
