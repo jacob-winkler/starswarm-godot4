@@ -1,15 +1,14 @@
 using Godot;
 using StarSwarm.Project.SWStateMachine;
 
-namespace StarSwarm.Project.Ships.Enemies.SpaceCrab.States
+namespace StarSwarm.Project.Ships.Enemies.SpaceCrab.States;
+
+public partial class SpaceCrabState : State
 {
-    public partial class SpaceCrabState : State
+    public SpaceCrab Ship {get; set; } = default!;
+    public override void _Ready()
     {
-        public SpaceCrab Ship {get; set; } = default!;
-        public override void _Ready()
-        {
-            base._Ready();
-            Ship = (SpaceCrab)Owner;
-        }
+        base._Ready();
+        Ship = (SpaceCrab)Owner;
     }
 }

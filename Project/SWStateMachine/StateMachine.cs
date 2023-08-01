@@ -5,8 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StarSwarm.Project.SWStateMachine
-{
+namespace StarSwarm.Project.SWStateMachine;
+
 	public partial class StateMachine : Node
 	{
 		[Export]
@@ -34,11 +34,11 @@ namespace StarSwarm.Project.SWStateMachine
 			State.Enter();
 		}
 
-        public override void _UnhandledInput(InputEvent inputEvent) => State.UnhandledInput(inputEvent);
+    public override void _UnhandledInput(InputEvent inputEvent) => State.UnhandledInput(inputEvent);
 
-        public override void _PhysicsProcess(double delta) => State.PhysicsProcess(delta);
+    public override void _PhysicsProcess(double delta) => State.PhysicsProcess(delta);
 
-        public void TransitionTo(string targetStatePath, Dictionary<string, GodotObject>? msg = null)
+    public void TransitionTo(string targetStatePath, Dictionary<string, GodotObject>? msg = null)
 		{
 			msg ??= new Dictionary<string, GodotObject>();
 
@@ -52,4 +52,3 @@ namespace StarSwarm.Project.SWStateMachine
 			State.Enter(msg);
 		}
 	}
-}

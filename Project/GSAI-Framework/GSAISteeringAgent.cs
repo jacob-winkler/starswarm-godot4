@@ -5,58 +5,57 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StarSwarm.Project.GSAI_Framework
+namespace StarSwarm.Project.GSAI_Framework;
+
+/// <summary>
+/// Adds velocity speed and size data to <see cref="GSAIAgentLocation"/>
+/// 
+/// It is the character's responsibility to keep this information up to date for the steering toolkit to work correctly.
+/// </summary>
+public partial class GSAISteeringAgent : GSAIAgentLocation
 {
     /// <summary>
-    /// Adds velocity speed and size data to <see cref="GSAIAgentLocation"/>
-    /// 
-    /// It is the character's responsibility to keep this information up to date for the steering toolkit to work correctly.
+    /// The amount of velocity to be considered effectively not moving.
     /// </summary>
-    public partial class GSAISteeringAgent : GSAIAgentLocation
-    {
-        /// <summary>
-        /// The amount of velocity to be considered effectively not moving.
-        /// </summary>
-        public float ZeroLinearSpeedThreshold { get; set; } = 0.01F;
+    public float ZeroLinearSpeedThreshold { get; set; } = 0.01F;
 
-        /// <summary>
-        /// The maximum speed at which the agent can move.
-        /// </summary>
-        public float LinearSpeedMax { get; set; } = 0.0F;
+    /// <summary>
+    /// The maximum speed at which the agent can move.
+    /// </summary>
+    public float LinearSpeedMax { get; set; } = 0.0F;
 
-        /// <summary>
-        /// The maximum amount of acceleration that any behavior can apply to the agent.
-        /// </summary>
-        public float LinearAccelerationMax { get; set; } = 0.0F;
+    /// <summary>
+    /// The maximum amount of acceleration that any behavior can apply to the agent.
+    /// </summary>
+    public float LinearAccelerationMax { get; set; } = 0.0F;
 
-        /// <summary>
-        /// The maximum amount of angular speed at which the agent can rotate.
-        /// </summary>
-        public float AngularSpeedMax { get; set; } = 0.0F;
+    /// <summary>
+    /// The maximum amount of angular speed at which the agent can rotate.
+    /// </summary>
+    public float AngularSpeedMax { get; set; } = 0.0F;
 
-        /// <summary>
-        /// The maximum amount of angular acceleration that any behavior can apply to an agent.
-        /// </summary>
-        public float AngularAccelerationMax { get; set; } = 0.0F;
+    /// <summary>
+    /// The maximum amount of angular acceleration that any behavior can apply to an agent.
+    /// </summary>
+    public float AngularAccelerationMax { get; set; } = 0.0F;
 
-        /// <summary>
-        /// Current velocity of the agent.
-        /// </summary>
-        public Vector3 LinearVelocity { get; set; } = Vector3.Zero;
+    /// <summary>
+    /// Current velocity of the agent.
+    /// </summary>
+    public Vector3 LinearVelocity { get; set; } = Vector3.Zero;
 
-        /// <summary>
-        /// Current angular velocity of the agent.
-        /// </summary>
-        public float AngularVelocity { get; set; } = 0.0F;
+    /// <summary>
+    /// Current angular velocity of the agent.
+    /// </summary>
+    public float AngularVelocity { get; set; } = 0.0F;
 
-        /// <summary>
-        /// The radius of the sphere that approximates the agent's size in space.
-        /// </summary>
-        public float BoundingRadius { get; set; } = 0.0F;
+    /// <summary>
+    /// The radius of the sphere that approximates the agent's size in space.
+    /// </summary>
+    public float BoundingRadius { get; set; } = 0.0F;
 
-        /// <summary>
-        /// Used internally by group behaviors and proximities to mark the agent as already considered.
-        /// </summary>
-        public bool IsTagged { get; set; } = false;
-    }
+    /// <summary>
+    /// Used internally by group behaviors and proximities to mark the agent as already considered.
+    /// </summary>
+    public bool IsTagged { get; set; } = false;
 }

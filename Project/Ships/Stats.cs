@@ -3,8 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace StarSwarm.Project.Ships
-{
+namespace StarSwarm.Project.Ships;
+
 	/// <summary>
 	/// Virtual base class for stats (health, speed...) that support upgrades.
 	/// 
@@ -44,61 +44,61 @@ namespace StarSwarm.Project.Ships
 			}
 		}
 
-        public void Initialize() => UpdateAll();
+    public void Initialize() => UpdateAll();
 
-        public float GetStat(string statName = "")
-        {
+    public float GetStat(string statName = "")
+    {
 			Debug.Assert(_cache.TryGetValue(statName, out var statValue), $"Failed to retrieve stat: {statName}");
 			return statValue;
-        }
+    }
 
 		public int AddModifier(string statName, float modifier)
-        {
-            Debug.Assert(_statsList.TryGetValue(statName, out var statValue), $"Failed to add modifier. Couldn't find stat:{statName}");
-            _modifiers[statName].Add(modifier);
+    {
+        Debug.Assert(_statsList.TryGetValue(statName, out var statValue), $"Failed to add modifier. Couldn't find stat:{statName}");
+        _modifiers[statName].Add(modifier);
 			Update(statName);
 			return _modifiers.Count();
-        }
+    }
 
 		public void RemoveModifier(string statName, int id)
-        {
+    {
 			Debug.Assert(_statsList.TryGetValue(statName, out var statValue), $"Failed to remove modifier. Couldn't find stat");
 			_modifiers[statName].RemoveAt(id);
 			Update(statName);
-        }
+    }
 
 		public void PopModifier(string statName)
-        {
+    {
 			Debug.Assert(_statsList.TryGetValue(statName, out var statValue), $"Failed to pop modifier. Couldn't find stat");
 			_modifiers[statName].RemoveAt(_modifiers.Count - 1);
 			Update(statName);
 		}
 
 		public void Reset()
-        {
+    {
 			_modifiers = new Dictionary<string, List<float>>();
 			UpdateAll();
 		}
 
 		public void Update(String statName = "")
-        {
-            float valueStart = Get(_statsList[statName]).AsSingle();
+    {
+        float valueStart = Get(_statsList[statName]).AsSingle();
 			var value = valueStart;
 			foreach (var modifier in _modifiers[statName])
 				value += modifier;
 
 			_cache[statName] = value;
 			EmitSignal("StatChanged", statName, valueStart, value);
-        }
+    }
 
 		public void UpdateAll()
-        {
+    {
 			foreach (var statName in _statsList.Keys)
 				Update(statName);
-        }
+    }
 
-        public Dictionary<string, string> GetStatsList()
-        {
+    public Dictionary<string, string> GetStatsList()
+    {
 			var ignore = new List<string> {
 				"resource_local_to_scene",
 				"resource_name",
@@ -121,8 +121,7 @@ namespace StarSwarm.Project.Ships
 			}
 
 			return stats;
-        }
+    }
 	}
-}
 	
 
