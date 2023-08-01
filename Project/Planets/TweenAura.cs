@@ -22,8 +22,7 @@ public partial class TweenAura : Node
 
     public void MakeAppear(Sprite2D aura)
     {
-        if (AuraTween != null)
-            AuraTween.Kill();
+        AuraTween?.Kill();
 
         if (aura.Visible)
             return;
@@ -40,8 +39,7 @@ public partial class TweenAura : Node
 
     public async void MakeDisappear(Sprite2D aura)
     {
-        if (AuraTween != null)
-            AuraTween.Kill();
+        AuraTween?.Kill();
 
         if (!aura.Visible)
             return;
@@ -61,7 +59,6 @@ public partial class TweenAura : Node
 
     public void Pause()
     {
-        if (AuraTween != null)
-            AuraTween.Kill();
+        AuraTween?.Kill();
     }
 }

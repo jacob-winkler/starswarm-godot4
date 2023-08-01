@@ -13,8 +13,7 @@ public partial class LaserAudioPlayer : LoopingAudioStreamPlayer2D
 
     public override void End()
     {
-        if (Tween != null)
-            Tween.Kill();
+        Tween?.Kill();
         Tween = CreateTween();
 
         Tween.TweenProperty(this, "volume_db", -80f, 0.3f)

@@ -91,8 +91,7 @@ public partial class LaserBeam : RayCast2D
 
     private void Appear()
     {
-        if (Tween != null)
-            Tween.Kill();
+        Tween?.Kill();
         Tween = CreateTween();
 
         Tween.TweenProperty(FillLine, "width", _lineWidth, 0.2f);
@@ -102,8 +101,7 @@ public partial class LaserBeam : RayCast2D
 
     private void Disappear()
     {
-        if (Tween != null)
-            Tween.Kill();
+        Tween?.Kill();
         Tween = CreateTween();
 
         Tween.TweenProperty(FillLine, "width", 0f, 0.1f);
