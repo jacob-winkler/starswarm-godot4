@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public partial class DisintegrateEffect : Sprite2D
 {
@@ -19,7 +18,7 @@ public partial class DisintegrateEffect : Sprite2D
         _shaderValue = Mathf.Clamp(_shaderValue, 0f, 1f);
         (Material as ShaderMaterial)!.SetShaderParameter("value", _shaderValue);
 
-        if(_shaderValue == 0)
+        if (_shaderValue == 0)
             QueueFree();
     }
 }

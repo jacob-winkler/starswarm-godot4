@@ -1,61 +1,55 @@
 using Godot;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace StarSwarm.Project.SWStateMachine
+namespace StarSwarm.Project.SWStateMachine;
+
+public partial class StateMachine : Node
 {
-	public partial class StateMachine : Node
-	{
-		[Export]
-		public NodePath InitialState { get; set; } = new NodePath();
+    [Export]
+    public NodePath InitialState { get; set; } = new NodePath();
 
-		private State state = new State();
-		public State State {get { return state; } set {
-				state = value;
-				_stateName = State.Name;
-			}
-		}
+    private State state = new();
 
-		protected string? _stateName;
+    public State State
+    {
+        get { return state; }
+        set
+        {
+            state = value;
+            _stateName = State.Name;
+        }
+    }
 
-		public StateMachine()
-		{
-			AddToGroup("state_machine");
-		}
+    protected string? _stateName;
 
-		public override async void _Ready()
-		{
-			State = (State)GetNode(InitialState);
-			_stateName = State.Name;
-			await ToSignal(Owner, "ready");
-			State.Enter();
-		}
+    public StateMachine()
+    {
+        AddToGroup("state_machine");
+    }
 
-		public override void _UnhandledInput(InputEvent inputEvent)
-		{
-		   State.UnhandledInput(inputEvent);
-		}
+    public override async void _Ready()
+    {
+        State = (State)GetNode(InitialState);
+        _stateName = State.Name;
+        await ToSignal(Owner, "ready");
+        State.Enter();
+    }
 
-		public override void _PhysicsProcess(double delta)
-		{
-			State.PhysicsProcess(delta);
-		}
+    public override void _UnhandledInput(InputEvent inputEvent) => State.UnhandledInput(inputEvent);
 
-		public void TransitionTo(string targetStatePath, Dictionary<string, GodotObject>? msg = null)
-		{
-			msg ??= new Dictionary<string, GodotObject>();
+    public override void _PhysicsProcess(double delta) => State.PhysicsProcess(delta);
 
-			if(!HasNode(targetStatePath))
-				return;
+    public void TransitionTo(string targetStatePath, Dictionary<string, GodotObject>? msg = null)
+    {
+        msg ??= new Dictionary<string, GodotObject>();
 
-			var targetState = GetNode<State>(targetStatePath);
+        if (!HasNode(targetStatePath))
+            return;
 
-			State.Exit();
-			this.State = targetState;
-			State.Enter(msg);
-		}
-	}
+        var targetState = GetNode<State>(targetStatePath);
+
+        State.Exit();
+        this.State = targetState;
+        State.Enter(msg);
+    }
 }

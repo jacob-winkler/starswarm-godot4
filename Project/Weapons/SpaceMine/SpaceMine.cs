@@ -7,6 +7,7 @@ public partial class SpaceMine : Node2D
 {
     [Export]
     public float Damage { get; set; } = 100f;
+
     [Export]
     public float CountdownTime { get; set; } = 5;
 
@@ -58,14 +59,14 @@ public partial class SpaceMine : Node2D
     {
         _radiusAlpha = 0;
 
-        if(animationName != "SpaceMineCountdown")
+        if (animationName != "SpaceMineCountdown")
             return;
 
         Explosion.Visible = true;
         AudioManager2D.Play(KnownAudioStream2Ds.SpaceMine, GlobalPosition);
         Explosion.Play("Explosion");
 
-        foreach(var body in BlastRadius.GetOverlappingBodies())
+        foreach (var body in BlastRadius.GetOverlappingBodies())
         {
             Events.EmitSignal("Damaged", body, Damage, this);
         }
@@ -73,13 +74,7 @@ public partial class SpaceMine : Node2D
         BlastRadius.Connect("body_entered", new Callable(this, "OnBodyEnteredBlastRadius"));
     }
 
-    private void OnBodyEnteredBlastRadius(PhysicsBody2D body)
-    {
-        Events.EmitSignal("Damaged", body, Damage, this);
-    }
+    private void OnBodyEnteredBlastRadius(PhysicsBody2D body) => Events.EmitSignal("Damaged", body, Damage, this);
 
-    private void OnExplosionFinished()
-    {
-        QueueFree();
-    }
+    private void OnExplosionFinished() => QueueFree();
 }

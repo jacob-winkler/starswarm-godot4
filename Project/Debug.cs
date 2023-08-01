@@ -1,20 +1,21 @@
-using System;
 using Godot;
+using System;
 
-namespace StarSwarm.Project
+namespace StarSwarm.Project;
+
+internal static class Debug
 {
-    internal static class Debug
+    internal static void Assert(bool cond, string msg)
+#if DEBUG
     {
-        internal static void Assert(bool cond, string msg)
-        #if DEBUG
-        {
-            if (cond) return;
+        if (cond)
+            return;
 
-            GD.PrintErr(msg);
-            throw new ApplicationException($"Assert Failed: {msg}");
-        }
-        #else
-            {}
-        #endif
+        GD.PrintErr(msg);
+        throw new ApplicationException($"Assert Failed: {msg}");
     }
+
+#else
+        {}
+#endif
 }

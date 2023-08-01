@@ -12,13 +12,7 @@ public partial class ScoreKeeper : Label
         Events.Connect("AddPoints", new Callable(this, "OnAddPoints"));
     }
 
-    public override void _Process(double delta)
-    {
-        Text = TotalScore.ToString();
-    }
+    public override void _Process(double delta) => Text = TotalScore.ToString();
 
-    public void OnAddPoints(Int32 points)
-    {
-        TotalScore += points;
-    }
+    public void OnAddPoints(Int32 points) => TotalScore += points;
 }

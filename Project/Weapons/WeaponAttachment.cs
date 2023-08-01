@@ -13,8 +13,10 @@ public abstract partial class WeaponAttachment : Node2D
 
     [Export]
     public float Cooldown { get; set; } = 3;
+
     [Export]
     public float WeaponDuration { get; set; } = 2;
+
     [Export]
     public Texture2D SmallIcon { get; set; } = default!;
 
@@ -35,18 +37,9 @@ public abstract partial class WeaponAttachment : Node2D
     /// <summary>
     /// Called if the duration timer expires. You have to start the duration timer manually.
     /// </summary>
-    protected virtual void StopFiringWeapon()
-    {
-        throw new NotImplementedException();
-    }
+    protected virtual void StopFiringWeapon() => throw new NotImplementedException();
 
-    private void OnCooldownExpired()
-    {
-        FireWeapon();
-    }
+    private void OnCooldownExpired() => FireWeapon();
 
-    private void OnDurationUp()
-    {
-        StopFiringWeapon();
-    }
+    private void OnDurationUp() => StopFiringWeapon();
 }

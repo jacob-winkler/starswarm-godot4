@@ -9,31 +9,34 @@ using StarSwarm.Project.Autoload;
 //  The camera supports zooming and camera shake.
 public partial class PlayerCamera : Camera2D
 {
-
     public const float SHAKE_EXPONENT = 1.8f;
 
     [Export]
     public float MaxZoom = 5.0f;
-    
+
     [Export]
     public float DecayRate = 1.0f;
+
     [Export]
-    public Vector2 MaxOffset = new Vector2(100.0f, 100.0f);
-    
+    public Vector2 MaxOffset = new(100.0f, 100.0f);
+
     [Export]
     public float MaxRotation = 0.1f;
 
     private float _shakeAmount = 0.0f;
-    public float ShakeAmount { 
-        get { return _shakeAmount; } 
-        set {
+
+    public float ShakeAmount
+    {
+        get { return _shakeAmount; }
+        set
+        {
             _shakeAmount = Mathf.Clamp(value, 0.0f, 1.0f);
             SetPhysicsProcess(_shakeAmount != 0.0f);
         }
     }
 
     public float NoiseY = 0.0f;
- 
+
     private Vector2 _startZoom;
     private Vector2 _startPosition = Vector2.Zero;
 
@@ -41,10 +44,9 @@ public partial class PlayerCamera : Camera2D
     public Events Events;
     public RemoteTransform2D RemoteMap;
     public RemoteTransform2D RemoteDistort;
-    public FastNoiseLite Noise = new FastNoiseLite();
+    public FastNoiseLite Noise = new();
 
-
-    public override void _Ready() 
+    public override void _Ready()
     {
         _startZoom = Zoom;
 
@@ -65,13 +67,11 @@ public partial class PlayerCamera : Camera2D
         Noise.FractalOctaves = 2;
     }
 
-
     public override void _PhysicsProcess(double delta)
     {
         ShakeAmount -= DecayRate * (float)delta;
         Shake();
     }
-
 
     public void Shake()
     {

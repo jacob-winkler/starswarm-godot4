@@ -1,12 +1,13 @@
 using Godot;
-using System;
 
 public partial class LoopingAudioStreamPlayer2D : AudioStreamPlayer2D
 {
     [Export]
     public AudioStream SoundStart = default!;
+
     [Export]
     public AudioStream SoundLoop = default!;
+
     [Export]
     public AudioStream SoundTail = default!;
 
@@ -33,7 +34,7 @@ public partial class LoopingAudioStreamPlayer2D : AudioStreamPlayer2D
 
     public void OnFinished()
     {
-        if(Stream == SoundStart)
+        if (Stream == SoundStart)
         {
             Stream = SoundLoop;
             Play();

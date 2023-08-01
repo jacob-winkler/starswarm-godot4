@@ -1,174 +1,171 @@
 using Godot;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace StarSwarm.Project.GSAI_Framework.Agents
+namespace StarSwarm.Project.GSAI_Framework.Agents;
+
+public partial class GSAIKinematicBody2DAgent : GSAISpecializedAgent
 {
-	public partial class GSAIKinematicBody2DAgent : GSAISpecializedAgent
-	{
-		protected CharacterBody2D body = default!;
-		protected KnownMovementType MovementType { get; set; }
+    protected CharacterBody2D body = default!;
+    protected KnownMovementType MovementType { get; set; }
 
-		private Vector2 _lastPosition { get; set; } = default!;
-		private WeakRef _bodyRef { get; set; } = default!;
-		public CharacterBody2D Body
-		{
-			set
-			{
-				body = value;
-				_bodyRef = WeakRef(body);
+    private Vector2 _lastPosition { get; set; } = default!;
+    private WeakRef _bodyRef { get; set; } = default!;
 
-				_lastPosition = value.GlobalPosition;
-				_lastOrientation = value.Rotation;
+    public CharacterBody2D Body
+    {
+        set
+        {
+            body = value;
+            _bodyRef = WeakRef(body);
 
-				Position = GSAIUtils.ToVector3(_lastPosition);
-				Orientation = _lastOrientation;
-			}
+            _lastPosition = value.GlobalPosition;
+            _lastOrientation = value.Rotation;
 
-			get { return body; }
-		}
+            Position = GSAIUtils.ToVector3(_lastPosition);
+            Orientation = _lastOrientation;
+        }
 
-		public GSAIKinematicBody2DAgent()
-		{ }
+        get { return body; }
+    }
 
-		public async void Initialize(CharacterBody2D body,
-			KnownMovementType movementType = KnownMovementType.Slide)
-		{
-			if(!body.IsInsideTree())
-				await ToSignal(body, "ready");
+    public GSAIKinematicBody2DAgent()
+    { }
 
-			_bodyRef = WeakRef(body);
-			MovementType = movementType;
+    public async void Initialize(CharacterBody2D body,
+        KnownMovementType movementType = KnownMovementType.Slide)
+    {
+        if (!body.IsInsideTree())
+            await ToSignal(body, "ready");
 
-			body.GetTree().Connect("physics_frame", new Callable(this, "OnSceneTreePhysicsFrame"));
-		}
+        _bodyRef = WeakRef(body);
+        MovementType = movementType;
 
-		public override void ApplySteering(GSAITargetAcceleration acceleration, double delta)
-		{
-			_appliedSteering = true;
-			switch(MovementType)
-			{
-				case KnownMovementType.Collide:
-					ApplyCollideSteering(acceleration.Linear, delta);
-					break;
-				case KnownMovementType.Slide:
-					ApplySlidingSteering(acceleration.Linear, delta);
-					break;
-				default:
-					ApplyPositionSteering(acceleration.Linear, delta);
-					break;
-			}
+        body.GetTree().Connect("physics_frame", new Callable(this, "OnSceneTreePhysicsFrame"));
+    }
 
-			ApplyOrientationSteering(acceleration.Angular, delta);
-		}
+    public override void ApplySteering(GSAITargetAcceleration acceleration, double delta)
+    {
+        _appliedSteering = true;
+        switch (MovementType)
+        {
+            case KnownMovementType.Collide:
+                ApplyCollideSteering(acceleration.Linear, delta);
+                break;
 
-		public void ApplySlidingSteering(Vector3 accel, double delta)
-		{
-			CharacterBody2D body = (CharacterBody2D)_bodyRef.GetRef();
-			if (body == null)
-				return;
+            case KnownMovementType.Slide:
+                ApplySlidingSteering(acceleration.Linear, delta);
+                break;
 
-			var velocity = GSAIUtils.ToVector2(LinearVelocity + accel * (float)delta).LimitLength(LinearSpeedMax);
-			if(ApplyLinearDrag)
-				velocity = velocity.Lerp(Vector2.Zero, LinearDragPercentage);
+            default:
+                ApplyPositionSteering(acceleration.Linear, delta);
+                break;
+        }
 
-			body.Velocity = velocity;
-			body.MoveAndSlide();
+        ApplyOrientationSteering(acceleration.Angular, delta);
+    }
 
-			if (CalculateVelocities)
-				LinearVelocity = GSAIUtils.ToVector3(body.Velocity);
-		}
+    public void ApplySlidingSteering(Vector3 accel, double delta)
+    {
+        CharacterBody2D body = (CharacterBody2D)_bodyRef.GetRef();
+        if (body == null)
+            return;
 
-		public void ApplyCollideSteering(Vector3 accel, double delta)
-		{
-			CharacterBody2D body = (CharacterBody2D)_bodyRef.GetRef();
-			if (body == null)
-				return;
+        var velocity = GSAIUtils.ToVector2(LinearVelocity + accel * (float)delta).LimitLength(LinearSpeedMax);
+        if (ApplyLinearDrag)
+            velocity = velocity.Lerp(Vector2.Zero, LinearDragPercentage);
 
-			var velocity = GSAIUtils.ClampedV3(LinearVelocity + accel * (float)delta, LinearSpeedMax);
-			if (ApplyLinearDrag)
-				velocity = velocity.Lerp(Vector3.Zero, LinearDragPercentage);
+        body.Velocity = velocity;
+        body.MoveAndSlide();
 
-			body.MoveAndCollide(GSAIUtils.ToVector2(velocity) * (float)delta);
-			if (CalculateVelocities)
-				LinearVelocity = velocity;
-		}
+        if (CalculateVelocities)
+            LinearVelocity = GSAIUtils.ToVector3(body.Velocity);
+    }
 
-		public void ApplyPositionSteering(Vector3 accel, double delta)
-		{
-			CharacterBody2D body = (CharacterBody2D)_bodyRef.GetRef();
-			if (body == null)
-				return;
+    public void ApplyCollideSteering(Vector3 accel, double delta)
+    {
+        CharacterBody2D body = (CharacterBody2D)_bodyRef.GetRef();
+        if (body == null)
+            return;
 
-			var velocity = GSAIUtils.ClampedV3(LinearVelocity + accel * (float)delta, LinearSpeedMax);
-			if (ApplyLinearDrag)
-				velocity = velocity.Lerp(Vector3.Zero, LinearDragPercentage);
+        var velocity = GSAIUtils.ClampedV3(LinearVelocity + accel * (float)delta, LinearSpeedMax);
+        if (ApplyLinearDrag)
+            velocity = velocity.Lerp(Vector3.Zero, LinearDragPercentage);
 
-			body.GlobalPosition += GSAIUtils.ToVector2(velocity) * (float)delta;
-			if (CalculateVelocities)
-				LinearVelocity = velocity;
-		}
+        body.MoveAndCollide(GSAIUtils.ToVector2(velocity) * (float)delta);
+        if (CalculateVelocities)
+            LinearVelocity = velocity;
+    }
 
-		public void ApplyOrientationSteering(float angular_acceleration, double delta)
-		{
-			CharacterBody2D body = (CharacterBody2D)_bodyRef.GetRef();
-			if (body == null)
-				return;
+    public void ApplyPositionSteering(Vector3 accel, double delta)
+    {
+        CharacterBody2D body = (CharacterBody2D)_bodyRef.GetRef();
+        if (body == null)
+            return;
 
-			var velocity = (float)Mathf.Clamp(
-				AngularVelocity + angular_acceleration * delta,
-				-AngularAccelerationMax,
-				AngularAccelerationMax
-			);
-			if (ApplyLinearDrag)
-				velocity = Mathf.Lerp(velocity, 0, AngularDragPercentage);
+        var velocity = GSAIUtils.ClampedV3(LinearVelocity + accel * (float)delta, LinearSpeedMax);
+        if (ApplyLinearDrag)
+            velocity = velocity.Lerp(Vector3.Zero, LinearDragPercentage);
 
-			body.Rotation += velocity * (float)delta;
-			if (CalculateVelocities)
-				AngularVelocity = velocity;
-		}
+        body.GlobalPosition += GSAIUtils.ToVector2(velocity) * (float)delta;
+        if (CalculateVelocities)
+            LinearVelocity = velocity;
+    }
 
-		public void OnSceneTreePhysicsFrame()
-		{
-			var body = _bodyRef.GetRef();
-			if(body.VariantType == Variant.Type.Nil)
-				return;
+    public void ApplyOrientationSteering(float angular_acceleration, double delta)
+    {
+        CharacterBody2D body = (CharacterBody2D)_bodyRef.GetRef();
+        if (body == null)
+            return;
 
-			var currentPosition = ((CharacterBody2D)body).GlobalPosition;
-			var currentOrientation = ((CharacterBody2D)body).Rotation;
+        var velocity = (float)Mathf.Clamp(
+                AngularVelocity + angular_acceleration * delta,
+                -AngularAccelerationMax,
+                AngularAccelerationMax
+            );
+        if (ApplyLinearDrag)
+            velocity = Mathf.Lerp(velocity, 0, AngularDragPercentage);
 
-			Position = GSAIUtils.ToVector3(currentPosition);
-			Orientation = currentOrientation;
+        body.Rotation += velocity * (float)delta;
+        if (CalculateVelocities)
+            AngularVelocity = velocity;
+    }
 
-			if (CalculateVelocities)
-			{
-				if (_appliedSteering)
-					_appliedSteering = false;
-				else
-				{
-					LinearVelocity = GSAIUtils.ClampedV3(
-						GSAIUtils.ToVector3(_lastPosition - currentPosition), LinearSpeedMax
-					);
-					if (ApplyLinearDrag)
-					{
-						LinearVelocity = LinearVelocity.Lerp(
-							Vector3.Zero, LinearDragPercentage);
-					}
+    public void OnSceneTreePhysicsFrame()
+    {
+        var body = _bodyRef.GetRef();
+        if (body.VariantType == Variant.Type.Nil)
+            return;
 
-					AngularVelocity = Mathf.Clamp(
-						_lastOrientation - currentOrientation, -AngularSpeedMax, AngularSpeedMax
-					);
+        var currentPosition = ((CharacterBody2D)body).GlobalPosition;
+        var currentOrientation = ((CharacterBody2D)body).Rotation;
 
-					if (ApplyAngularDrag)
-						AngularVelocity = Mathf.Lerp(AngularVelocity, 0, AngularDragPercentage);
+        Position = GSAIUtils.ToVector3(currentPosition);
+        Orientation = currentOrientation;
 
-					_lastPosition = currentPosition;
-					_lastOrientation = currentOrientation;                  
-				}
-			}
-		}
-	}
+        if (CalculateVelocities)
+        {
+            if (_appliedSteering)
+                _appliedSteering = false;
+            else
+            {
+                LinearVelocity = GSAIUtils.ClampedV3(
+                    GSAIUtils.ToVector3(_lastPosition - currentPosition), LinearSpeedMax
+                );
+                if (ApplyLinearDrag)
+                {
+                    LinearVelocity = LinearVelocity.Lerp(
+                        Vector3.Zero, LinearDragPercentage);
+                }
+
+                AngularVelocity = Mathf.Clamp(
+                    _lastOrientation - currentOrientation, -AngularSpeedMax, AngularSpeedMax
+                );
+
+                if (ApplyAngularDrag)
+                    AngularVelocity = Mathf.Lerp(AngularVelocity, 0, AngularDragPercentage);
+
+                _lastPosition = currentPosition;
+                _lastOrientation = currentOrientation;
+            }
+        }
+    }
 }

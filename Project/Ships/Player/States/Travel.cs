@@ -3,7 +3,6 @@ using StarSwarm.Project;
 using StarSwarm.Project.GSAI_Framework;
 using StarSwarm.Project.Ships.Player;
 using StarSwarm.Project.Ships.Player.States;
-using System;
 
 public partial class Travel : PlayerState
 {
@@ -44,11 +43,8 @@ public partial class Travel : PlayerState
         ((Move)_parent!).PhysicsProcess(delta);
     }
 
-    public Vector2 GetMovement()
-    {
-        return new Vector2(
+    public Vector2 GetMovement() => new(
             Input.GetActionStrength("right") - Input.GetActionStrength("left"),
             Input.GetActionStrength("thrust_back") - Input.GetActionStrength("thrust_forwards")
         );
-    }
 }

@@ -2,64 +2,63 @@ using Godot;
 using System;
 using static Godot.Tween;
 
-namespace StarSwarm.Project.Planets
+namespace StarSwarm.Project.Planets;
+
+public partial class TweenAura : Node
 {
-    public partial class TweenAura : Node
+    [Export]
+    public Vector2 ScaleHidden { get; set; } = Vector2.Zero;
+
+    [Export]
+    public Vector2 ScaleFinal { get; set; } = Vector2.One;
+
+    [Export]
+    public float DurationAppear { get; set; } = 1f;
+
+    [Export]
+    public float DurationDisappear { get; set; } = 0.5f;
+
+    private Tween? AuraTween { get; set; }
+
+    public void MakeAppear(Sprite2D aura)
     {
-        [Export]
-        public Vector2 ScaleHidden { get; set; } = Vector2.Zero;
-        [Export]
-        public Vector2 ScaleFinal { get; set; } = Vector2.One;
-        [Export]
-        public float DurationAppear { get; set; } = 1f;
-        [Export]
-        public float DurationDisappear { get; set; } = 0.5f;
+        AuraTween?.Kill();
 
-        private Tween? AuraTween { get; set; }
+        if (aura.Visible)
+            return;
 
-        public void MakeAppear(Sprite2D aura)
-        {
-            if (AuraTween != null)
-                AuraTween.Kill();
+        AuraTween = CreateTween();
 
-            if (aura.Visible)
-                return;
+        AuraTween.TweenProperty(aura, "scale", ScaleFinal, DurationAppear)
+            .SetTrans(TransitionType.Elastic)
+            .SetEase(EaseType.Out);
 
-            AuraTween = CreateTween();
+        aura.Visible = true;
+        AuraTween.Play();
+    }
 
-            AuraTween.TweenProperty(aura, "scale", ScaleFinal, DurationAppear)
-                .SetTrans(TransitionType.Elastic)
-                .SetEase(EaseType.Out);
+    public async void MakeDisappear(Sprite2D aura)
+    {
+        AuraTween?.Kill();
 
-            aura.Visible = true;
-            AuraTween.Play();
-        }
+        if (!aura.Visible)
+            return;
 
-        public async void MakeDisappear(Sprite2D aura)
-        {
-            if (AuraTween != null)
-                AuraTween.Kill();
+        AuraTween = CreateTween();
 
-            if (!aura.Visible)
-                return;
+        AuraTween.TweenProperty(aura, "scale", ScaleHidden, DurationDisappear)
+            .SetTrans(TransitionType.Back)
+            .SetEase(EaseType.In);
 
-            AuraTween = CreateTween();
+        AuraTween.Play();
+        await ToSignal(AuraTween, "finished");
+        aura.Visible = false;
+    }
 
-            AuraTween.TweenProperty(aura, "scale", ScaleHidden, DurationDisappear)
-                .SetTrans(TransitionType.Back)
-                .SetEase(EaseType.In);
+    public Boolean IsRunning() => AuraTween != null && AuraTween.IsRunning();
 
-            AuraTween.Play();
-            await ToSignal(AuraTween, "finished");
-            aura.Visible = false;
-        }
-
-        public Boolean IsRunning() { return AuraTween  == null ? false : AuraTween.IsRunning();}
-
-        public void Pause() 
-        {
-            if (AuraTween != null)
-                AuraTween.Kill();
-        }
+    public void Pause()
+    {
+        AuraTween?.Kill();
     }
 }
