@@ -55,7 +55,7 @@ public partial class TweenAura : Node
         aura.Visible = false;
     }
 
-    public Boolean IsRunning() => AuraTween == null ? false : AuraTween.IsRunning();
+    public Boolean IsRunning() => AuraTween != null && AuraTween.IsRunning();
 
     public void Pause()
     {
