@@ -1,7 +1,6 @@
 using Godot;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace StarSwarm.Project.Ships;
 
@@ -55,7 +54,7 @@ public partial class Stats : Resource
         Debug.Assert(_statsList.TryGetValue(statName, out var statValue), $"Failed to add modifier. Couldn't find stat:{statName}");
         _modifiers[statName].Add(modifier);
         Update(statName);
-        return _modifiers.Count();
+        return _modifiers.Count;
     }
 
     public void RemoveModifier(string statName, int id)
