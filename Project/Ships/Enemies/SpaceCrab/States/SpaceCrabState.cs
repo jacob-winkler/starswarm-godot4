@@ -1,4 +1,3 @@
-using Godot;
 using StarSwarm.Project.SWStateMachine;
 
 namespace StarSwarm.Project.Ships.Enemies.SpaceCrab.States;

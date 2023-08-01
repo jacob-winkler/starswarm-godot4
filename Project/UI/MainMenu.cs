@@ -1,7 +1,5 @@
 using Godot;
 using StarSwarm.Project.UI;
-using System;
-using System.Diagnostics;
 
 public partial class MainMenu : Control
 {

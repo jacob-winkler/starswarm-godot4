@@ -1,5 +1,4 @@
 using Godot;
-using System;
 using static Godot.Tween;
 
 public partial class LaserAudioPlayer : LoopingAudioStreamPlayer2D

@@ -1,6 +1,5 @@
 using Godot;
 using StarSwarm.Project.Autoload;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 

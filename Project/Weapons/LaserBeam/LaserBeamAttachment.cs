@@ -1,6 +1,3 @@
-using Godot;
-using System;
-
 namespace StarSwarm.Project.Weapons.LaserBeam;
 
 public partial class LaserBeamAttachment : WeaponAttachment

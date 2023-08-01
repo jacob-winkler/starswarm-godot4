@@ -1,6 +1,5 @@
 using Godot;
 using StarSwarm.Project.Autoload;
-using System;
 
 public partial class SpaceMineAttachment : WeaponAttachment
 {

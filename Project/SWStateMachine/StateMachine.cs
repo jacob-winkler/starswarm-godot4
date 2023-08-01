@@ -1,13 +1,9 @@
 using Godot;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StarSwarm.Project.SWStateMachine;
 
-	public partial class StateMachine : Node
+public partial class StateMachine : Node
 	{
 		[Export]
 		public NodePath InitialState { get; set; } = new NodePath();

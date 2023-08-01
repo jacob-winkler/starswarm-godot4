@@ -3,7 +3,6 @@ using StarSwarm.Project;
 using StarSwarm.Project.GSAI_Framework;
 using StarSwarm.Project.Ships.Player;
 using StarSwarm.Project.Ships.Player.States;
-using System;
 
 public partial class Travel : PlayerState
 {

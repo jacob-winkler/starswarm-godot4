@@ -1,11 +1,9 @@
 using Godot;
 using StarSwarm.Project.Autoload;
-using StarSwarm.Project.Ships.Enemies.SpaceCrab.States;
 using System;
 using System.Collections.Generic;
 using StarSwarm.Project.SWStateMachine;
 using StarSwarm.Project.GSAI_Framework.Agents;
-using StarSwarm.Project.Utils;
 
 namespace StarSwarm.Project.Ships.Enemies.SpaceCrab
 {

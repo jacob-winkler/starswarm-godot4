@@ -1,13 +1,8 @@
 using Godot;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StarSwarm.Project.GSAI_Framework.Agents;
 
-	public partial class GSAIKinematicBody2DAgent : GSAISpecializedAgent
+public partial class GSAIKinematicBody2DAgent : GSAISpecializedAgent
 	{
 		protected CharacterBody2D body = default!;
 		protected KnownMovementType MovementType { get; set; }

@@ -1,10 +1,9 @@
 using Godot;
 using StarSwarm.Project.Autoload;
-using System;
 
 namespace StarSwarm.Project.World;
 
-	public partial class GameInitializer : Node
+public partial class GameInitializer : Node
 	{
 		public ObjectRegistry ObjectRegistry { get; set; } = new ObjectRegistry();
 		public PlayerCamera Camera2D { get; set; } = new PlayerCamera();

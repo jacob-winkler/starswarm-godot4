@@ -1,6 +1,4 @@
 using Godot;
-using StarSwarm.Project.GSAI_Framework;
-using System;
 
 namespace StarSwarm.Project.UI.PlayerHUD;
 
