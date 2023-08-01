@@ -68,10 +68,7 @@ namespace StarSwarm.Project.Weapons.LightningRod
                 ApplyDamage();
         }
 
-        public void SetTexture(int frame)
-        {
-            BoltLine.Texture = AnimationFrames[frame];
-        }
+        public void SetTexture(int frame) => BoltLine.Texture = AnimationFrames[frame];
 
         private Node2D? GetNextTarget()
         {
@@ -107,10 +104,7 @@ namespace StarSwarm.Project.Weapons.LightningRod
                 EmitSignal("BounceTriggered", this, target);
         }
 
-        private void OnTweenCompleted()
-        {
-            QueueFree();
-        }
+        private void OnTweenCompleted() => QueueFree();
 
         private void ApplyDamage()
         {

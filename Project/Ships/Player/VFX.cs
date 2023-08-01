@@ -11,9 +11,7 @@ public partial class VFX : Node2D
         ShipTrail = GetNode<CpuParticles2D>("MoveTrail");
     }
 
-    public void MakeTrail(float currentSpeed)
-    {
+    public void MakeTrail(float currentSpeed) => 
         ShipTrail.Emitting = currentSpeed > TRAIL_VELOCITY_THRESHOLD;
-    }
 
 }

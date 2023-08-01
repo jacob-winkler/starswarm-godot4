@@ -44,11 +44,8 @@ public partial class Travel : PlayerState
         ((Move)_parent!).PhysicsProcess(delta);
     }
 
-    public Vector2 GetMovement()
-    {
-        return new Vector2(
+    public Vector2 GetMovement() => new Vector2(
             Input.GetActionStrength("right") - Input.GetActionStrength("left"),
             Input.GetActionStrength("thrust_back") - Input.GetActionStrength("thrust_forwards")
         );
-    }
 }

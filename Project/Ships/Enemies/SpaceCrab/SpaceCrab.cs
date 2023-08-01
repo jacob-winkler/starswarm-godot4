@@ -92,25 +92,16 @@ namespace StarSwarm.Project.Ships.Enemies.SpaceCrab
             }
         }
 
-        public void OnBodyEnteredAggroRadius(PhysicsBody2D collider)
-        {
+        public void OnBodyEnteredAggroRadius(PhysicsBody2D collider) => 
             StateMachine.TransitionTo("Attack", new Dictionary<String, GodotObject> { ["target"] = collider });
-        }
 
-        public void OnBodyEnteredMeleeRange(PhysicsBody2D playerBody)
-        {
+        public void OnBodyEnteredMeleeRange(PhysicsBody2D playerBody) => 
             _meleeTarget = playerBody;
-        }
 
-        public void OnBodyExitedMeleeRange(PhysicsBody2D playerBody)
-        {
+        public void OnBodyExitedMeleeRange(PhysicsBody2D playerBody) => 
             _meleeTarget = null;
-        }
 
-        public void OnScreenExited()
-        {
-            Events.EmitSignal("EnemyAdrift", this);
-        }
+        public void OnScreenExited() => Events.EmitSignal("EnemyAdrift", this);
 
         public void OnDamaged(Node target, float amount, Node origin)
         {

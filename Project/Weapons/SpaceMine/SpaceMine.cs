@@ -73,13 +73,7 @@ public partial class SpaceMine : Node2D
         BlastRadius.Connect("body_entered", new Callable(this, "OnBodyEnteredBlastRadius"));
     }
 
-    private void OnBodyEnteredBlastRadius(PhysicsBody2D body)
-    {
-        Events.EmitSignal("Damaged", body, Damage, this);
-    }
+    private void OnBodyEnteredBlastRadius(PhysicsBody2D body) => Events.EmitSignal("Damaged", body, Damage, this);
 
-    private void OnExplosionFinished()
-    {
-        QueueFree();
-    }
+    private void OnExplosionFinished() => QueueFree();
 }

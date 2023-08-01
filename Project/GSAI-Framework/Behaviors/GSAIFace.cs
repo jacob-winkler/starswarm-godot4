@@ -26,9 +26,6 @@ namespace StarSwarm.Project.GSAI_Framework.Behaviors
             }
         }
 
-        public override void _CalculateSteering(GSAITargetAcceleration acceleration)
-        {
-            Face(acceleration, Target.Position);
-        }
+        public override void _CalculateSteering(GSAITargetAcceleration acceleration) => Face(acceleration, Target.Position);
     }
 }

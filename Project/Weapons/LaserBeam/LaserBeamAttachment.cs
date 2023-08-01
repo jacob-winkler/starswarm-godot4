@@ -21,9 +21,6 @@ namespace StarSwarm.Project.Weapons.LaserBeam
             _durationTimer.Start(WeaponDuration);
         }
 
-        protected override void StopFiringWeapon()
-        {
-            LaserBeam.IsCasting = false;
-        }
+        protected override void StopFiringWeapon() => LaserBeam.IsCasting = false;
     }
 }

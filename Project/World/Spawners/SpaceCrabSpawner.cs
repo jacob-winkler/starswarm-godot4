@@ -34,10 +34,7 @@ namespace StarSwarm.World.Spawners
             _rng = rng;
         }
 
-		public void SpawnSpaceCrabsAroundPlayer()
-		{
-            SpawnSpaceCrabsAroundPosition(_playerShip.GlobalPosition);
-        }
+        public void SpawnSpaceCrabsAroundPlayer() => SpawnSpaceCrabsAroundPosition(_playerShip.GlobalPosition);
 
         public void SpawnSpaceCrabsAroundPosition(Vector2 position)
 		{

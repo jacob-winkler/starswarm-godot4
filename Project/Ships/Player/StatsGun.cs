@@ -21,19 +21,10 @@ namespace StarSwarm.Project.Ships.Player
             UpdateAll();
         }
 
-        public float GetDamage()
-        {
-            return GetStat("damage");
-        }
+        public float GetDamage() => GetStat("damage");
 
-        public float GetCooldown()
-        {
-            return GetStat("cooldown");
-        }
+        public float GetCooldown() => GetStat("cooldown");
 
-        public float GetSpread()
-        {
-            return GetStat("spread");
-        }
+        public float GetSpread() => GetStat("spread");
     }
 }

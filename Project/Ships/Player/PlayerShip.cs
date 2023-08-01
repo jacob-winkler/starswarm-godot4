@@ -65,12 +65,9 @@ public partial class PlayerShip : CharacterBody2D
 		ObjectRegistry.RegisterEffect(effect);
 	}
 
-	public void GrabCamera(Camera2D camera)
-	{
-		CameraTransform.RemotePath = camera.GetPath();
-	}
+    public void GrabCamera(Camera2D camera) => CameraTransform.RemotePath = camera.GetPath();
 
-	public void OnDamaged(Node target, float amount, Node origin)
+    public void OnDamaged(Node target, float amount, Node origin)
 	{
 		if (target != this)
 			return;

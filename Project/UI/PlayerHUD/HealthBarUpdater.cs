@@ -25,8 +25,5 @@ public partial class HealthBarUpdater : Control
         HealthBar.Value = currentValue;
     }
 
-    public void OnMaxHealthUpdated(float maxHealth)
-    {
-        HealthBar.MaxValue = maxHealth;
-    }
+    public void OnMaxHealthUpdated(float maxHealth) => HealthBar.MaxValue = maxHealth;
 }

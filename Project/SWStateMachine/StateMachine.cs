@@ -34,17 +34,11 @@ namespace StarSwarm.Project.SWStateMachine
 			State.Enter();
 		}
 
-		public override void _UnhandledInput(InputEvent inputEvent)
-		{
-		   State.UnhandledInput(inputEvent);
-		}
+        public override void _UnhandledInput(InputEvent inputEvent) => State.UnhandledInput(inputEvent);
 
-		public override void _PhysicsProcess(double delta)
-		{
-			State.PhysicsProcess(delta);
-		}
+        public override void _PhysicsProcess(double delta) => State.PhysicsProcess(delta);
 
-		public void TransitionTo(string targetStatePath, Dictionary<string, GodotObject>? msg = null)
+        public void TransitionTo(string targetStatePath, Dictionary<string, GodotObject>? msg = null)
 		{
 			msg ??= new Dictionary<string, GodotObject>();
 

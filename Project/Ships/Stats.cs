@@ -44,12 +44,9 @@ namespace StarSwarm.Project.Ships
 			}
 		}
 
-		public void Initialize()
-        {
-			UpdateAll();
-        }
+        public void Initialize() => UpdateAll();
 
-		public float GetStat(string statName = "")
+        public float GetStat(string statName = "")
         {
 			Debug.Assert(_cache.TryGetValue(statName, out var statValue), $"Failed to retrieve stat: {statName}");
 			return statValue;

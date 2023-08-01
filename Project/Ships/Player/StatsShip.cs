@@ -42,29 +42,14 @@ namespace StarSwarm.Project.Ships.Player
             _health = _maxHealth;
         }
 
-        public float GetMaxHealth()
-        {
-            return GetStat("maxHealth");
-        }
+        public float GetMaxHealth() => GetStat("maxHealth");
 
-        public float GetAccelerationMax()
-        {
-            return GetStat("accelerationMax");
-        }
+        public float GetAccelerationMax() => GetStat("accelerationMax");
 
-        public float GetLinearSpeedMax()
-        {
-            return GetStat("linearSpeedMax");
-        }
+        public float GetLinearSpeedMax() => GetStat("linearSpeedMax");
 
-        public float GetAngularSpeedMax()
-        {
-            return GetStat("angularSpeedMax");
-        }
+        public float GetAngularSpeedMax() => GetStat("angularSpeedMax");
 
-        public float GetAngularAccelerationMax()
-        {
-            return GetStat("angularAccelerationMax");
-        }
+        public float GetAngularAccelerationMax() => GetStat("angularAccelerationMax");
     }
 }

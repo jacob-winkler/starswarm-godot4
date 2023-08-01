@@ -34,14 +34,8 @@ namespace StarSwarm.Project.GSAI_Framework
             Angular += accel.Angular * scalar;
         }
 
-        public float GetMagnitudeSquared()
-        {
-            return Linear.LengthSquared() + Angular * Angular;
-        }
+        public float GetMagnitudeSquared() => Linear.LengthSquared() + Angular * Angular;
 
-        public float GetMagnitude()
-        {
-            return Mathf.Sqrt(GetMagnitudeSquared());
-        }
+        public float GetMagnitude() => Mathf.Sqrt(GetMagnitudeSquared());
     }
 }

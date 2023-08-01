@@ -54,7 +54,7 @@ namespace StarSwarm.Project.Planets
             aura.Visible = false;
         }
 
-        public Boolean IsRunning() { return AuraTween  == null ? false : AuraTween.IsRunning();}
+        public Boolean IsRunning() => AuraTween == null ? false : AuraTween.IsRunning();
 
         public void Pause() 
         {

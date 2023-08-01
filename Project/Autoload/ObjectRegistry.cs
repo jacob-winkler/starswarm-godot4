@@ -23,24 +23,12 @@ namespace StarSwarm.Project.Autoload
             _effects = GetNode<Node2D>("Effects");
         }
 
-        public void RegisterEffect(Node effect)
-        {
-            _effects.AddChild(effect);
-        }
+        public void RegisterEffect(Node effect) => _effects.AddChild(effect);
 
-        public void RegisterProjectiles(Node projectile)
-        {
-            _projectiles.AddChild(projectile);
-        }
+        public void RegisterProjectiles(Node projectile) => _projectiles.AddChild(projectile);
 
-        public void RegisterDistortionEffect(Node2D effect)
-        {
-            _distortions?.AddChild(effect);
-        }
+        public void RegisterDistortionEffect(Node2D effect) => _distortions?.AddChild(effect);
 
-        public void RegisterDistortionParent(SubViewport viewport)
-        {
-            _distortions = viewport;
-        }
+        public void RegisterDistortionParent(SubViewport viewport) => _distortions = viewport;
     }
 }

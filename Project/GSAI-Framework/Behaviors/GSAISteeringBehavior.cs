@@ -25,9 +25,6 @@ namespace StarSwarm.Project.GSAI_Framework.Behaviors
             }
         }
 
-        public virtual void _CalculateSteering(GSAITargetAcceleration acceleration)
-        {
-            acceleration.SetZero();
-        }
+        public virtual void _CalculateSteering(GSAITargetAcceleration acceleration) => acceleration.SetZero();
     }
 }

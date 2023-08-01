@@ -50,9 +50,6 @@ namespace StarSwarm.Project.GSAI_Framework.Behaviors
             }
         }
 
-        public override void _CalculateSteering(GSAITargetAcceleration acceleration)
-        {
-            MatchOrientation(acceleration, Target.Orientation);
-        }
+        public override void _CalculateSteering(GSAITargetAcceleration acceleration) => MatchOrientation(acceleration, Target.Orientation);
     }
 }

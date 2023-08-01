@@ -94,9 +94,6 @@ namespace StarSwarm.Project.UI.PlayerHUD
             Icon.GlobalRotation = 0;
         }
 
-        public void SetIconTexture(Texture2D iconTexture)
-        {
-            Icon.Texture = iconTexture;
-        }
+        public void SetIconTexture(Texture2D iconTexture) => Icon.Texture = iconTexture;
     }
 }

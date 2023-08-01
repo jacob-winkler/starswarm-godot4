@@ -45,9 +45,6 @@ namespace StarSwarm.Project.Common
                 _audioPlayer2D.Position = position;
         }
 
-        private new void Dispose()
-        {
-            QueueFree();
-        }
+        private new void Dispose() => QueueFree();
     }
 }
