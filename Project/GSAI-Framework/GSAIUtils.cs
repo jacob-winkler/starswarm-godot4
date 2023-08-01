@@ -12,7 +12,7 @@ public partial class GSAIUtils
     {
         var lengthSquared = vector.LengthSquared();
         var limitSquared = limit * limit;
-        if(lengthSquared > limitSquared)
+        if (lengthSquared > limitSquared)
             vector *= Mathf.Sqrt(limitSquared / lengthSquared);
 
         return vector;

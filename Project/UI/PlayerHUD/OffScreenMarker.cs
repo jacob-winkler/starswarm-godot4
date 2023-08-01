@@ -6,6 +6,7 @@ public partial class OffScreenMarker : Node2D
 {
     [Export]
     public Texture2D SpriteTexture { get; set; } = default!;
+
     [Export]
     public Texture2D IconTexture { get; set; } = default!;
 
@@ -76,10 +77,9 @@ public partial class OffScreenMarker : Node2D
             }
 
             Sprite2D.GlobalPosition = length * Vector2.FromAngle(displacement.Angle()) + TargetPosition.Value;
-
         }
 
-        if(bounds.HasPoint(GlobalPosition))
+        if (bounds.HasPoint(GlobalPosition))
             Hide();
         else
             Show();

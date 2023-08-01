@@ -9,10 +9,13 @@ public partial class PlanetSpawner : Spawner
 {
     [Export]
     public PackedScene Planet { get; set; } = default!;
+
     [Export]
     public int MaxPlanets = 8;
+
     [Export]
     public int StartPlanets = 8;
+
     [Export]
     public float SpawnDistance = 800;
 

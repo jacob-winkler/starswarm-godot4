@@ -15,11 +15,11 @@ public partial class LaserBeam : RayCast2D
     public Events Events { get; set; } = default!;
     public Tween? Tween { get; set; }
 
-
     private Boolean _isCasting;
     private float _lineWidth;
 
-    public Boolean IsCasting {
+    public Boolean IsCasting
+    {
         get { return _isCasting; }
         set
         {
@@ -88,10 +88,10 @@ public partial class LaserBeam : RayCast2D
             Z = material.EmissionBoxExtents.Z
         };
     }
-    
+
     private void Appear()
     {
-        if(Tween != null)
+        if (Tween != null)
             Tween.Kill();
         Tween = CreateTween();
 

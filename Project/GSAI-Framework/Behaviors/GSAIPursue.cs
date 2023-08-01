@@ -22,10 +22,10 @@ public partial class GSAIPursue : GSAISteeringBehavior
         var speedSquared = Agent.LinearVelocity.LengthSquared();
         var predictTime = PredictTimeMax;
 
-        if(speedSquared > 0)
+        if (speedSquared > 0)
         {
             var predictTimeSquared = distanceSquared / speedSquared;
-            if(predictTimeSquared < PredictTimeMax * PredictTimeMax)
+            if (predictTimeSquared < PredictTimeMax * PredictTimeMax)
                 predictTime = Mathf.Sqrt(predictTimeSquared);
         }
 

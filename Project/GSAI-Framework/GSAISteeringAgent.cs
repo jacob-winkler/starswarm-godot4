@@ -4,7 +4,7 @@ namespace StarSwarm.Project.GSAI_Framework;
 
 /// <summary>
 /// Adds velocity speed and size data to <see cref="GSAIAgentLocation"/>
-/// 
+///
 /// It is the character's responsibility to keep this information up to date for the steering toolkit to work correctly.
 /// </summary>
 public partial class GSAISteeringAgent : GSAIAgentLocation

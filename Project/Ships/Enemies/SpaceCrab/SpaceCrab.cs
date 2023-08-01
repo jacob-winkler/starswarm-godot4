@@ -1,9 +1,9 @@
 using Godot;
 using StarSwarm.Project.Autoload;
+using StarSwarm.Project.GSAI_Framework.Agents;
+using StarSwarm.Project.SWStateMachine;
 using System;
 using System.Collections.Generic;
-using StarSwarm.Project.SWStateMachine;
-using StarSwarm.Project.GSAI_Framework.Agents;
 
 namespace StarSwarm.Project.Ships.Enemies.SpaceCrab;
 
@@ -11,24 +11,34 @@ public partial class SpaceCrab : CharacterBody2D
 {
     [Export]
     public PackedScene DisintegrateEffect = default!;
+
     [Export]
     public float HealthMax = 100f;
+
     [Export]
     public float LinearSpeedMax = 200f;
+
     [Export]
     public float AccelerationMax = 300f;
+
     [Export]
     public float DragFactor = 0.04f;
+
     [Export]
     public float AngularSpeedMax = 200;
+
     [Export]
     public float AngularAccelerationMax = 3600f;
+
     [Export]
     public float AngularDragFactor = 0.05f;
+
     [Export]
     public float DistanceFromTargetMin = 200f;
+
     [Export]
     public float DistanceFromObstaclesMin = 200f;
+
     [Export(PropertyHint.Layers2DPhysics)]
     public Int64 ProjectileMask = 0;
 
@@ -90,13 +100,13 @@ public partial class SpaceCrab : CharacterBody2D
         }
     }
 
-    public void OnBodyEnteredAggroRadius(PhysicsBody2D collider) => 
+    public void OnBodyEnteredAggroRadius(PhysicsBody2D collider) =>
         StateMachine.TransitionTo("Attack", new Dictionary<String, GodotObject> { ["target"] = collider });
 
-    public void OnBodyEnteredMeleeRange(PhysicsBody2D playerBody) => 
+    public void OnBodyEnteredMeleeRange(PhysicsBody2D playerBody) =>
         _meleeTarget = playerBody;
 
-    public void OnBodyExitedMeleeRange(PhysicsBody2D playerBody) => 
+    public void OnBodyExitedMeleeRange(PhysicsBody2D playerBody) =>
         _meleeTarget = null;
 
     public void OnScreenExited() => Events.EmitSignal("EnemyAdrift", this);

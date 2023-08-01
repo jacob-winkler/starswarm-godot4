@@ -1,5 +1,5 @@
-using System;
 using Godot;
+using System;
 
 namespace StarSwarm.Project.Common;
 
@@ -7,9 +7,9 @@ public partial class DisposableAudioStreamPlayer : Node
 {
     public DisposableAudioStreamPlayer(Node audioPlayer)
     {
-        if(audioPlayer is AudioStreamPlayer2D stream2D)
+        if (audioPlayer is AudioStreamPlayer2D stream2D)
             _audioPlayer2D = stream2D;
-        else if(audioPlayer is AudioStreamPlayer stream)
+        else if (audioPlayer is AudioStreamPlayer stream)
             _audioPlayer = stream;
         else
             throw new ArgumentException("Bad audio stream player");
@@ -38,7 +38,7 @@ public partial class DisposableAudioStreamPlayer : Node
 
     public void SetPosition(Vector2 position)
     {
-        if(_audioPlayer2D != null)
+        if (_audioPlayer2D != null)
             _audioPlayer2D.Position = position;
     }
 

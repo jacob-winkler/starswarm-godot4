@@ -1,9 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Godot;
 using StarSwarm.Project.Autoload.AudioLibraries;
 using StarSwarm.Project.Common;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace StarSwarm.Project.Autoload;
 

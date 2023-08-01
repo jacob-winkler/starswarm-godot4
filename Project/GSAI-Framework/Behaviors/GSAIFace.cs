@@ -1,5 +1,5 @@
-using System;
 using Godot;
+using System;
 
 namespace StarSwarm.Project.GSAI_Framework.Behaviors;
 
@@ -14,11 +14,11 @@ public partial class GSAIFace : GSAIMatchOrientation
         var toTarget = targetPosition - Agent.Position;
         var distanceSquared = toTarget.LengthSquared();
 
-        if(distanceSquared < Agent.ZeroLinearSpeedThreshold)
+        if (distanceSquared < Agent.ZeroLinearSpeedThreshold)
             acceleration.SetZero();
         else
         {
-            var orientation = UseZ ? 
+            var orientation = UseZ ?
                 GSAIUtils.Vector3ToAngle(toTarget) :
                 GSAIUtils.Vector2ToAngle(GSAIUtils.ToVector2(toTarget));
 

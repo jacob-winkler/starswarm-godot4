@@ -11,11 +11,11 @@ public partial class Attack : SpaceCrabState
     [Export]
     public float MinDistanceFromTarget = 0f;
 
-    GSAISteeringAgent Target { get; set; } = default!;
-    GSAIPursue Pursue { get; set; } = default!;
-    GSAIFace Face { get; set; } = default!;
-    GSAIBlend Blend { get; set; } = default!;
-    GSAITargetAcceleration Acceleration { get; set; } = new GSAITargetAcceleration();
+    private GSAISteeringAgent Target { get; set; } = default!;
+    private GSAIPursue Pursue { get; set; } = default!;
+    private GSAIFace Face { get; set; } = default!;
+    private GSAIBlend Blend { get; set; } = default!;
+    private GSAITargetAcceleration Acceleration { get; set; } = new GSAITargetAcceleration();
 
     public override void _Ready()
     {
@@ -30,7 +30,8 @@ public partial class Attack : SpaceCrabState
 
     public override void Enter(Dictionary<String, GodotObject>? msg = null)
     {
-        if(msg == null) return;
+        if (msg == null)
+            return;
 
         Target = ((PlayerShip)msg["target"]).Agent;
         Pursue.Target = Target;

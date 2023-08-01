@@ -1,8 +1,8 @@
-using System;
-using System.Collections.Generic;
 using Godot;
 using StarSwarm.Project.Autoload;
 using StarSwarm.Project.UI.PlayerHUD;
+using System;
+using System.Collections.Generic;
 
 namespace StarSwarm.Project.Planets;
 
@@ -54,10 +54,10 @@ public partial class Planet : Node2D
     }
 
     public override void _UnhandledInput(InputEvent @event)
-    { 
-        if(_activatable)
+    {
+        if (_activatable)
         {
-            if(@event.IsActionPressed("research"))
+            if (@event.IsActionPressed("research"))
             {
                 ((CollisionShape2D)ActivateResearchArea.GetChild(0)).Disabled = true;
                 _activatable = false;
@@ -80,12 +80,12 @@ public partial class Planet : Node2D
 
     private void OnResearchFinished()
     {
-        if(Weapon != null)
+        if (Weapon != null)
             _playerShip.AddChild(Weapon);
 
         RefreshHousedUpgrade();
         ((CollisionShape2D)ActivateResearchArea.GetChild(0)).Disabled = false;
-        if(ActivateResearchArea.OverlapsBody(_playerShip))
+        if (ActivateResearchArea.OverlapsBody(_playerShip))
             _activatable = true;
 
         AudioManager.Play(KnownAudioStreams.ResearchComplete);
@@ -97,7 +97,7 @@ public partial class Planet : Node2D
         {
             _activatable = true;
 
-            if(Tween.IsRunning())
+            if (Tween.IsRunning())
                 Tween.Pause();
             Tween.MakeAppear(PlanetAura);
         }
@@ -109,7 +109,7 @@ public partial class Planet : Node2D
         {
             _activatable = false;
 
-            if(Tween.IsRunning())
+            if (Tween.IsRunning())
                 Tween.Pause();
             Tween.MakeDisappear(PlanetAura);
         }

@@ -9,6 +9,7 @@ public partial class ScreenFader : TextureRect
 
     [Export]
     public float DurationFadeIn = 0.5f;
+
     [Export]
     public float DurationFadeOut = 2.5f;
 

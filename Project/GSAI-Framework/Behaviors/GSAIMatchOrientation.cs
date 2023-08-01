@@ -1,5 +1,5 @@
-using System;
 using Godot;
+using System;
 
 namespace StarSwarm.Project.GSAI_Framework.Behaviors;
 
@@ -13,7 +13,7 @@ public partial class GSAIMatchOrientation : GSAISteeringBehavior
 
     public GSAIMatchOrientation(GSAISteeringAgent agent, GSAIAgentLocation target, Boolean useZ = false)
         : base(agent)
-    { 
+    {
         UseZ = useZ;
         Target = target;
     }

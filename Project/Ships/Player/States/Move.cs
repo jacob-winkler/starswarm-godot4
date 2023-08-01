@@ -7,8 +7,10 @@ public partial class Move : PlayerState
 {
     [Export]
     public float DragLinearCoefficient = 0.05F;
+
     [Export]
     public float ReverseMultiplier = 0.50F;
+
     [Export]
     public float DragAngularCoeff = 0.1F;
 
@@ -27,7 +29,7 @@ public partial class Move : PlayerState
     public override void _Ready()
     {
         base._Ready();
-        
+
         Agent = new GSAIKinematicBody2DAgent();
         Agent.Initialize((CharacterBody2D)Owner);
 

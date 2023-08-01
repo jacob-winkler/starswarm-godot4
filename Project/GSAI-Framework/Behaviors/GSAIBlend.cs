@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using Godot;
+using System.Collections.Generic;
 
 namespace StarSwarm.Project.GSAI_Framework.Behaviors;
 
@@ -9,7 +9,7 @@ public partial class GSAIBlend : GSAISteeringBehavior
     private GSAITargetAcceleration _accel = new();
 
     public GSAIBlend(GSAISteeringAgent agent)
-        :base(agent)
+        : base(agent)
     {
     }
 

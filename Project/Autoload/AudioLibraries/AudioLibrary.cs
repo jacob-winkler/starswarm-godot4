@@ -1,5 +1,5 @@
-using System;
 using Godot;
+using System;
 
 namespace StarSwarm.Project.Autoload.AudioLibraries;
 
@@ -9,7 +9,7 @@ public partial class AudioLibrary : Node2D
 
     public Node GetAudioPlayer(String? nodePath = null)
     {
-        if(nodePath != null)
+        if (nodePath != null)
             return GetNode<Node>(nodePath);
         else
         {

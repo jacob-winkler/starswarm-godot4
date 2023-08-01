@@ -1,8 +1,8 @@
 namespace StarSwarm.Project.Ships.Player;
 
-enum UpgradeChoices 
-{ 
+internal enum UpgradeChoices
+{
     HEALTH,
     SPEED,
-    WEAPON 
+    WEAPON
 }

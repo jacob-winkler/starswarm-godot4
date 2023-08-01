@@ -21,7 +21,7 @@ public partial class GameOver : TextureRect
     public async void Start()
     {
         ScreenFader.FadeOut();
-			await ToSignal(ScreenFader, "AnimationFinished");
+        await ToSignal(ScreenFader, "AnimationFinished");
         GameOverLabel.Visible = true;
         _screenFinished = true;
     }
@@ -31,7 +31,7 @@ public partial class GameOver : TextureRect
         if (!_screenFinished)
             return;
 
-        if(@event is InputEventKey || @event.IsActionPressed("thrust_forwards"))
+        if (@event is InputEventKey || @event.IsActionPressed("thrust_forwards"))
         {
             GetTree().Quit();
         }

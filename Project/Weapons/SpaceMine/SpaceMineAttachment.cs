@@ -5,6 +5,7 @@ public partial class SpaceMineAttachment : WeaponAttachment
 {
     [Export]
     public PackedScene SpaceMine { get; set; } = default!;
+
     public ObjectRegistry ObjectRegistry { get; set; } = default!;
 
     // Called when the node enters the scene tree for the first time.

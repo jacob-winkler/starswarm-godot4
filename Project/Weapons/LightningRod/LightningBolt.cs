@@ -64,7 +64,7 @@ public partial class LightningBolt : Node2D
     {
         UpdatePoints();
         BoltLine.Points = _points.ToArray();
-        if(!_damageApplied)
+        if (!_damageApplied)
             ApplyDamage();
     }
 
@@ -74,7 +74,7 @@ public partial class LightningBolt : Node2D
     {
         BounceArea.Position = TargetPosition;
         var bodiesInRange = BounceArea.GetOverlappingBodies().Cast<Node2D>().Except(ForbiddenTargets).ToList();
-        if(!bodiesInRange.Any())
+        if (!bodiesInRange.Any())
             return null;
 
         bodiesInRange.Remove(Target);
@@ -100,7 +100,7 @@ public partial class LightningBolt : Node2D
     private void OnBounceTimeout()
     {
         var target = GetNextTarget();
-        if(target != null)
+        if (target != null)
             EmitSignal("BounceTriggered", this, target);
     }
 
@@ -109,7 +109,7 @@ public partial class LightningBolt : Node2D
     private void ApplyDamage()
     {
         _damageApplied = true;
-        if(IsInstanceValid(Target))
+        if (IsInstanceValid(Target))
             Events.EmitSignal("Damaged", Target, Damage, this);
     }
 }

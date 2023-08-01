@@ -1,9 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Godot;
 using StarSwarm.Project.Autoload.AudioLibraries;
 using StarSwarm.Project.Common;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace StarSwarm.Project.Autoload;
 
@@ -23,7 +23,7 @@ public partial class AudioManager2D : Node2D
         var enumValues = Enum.GetValues(typeof(KnownAudioStream2Ds)).OfType<object>().Select(x => x.ToString());
         if (enumValues == null)
             return warning.ToArray();
-        
+
         foreach (var stream in enumValues)
         {
             var node = GetNode(stream?.ToString());
@@ -31,7 +31,7 @@ public partial class AudioManager2D : Node2D
                 warning.Add($"Missing audio node: '{stream}'");
         }
 
-        foreach(var child in GetChildren())
+        foreach (var child in GetChildren())
         {
             if (!enumValues.Contains(child.Name.ToString()))
                 warning.Add($"Missing KnownAudioStream2Ds enum value: '{child.Name}'");
@@ -54,7 +54,7 @@ public partial class AudioManager2D : Node2D
 
         AddChild(disposableAudioPlayer);
 
-        if(position != null)
+        if (position != null)
             disposableAudioPlayer.SetPosition(position.Value);
 
         return disposableAudioPlayer;

@@ -3,7 +3,7 @@ using Godot;
 namespace StarSwarm.Project.Autoload;
 
 /// <summary>
-/// Creates, maintains, and organizes spawned special effects or projectiles; 
+/// Creates, maintains, and organizes spawned special effects or projectiles;
 /// objects that should be untied from their spawners' lifespan when freed.
 /// </summary>
 public partial class ObjectRegistry : Node

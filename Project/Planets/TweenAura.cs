@@ -8,10 +8,13 @@ public partial class TweenAura : Node
 {
     [Export]
     public Vector2 ScaleHidden { get; set; } = Vector2.Zero;
+
     [Export]
     public Vector2 ScaleFinal { get; set; } = Vector2.One;
+
     [Export]
     public float DurationAppear { get; set; } = 1f;
+
     [Export]
     public float DurationDisappear { get; set; } = 0.5f;
 
@@ -56,7 +59,7 @@ public partial class TweenAura : Node
 
     public Boolean IsRunning() => AuraTween == null ? false : AuraTween.IsRunning();
 
-    public void Pause() 
+    public void Pause()
     {
         if (AuraTween != null)
             AuraTween.Kill();

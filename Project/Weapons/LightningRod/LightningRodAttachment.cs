@@ -9,10 +9,13 @@ public partial class LightningRodAttachment : WeaponAttachment
 {
     [Export]
     public PackedScene LightningBolt { get; set; } = default!;
+
     [Export]
     public float MaxTargets { get; set; } = default!;
+
     [Export]
     public float MaxBounces { get; set; } = 2f;
+
     [Export]
     public float Damage { get; set; } = 100;
 
@@ -35,7 +38,7 @@ public partial class LightningRodAttachment : WeaponAttachment
         var bodiesInRange = AttackRange.GetOverlappingBodies().Cast<PhysicsBody2D>().ToList();
         for (var x = 0; x < MaxTargets; x++)
         {
-            if(!bodiesInRange.Any())
+            if (!bodiesInRange.Any())
                 break;
 
             var target = bodiesInRange.Find(

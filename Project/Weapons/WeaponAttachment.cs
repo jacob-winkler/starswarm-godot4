@@ -13,8 +13,10 @@ public abstract partial class WeaponAttachment : Node2D
 
     [Export]
     public float Cooldown { get; set; } = 3;
+
     [Export]
     public float WeaponDuration { get; set; } = 2;
+
     [Export]
     public Texture2D SmallIcon { get; set; } = default!;
 

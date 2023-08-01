@@ -14,7 +14,7 @@ public partial class GSAISteeringBehavior
 
     public void CalculateSteering(GSAITargetAcceleration acceleration)
     {
-        if(IsEnabled)
+        if (IsEnabled)
         {
             _CalculateSteering(acceleration);
         }

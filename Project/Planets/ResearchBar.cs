@@ -5,6 +5,7 @@ public partial class ResearchBar : ProgressBar
 {
     [Signal]
     public delegate void ResearchFinishedEventHandler();
+
     private Boolean _researching = false;
 
     // Called when the node enters the scene tree for the first time.

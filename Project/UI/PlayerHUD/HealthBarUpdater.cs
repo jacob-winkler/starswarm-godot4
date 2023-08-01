@@ -4,6 +4,7 @@ using System;
 public partial class HealthBarUpdater : Control
 {
     public TextureProgressBar HealthBar { get; set; } = default!;
+
     public override void _Ready()
     {
         HealthBar = GetNode<TextureProgressBar>("HealthBar");

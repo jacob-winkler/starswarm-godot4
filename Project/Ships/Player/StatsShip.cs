@@ -7,25 +7,35 @@ public partial class StatsShip : Stats
 {
     [Signal]
     public delegate void HealthDepletedEventHandler();
+
     [Signal]
     public delegate void MaxHealthUpdatedEventHandler();
 
     [Export]
     private float _maxHealth = 10000F;
+
     [Export]
     private float _accelerationMax = 15.0F;
+
     [Export]
     private float _linearSpeedMax = 350.0F;
+
     [Export]
     private float _angularSpeedMax = 120.0F;
+
     [Export]
     private float _angularAccelerationMax = 45.0F;
+
     [Export]
     private float _health;
 
     public String TestProperty { get; set; }
 
-    public float Health { get { return _health; }  set {
+    public float Health
+    {
+        get { return _health; }
+        set
+        {
             _health = Mathf.Clamp(value, 0.0F, _maxHealth);
             if (Mathf.IsEqualApprox(Health, 0.0F))
                 EmitSignal("HealthDepleted");
