@@ -7,7 +7,7 @@
     },
     "Play In Editor": {
       "commandName": "Executable",
-      "executablePath": "C:\\dev\\GameDevelopment\\GodotEngine\\Godot_v4.0.3-stable_mono_win64\\Godot_v4.0.3-stable_mono_win64.exe",
+      "executablePath": "C:\\dev\\GameDevelopment\\GodotEngine\\Godot_v4.1.3-stable_mono_win64\\Godot_v4.1.3-stable_mono_win64.exe",
       "commandLineArgs": "--path . --verbose",
       "workingDirectory": ".",
       "nativeDebugging": true
