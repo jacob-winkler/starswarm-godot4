@@ -5,8 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StarSwarm.Project.GSAI_Framework.Agents
-{
+namespace StarSwarm.Project.GSAI_Framework.Agents;
+
 	public partial class GSAIKinematicBody2DAgent : GSAISpecializedAgent
 	{
 		protected CharacterBody2D body = default!;
@@ -171,4 +171,3 @@ namespace StarSwarm.Project.GSAI_Framework.Agents
 			}
 		}
 	}
-}

@@ -3,8 +3,8 @@ using StarSwarm.Project.Main;
 using StarSwarm.World.Spawners;
 using System;
 
-namespace StarSwarm.World
-{
+namespace StarSwarm.World;
+
 	public partial class GameWorld : Node2D
 	{
 		[Export]
@@ -16,9 +16,9 @@ namespace StarSwarm.World
 		public PlanetSpawner PlanetSpawner { get; set; } = default!;
 		public PlayerShip Player { get; set; } = default!;
 		public HealthBarUpdater HealthBarUpdater { get; set; } = default!;
-        public GameOver GameOverScreen { get; set; } = default!;
+    public GameOver GameOverScreen { get; set; } = default!;
 
-        private Boolean _playerDead;
+    private Boolean _playerDead;
 
 		public async override void _Ready()
 		{
@@ -30,11 +30,11 @@ namespace StarSwarm.World
 			PlayerSpawner = GetNode<PlayerSpawner>("PlayerSpawner");
 			Player = GetNode<PlayerShip>("PlayerSpawner/PlayerShip");
 			SpaceCrabSpawner = GetNode<SpaceCrabSpawner>("SpaceCrabSpawner");
-            PlanetSpawner = GetNode<PlanetSpawner>("PlanetSpawner");
-            HealthBarUpdater = GetNode<HealthBarUpdater>("HealthBarUpdater");
-            GameOverScreen = GetNode<GameOver>("UI/GameOver");
+        PlanetSpawner = GetNode<PlanetSpawner>("PlanetSpawner");
+        HealthBarUpdater = GetNode<HealthBarUpdater>("HealthBarUpdater");
+        GameOverScreen = GetNode<GameOver>("UI/GameOver");
 
-            Setup();
+        Setup();
 		}
 
 		public void Setup()
@@ -46,12 +46,12 @@ namespace StarSwarm.World
 			SpaceCrabSpawner.Initialize(Player, Rng);
 			SpaceCrabSpawner.SpawnSpaceCrabsAroundPlayer();
 
-            PlanetSpawner.Initialize(Player, Rng);
-            PlanetSpawner.SpawnInitialPlanets();
+        PlanetSpawner.Initialize(Player, Rng);
+        PlanetSpawner.SpawnInitialPlanets();
 
-            HealthBarUpdater.Initialize(Player);
-            GameOverScreen.ProcessMode = ProcessModeEnum.Always;
-        }
+        HealthBarUpdater.Initialize(Player);
+        GameOverScreen.ProcessMode = ProcessModeEnum.Always;
+    }
 
 		public override void _PhysicsProcess(double delta)
 		{
@@ -70,10 +70,9 @@ namespace StarSwarm.World
 		private void OnPlayerDied()
 		{
 			_playerDead = true;
-            GameOverScreen.GlobalPosition = Player.GlobalPosition;
-            GameOverScreen.Start();
+        GameOverScreen.GlobalPosition = Player.GlobalPosition;
+        GameOverScreen.Start();
 
-            GetTree().Paused = true;
+        GetTree().Paused = true;
 		}
 	}
-}

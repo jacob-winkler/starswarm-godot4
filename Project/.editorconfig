@@ -14,3 +14,5 @@ dotnet_style_predefined_type_for_locals_parameters_members = false
 
 dotnet_diagnostic.IDE0051.severity = none
 dotnet_diagnostic.RCS1213.severity = none
+
+csharp_style_namespace_declarations = file_scoped:warning

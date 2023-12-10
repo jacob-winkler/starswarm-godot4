@@ -4,9 +4,9 @@ using StarSwarm.Project.GSAI_Framework.Behaviors;
 using System;
 using System.Collections.Generic;
 
-namespace StarSwarm.Project.Ships.States
-{
-    public partial class Attack<TShip> : ShipState<TShip>
+namespace StarSwarm.Project.Ships.States;
+
+public partial class Attack<TShip> : ShipState<TShip>
 		where TShip : GSAICharacterBody2D
 	{
 		[Export]
@@ -47,4 +47,3 @@ namespace StarSwarm.Project.Ships.States
 			var playerDotFacing = facingDirection.Dot(toPlayer);
 		}
 	}
-}
