@@ -1,20 +1,16 @@
 using Godot;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StarSwarm.Project.SWStateMachine
 {
-	public partial class StateMachine : Node
+    public partial class StateMachine : Node
 	{
 		[Export]
 		public NodePath InitialState { get; set; } = new NodePath();
 
-		private State state = new State();
-		public State State {get { return state; } set {
-				state = value;
+		private State _state = new State();
+		public State State {get { return _state; } set {
+				_state = value;
 				_stateName = State.Name;
 			}
 		}
