@@ -1,10 +1,9 @@
-namespace StarSwarm.Project.Autoload
+namespace StarSwarm.Project.Autoload;
+
+public enum KnownAudioStream2Ds
 {
-    public enum KnownAudioStream2Ds
-    {
-        SpaceCrabDeath,
-        LightningRod,
-        StartResearch,
-        SpaceMine,
-    }
+    SpaceCrabDeath,
+    LightningRod,
+    StartResearch,
+    SpaceMine,
 }

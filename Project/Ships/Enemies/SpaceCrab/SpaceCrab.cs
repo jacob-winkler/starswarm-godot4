@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using StarSwarm.Project.SWStateMachine;
 using StarSwarm.Project.GSAI_Framework;
 
-namespace StarSwarm.Project.Ships.Enemies.SpaceCrab
-{
-    public partial class SpaceCrab : GSAICharacterBody2D
+namespace StarSwarm.Project.Ships.Enemies.SpaceCrab;
+
+public partial class SpaceCrab : GSAICharacterBody2D
 	{
 		[Export]
 		public PackedScene DisintegrateEffect = default!;
@@ -131,4 +131,3 @@ namespace StarSwarm.Project.Ships.Enemies.SpaceCrab
 			Events.EmitSignal("AddPoints", _pointValue);
 		}
 	}
-}

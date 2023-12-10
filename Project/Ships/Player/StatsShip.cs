@@ -5,66 +5,65 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StarSwarm.Project.Ships.Player
+namespace StarSwarm.Project.Ships.Player;
+
+public partial class StatsShip : Stats
 {
-    public partial class StatsShip : Stats
+    [Signal]
+    public delegate void HealthDepletedEventHandler();
+    [Signal]
+    public delegate void MaxHealthUpdatedEventHandler();
+
+    [Export]
+    private float _maxHealth = 10000F;
+    [Export]
+    private float _accelerationMax = 15.0F;
+    [Export]
+    private float _linearSpeedMax = 350.0F;
+    [Export]
+    private float _angularSpeedMax = 120.0F;
+    [Export]
+    private float _angularAccelerationMax = 45.0F;
+    [Export]
+    private float _health;
+
+    public String TestProperty { get; set; }
+
+    public float Health { get { return _health; }  set {
+            _health = Mathf.Clamp(value, 0.0F, _maxHealth);
+            if (Mathf.IsEqualApprox(Health, 0.0F))
+                EmitSignal("HealthDepleted");
+            Update("health");
+        }
+    }
+
+    public StatsShip()
     {
-        [Signal]
-        public delegate void HealthDepletedEventHandler();
-        [Signal]
-        public delegate void MaxHealthUpdatedEventHandler();
+        _health = _maxHealth;
+    }
 
-        [Export]
-        private float _maxHealth = 10000F;
-        [Export]
-        private float _accelerationMax = 15.0F;
-        [Export]
-        private float _linearSpeedMax = 350.0F;
-        [Export]
-        private float _angularSpeedMax = 120.0F;
-        [Export]
-        private float _angularAccelerationMax = 45.0F;
-        [Export]
-        private float _health;
+    public float GetMaxHealth()
+    {
+        return GetStat("maxHealth");
+    }
 
-        public String TestProperty { get; set; }
+    public float GetAccelerationMax()
+    {
+        return GetStat("accelerationMax");
+    }
 
-        public float Health { get { return _health; }  set {
-                _health = Mathf.Clamp(value, 0.0F, _maxHealth);
-                if (Mathf.IsEqualApprox(Health, 0.0F))
-                    EmitSignal("HealthDepleted");
-                Update("health");
-            }
-        }
+    public float GetLinearSpeedMax()
+    {
+        return GetStat("linearSpeedMax");
+    }
 
-        public StatsShip()
-        {
-            _health = _maxHealth;
-        }
+    public float GetAngularSpeedMax()
+    {
+        return GetStat("angularSpeedMax");
+    }
 
-        public float GetMaxHealth()
-        {
-            return GetStat("maxHealth");
-        }
-
-        public float GetAccelerationMax()
-        {
-            return GetStat("accelerationMax");
-        }
-
-        public float GetLinearSpeedMax()
-        {
-            return GetStat("linearSpeedMax");
-        }
-
-        public float GetAngularSpeedMax()
-        {
-            return GetStat("angularSpeedMax");
-        }
-
-        public float GetAngularAccelerationMax()
-        {
-            return GetStat("angularAccelerationMax");
-        }
+    public float GetAngularAccelerationMax()
+    {
+        return GetStat("angularAccelerationMax");
     }
 }

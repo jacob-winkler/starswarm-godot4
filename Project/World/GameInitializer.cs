@@ -2,8 +2,8 @@ using Godot;
 using StarSwarm.Project.Autoload;
 using System;
 
-namespace StarSwarm.Project.World
-{
+namespace StarSwarm.Project.World;
+
 	public partial class GameInitializer : Node
 	{
 		public ObjectRegistry ObjectRegistry { get; set; } = new ObjectRegistry();
@@ -15,7 +15,7 @@ namespace StarSwarm.Project.World
 		{
 			Events = GetNode<Events>("/root/Events");
 			ObjectRegistry = GetNode<ObjectRegistry>("/root/ObjectRegistry");
-            Camera2D = GetNode<PlayerCamera>("GameWorld/Camera2D");
+        Camera2D = GetNode<PlayerCamera>("GameWorld/Camera2D");
 
 			Events.Connect("PlayerSpawned", new Callable(this, "OnPlayerSpawned"));
 		}
@@ -26,4 +26,3 @@ namespace StarSwarm.Project.World
 			Events.EmitSignal("NodeSpawned", player);
 		}
 	}
-}

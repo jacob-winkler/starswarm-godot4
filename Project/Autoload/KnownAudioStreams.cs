@@ -1,8 +1,7 @@
-namespace StarSwarm.Project.Autoload
+namespace StarSwarm.Project.Autoload;
+
+public enum KnownAudioStreams
 {
-    public enum KnownAudioStreams
-    {
-        PlayerDeath,
-        ResearchComplete,
-    }
+    PlayerDeath,
+    ResearchComplete,
 }

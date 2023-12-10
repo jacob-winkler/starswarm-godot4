@@ -1,9 +1,9 @@
 using Godot;
 using System.Collections.Generic;
 
-namespace StarSwarm.Project.SWStateMachine
-{
-    public partial class StateMachine : Node
+namespace StarSwarm.Project.SWStateMachine;
+
+public partial class StateMachine : Node
 	{
 		[Export]
 		public NodePath InitialState { get; set; } = new NodePath();
@@ -54,4 +54,3 @@ namespace StarSwarm.Project.SWStateMachine
 			State.Enter(msg);
 		}
 	}
-}

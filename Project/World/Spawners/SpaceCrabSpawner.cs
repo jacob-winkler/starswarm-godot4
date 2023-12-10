@@ -2,8 +2,8 @@ using Godot;
 using StarSwarm.Project.Ships.Enemies.SpaceCrab;
 using System;
 
-namespace StarSwarm.World.Spawners
-{
+namespace StarSwarm.World.Spawners;
+
 	public partial class SpaceCrabSpawner : Spawner
 	{
 		[Export]
@@ -15,36 +15,36 @@ namespace StarSwarm.World.Spawners
 		[Export]
 		public float SpawnRadius = 650f;
 
-        public Events Events { get; set; } = default!;
-        public CountUpTimer GameTime { get; set; } = default!;
+    public Events Events { get; set; } = default!;
+    public CountUpTimer GameTime { get; set; } = default!;
 
-        private RandomNumberGenerator _rng { get; set; } = default!;
-        private Int32 _spaceCrabsAlive { get; set; } = 0;
+    private RandomNumberGenerator _rng { get; set; } = default!;
+    private Int32 _spaceCrabsAlive { get; set; } = 0;
 
-        public override void _Ready()
+    public override void _Ready()
 		{
-            Events = GetNode<Events>("/root/Events");
-            Events.Connect("EnemyAdrift", new Callable(this, "OnSpaceCrabFellAdrift"));
-            Events.Connect("SpaceCrabDied", new Callable(this, "OnSpaceCrabDied"));
-        }
+        Events = GetNode<Events>("/root/Events");
+        Events.Connect("EnemyAdrift", new Callable(this, "OnSpaceCrabFellAdrift"));
+        Events.Connect("SpaceCrabDied", new Callable(this, "OnSpaceCrabDied"));
+    }
 
 		public void Initialize(PlayerShip playerShip, RandomNumberGenerator rng)
 		{
-            _playerShip = playerShip;
-            _rng = rng;
-        }
+        _playerShip = playerShip;
+        _rng = rng;
+    }
 
 		public void SpawnSpaceCrabsAroundPlayer()
 		{
-            SpawnSpaceCrabsAroundPosition(_playerShip.GlobalPosition);
-        }
+        SpawnSpaceCrabsAroundPosition(_playerShip.GlobalPosition);
+    }
 
-        public void SpawnSpaceCrabsAroundPosition(Vector2 position)
+    public void SpawnSpaceCrabsAroundPosition(Vector2 position)
 		{
 			while(_spaceCrabsAlive < MaxSpaceCrabs)
 			{
-                SpawnSpaceCrab(position);
-            }
+            SpawnSpaceCrab(position);
+        }
 		}
 
 		public void SpawnSpaceCrab(Vector2 playerPosition)
@@ -58,30 +58,29 @@ namespace StarSwarm.World.Spawners
 
 		public void SetSpaceCrabPositionAroundPlayer(SpaceCrab crab, Vector2 playerPosition)
 		{
-            var angle = Mathf.DegToRad(_rng.RandfRange(0, 360));
-            var newPosition = playerPosition + (new Vector2(
-                Mathf.Cos(angle),
-                Mathf.Sin(angle)
-            ) * SpawnRadius);
+        var angle = Mathf.DegToRad(_rng.RandfRange(0, 360));
+        var newPosition = playerPosition + (new Vector2(
+            Mathf.Cos(angle),
+            Mathf.Sin(angle)
+        ) * SpawnRadius);
 
-            crab.Position = newPosition - this.GlobalPosition;
-        }
+        crab.Position = newPosition - this.GlobalPosition;
+    }
 
 		public void OnSpaceCrabFellAdrift(PhysicsBody2D body)
 		{
-            if (body is SpaceCrab spaceCrab)
-            {
-                SetSpaceCrabPositionAroundPlayer(spaceCrab, _playerShip.GlobalPosition);
-            }
+        if (body is SpaceCrab spaceCrab)
+        {
+            SetSpaceCrabPositionAroundPlayer(spaceCrab, _playerShip.GlobalPosition);
         }
+    }
 
 		public void OnSpaceCrabDied()
 		{
-            _spaceCrabsAlive--;
+        _spaceCrabsAlive--;
 			if(_spaceCrabsAlive/MaxSpaceCrabs <= .8)
 			{
-                SpawnSpaceCrabsAroundPosition(_playerShip.GlobalPosition);
-            }
+            SpawnSpaceCrabsAroundPosition(_playerShip.GlobalPosition);
         }
+    }
 	}
-}
