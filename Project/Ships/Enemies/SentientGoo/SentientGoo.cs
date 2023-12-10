@@ -1,7 +1,9 @@
 using Godot;
-using System;
+using StarSwarm.Project.GSAI_Framework;
 
-public partial class SentientGoo : CharacterBody2D
+namespace StarSwarm.Project.Ships.Enemies.SentientGoo;
+
+public partial class SentientGoo : GSAICharacterBody2D
 {
 	public const float Speed = 300.0f;
 	public const float JumpVelocity = -400.0f;
