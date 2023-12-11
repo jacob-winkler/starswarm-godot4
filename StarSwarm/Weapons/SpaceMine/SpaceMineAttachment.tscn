@@ -1,0 +1,12 @@
+[gd_scene load_steps=5 format=3 uid="uid://c7axdv51dgn7v"]
+
+[ext_resource type="PackedScene" uid="uid://dblevrbfgd58g" path="res://StarSwarm/Weapons/WeaponAttachment.tscn" id="1"]
+[ext_resource type="Script" path="res://StarSwarm/Weapons/SpaceMine/SpaceMineAttachment.cs" id="2"]
+[ext_resource type="PackedScene" path="res://StarSwarm/Weapons/SpaceMine/SpaceMine.tscn" id="3"]
+[ext_resource type="Texture2D" uid="uid://vw1r01n2uh7c" path="res://Assets/UI/Icons/SpaceMine_icon_small.png" id="4"]
+
+
+[node name="SpaceMineAttachment" instance=ExtResource("1")]
+script = ExtResource("2")
+SpaceMine = ExtResource("3")
+SmallIcon = ExtResource("4")

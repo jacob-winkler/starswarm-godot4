@@ -2,10 +2,11 @@
   <PropertyGroup>
     <TargetFramework>net6</TargetFramework>
     <RootNamespace>StarSwarm</RootNamespace>
-    <LangVersion>9.0</LangVersion>
+    <LangVersion>10.0</LangVersion>
     <Nullable>enable</Nullable>
     <RunAnalyzersDuringLiveAnalysis>True</RunAnalyzersDuringLiveAnalysis>
     <RunAnalyzersDuringBuild>True</RunAnalyzersDuringBuild>
+	<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ExportRelease|AnyCPU'">
     <LangVersion>10.0</LangVersion>
@@ -17,11 +18,10 @@
     <LangVersion>10.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="Project\Common\" />
-    <Folder Include="Project\Main\" />
-    <Folder Include="Project\Ships\Enemies\SentientGoo\States\" />
-    <Folder Include="Project\UI\MainScreen\" />
-	<CompilerVisibleProperty Include="RootNamespace" />
+    <Folder Include="StarSwarm\Common\" />
+    <Folder Include="StarSwarm\Main\" />
+    <Folder Include="StarSwarm\Ships\Enemies\SentientGoo\States\" />
+    <Folder Include="StarSwarm\UI\MainScreen\" />
 	<CompilerVisibleProperty Include="ProjectDir" />
   </ItemGroup>
 </Project>

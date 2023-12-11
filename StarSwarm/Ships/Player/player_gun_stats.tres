@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://StarSwarm/Ships/Player/StatsGun.cs" id="1"]
+
+
+[resource]
+script = ExtResource( 1 )
+_damage = 4.0
+_cooldown = 0.14
+_spread = 30.0

@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://nkkffjfrtcfo"]
+
+[ext_resource type="PackedScene" uid="uid://dblevrbfgd58g" path="res://StarSwarm/Weapons/WeaponAttachment.tscn" id="1"]
+[ext_resource type="Script" path="res://StarSwarm/Weapons/LightningRod/LightningRodAttachment.cs" id="2"]
+[ext_resource type="Texture2D" uid="uid://dvcg84i3soofi" path="res://Assets/UI/Icons/LightningRod_Icon_small.png" id="3"]
+[ext_resource type="PackedScene" uid="uid://k3obgphnig3x" path="res://StarSwarm/Weapons/LightningRod/LightningBolt.tscn" id="4"]
+
+
+[sub_resource type="CircleShape2D" id="1"]
+radius = 250.0
+
+[node name="LightningRodAttachment" instance=ExtResource("1")]
+script = ExtResource("2")
+LightningBolt = ExtResource("4")
+MaxTargets = 1.0
+Cooldown = 4.0
+SmallIcon = ExtResource("3")
+
+[node name="AttackRange" type="Area2D" parent="." index="2"]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange" index="0"]
+shape = SubResource("1")
+
+[node name="Label" type="Label" parent="AttackRange" index="1"]
+visible = false
+offset_left = -24.0
+offset_top = -7.0
+offset_right = 23.0
+offset_bottom = 7.0
+text = "CENTER"

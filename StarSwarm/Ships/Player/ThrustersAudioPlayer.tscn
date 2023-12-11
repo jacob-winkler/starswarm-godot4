@@ -1,0 +1,15 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="AudioStream" uid="uid://cp5iity7pgxw4" path="res://Assets/Ships/PlayerShip/Thrust_End.wav" id="1"]
+[ext_resource type="AudioStream" uid="uid://bnd88gr5vasjq" path="res://Assets/Ships/PlayerShip/Thrust_Loop.wav" id="2"]
+[ext_resource type="AudioStream" uid="uid://61gv325d8ojl" path="res://Assets/Ships/PlayerShip/Thrust_Start.wav" id="3"]
+[ext_resource type="Script" path="res://StarSwarm/Common/LoopingAudioStreamPlayer2D.cs" id="4"]
+
+
+[node name="ThrustersAudioPlayer" type="AudioStreamPlayer2D"]
+stream = ExtResource( 2 )
+bus = "Thrusters"
+script = ExtResource( 4 )
+SoundStart = ExtResource( 3 )
+SoundLoop = ExtResource( 2 )
+SoundTail = ExtResource( 1 )
