@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using StarSwarm.Autoload;
 using Godot;
-using StarSwarm.Autoload;
 using static Godot.Tween;
 
 namespace StarSwarm.Weapons.LightningRod;

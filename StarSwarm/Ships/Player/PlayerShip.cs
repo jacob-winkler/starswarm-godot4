@@ -1,8 +1,6 @@
 using Godot;
 using StarSwarm.Autoload;
-using StarSwarm.Autoload;
 using StarSwarm.GSAI_Framework;
-using StarSwarm.Ships.Player;
 using StarSwarm.Ships.Player.States;
 using StarSwarm.VFX;
 

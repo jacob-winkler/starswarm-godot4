@@ -26,5 +26,3 @@ layout_mode = 1
 [node name="UIBehaviors" type="CanvasLayer" parent="."]
 
 [node name="ScreenFader" parent="UIBehaviors" instance=ExtResource("4")]
-DurationFadeIn = null
-DurationFadeOut = null

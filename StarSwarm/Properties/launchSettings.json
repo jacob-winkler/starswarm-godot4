@@ -1,15 +1,13 @@
 {
   "profiles": {
     "Star Swarm": {
-      "commandName": "Project",
-      "commandLineArgs": "--path . --verbose",
-      "workingDirectory": "..\\..\\GodotEngine\\Godot_v4.0.3-stable_mono_win64\\Godot_v4.0.3-stable_mono_win64_console.exe"
+      "commandName": "Project"
     },
-    "Play In Editor": {
+    "Start In Godot": {
       "commandName": "Executable",
       "executablePath": "C:\\dev\\GameDevelopment\\GodotEngine\\Godot_v4.2-stable_mono_win64\\Godot_v4.2-stable_mono_win64.exe",
       "commandLineArgs": "--path . --verbose",
-      "workingDirectory": ".",
+      "workingDirectory": "../",
       "nativeDebugging": true
     }
   }

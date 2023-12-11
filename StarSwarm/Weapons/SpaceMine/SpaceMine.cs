@@ -1,6 +1,5 @@
 using StarSwarm.Autoload;
 using Godot;
-using StarSwarm.Autoload;
 using static Godot.Animation;
 
 namespace StarSwarm.Weapons.SpaceMine;

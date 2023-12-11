@@ -1,6 +1,5 @@
 using StarSwarm.Autoload;
 using Godot;
-using StarSwarm.Autoload;
 using StarSwarm.Ships.Player;
 
 namespace StarSwarm.World;
