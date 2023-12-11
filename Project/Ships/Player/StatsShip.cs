@@ -1,9 +1,4 @@
 using Godot;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StarSwarm.Project.Ships.Player;
 
@@ -26,8 +21,6 @@ public partial class StatsShip : Stats
     private float _angularAccelerationMax = 45.0F;
     [Export]
     private float _health;
-
-    public String TestProperty { get; set; }
 
     public float Health { get { return _health; }  set {
             _health = Mathf.Clamp(value, 0.0F, _maxHealth);

@@ -15,4 +15,8 @@ dotnet_style_predefined_type_for_locals_parameters_members = false
 dotnet_diagnostic.IDE0051.severity = none
 dotnet_diagnostic.RCS1213.severity = none
 
+# namespaces
 csharp_style_namespace_declarations = file_scoped:warning
+dotnet_style_namespace_match_folder = true
+dotnet_diagnostic.IDE0130.severity = error
+dotnet_diagnostic.CA1050.severity = error

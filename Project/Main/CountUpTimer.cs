@@ -1,5 +1,8 @@
+using Autoload;
 using Godot;
 using System;
+
+namespace Ships;
 
 public partial class CountUpTimer : Label
 {

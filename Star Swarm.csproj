@@ -21,5 +21,7 @@
     <Folder Include="Project\Main\" />
     <Folder Include="Project\Ships\Enemies\SentientGoo\States\" />
     <Folder Include="Project\UI\MainScreen\" />
+	<CompilerVisibleProperty Include="RootNamespace" />
+	<CompilerVisibleProperty Include="ProjectDir" />
   </ItemGroup>
 </Project>
