@@ -1,3 +1,4 @@
+using Autoload;
 using Godot;
 using StarSwarm.Project.Autoload;
 
@@ -37,10 +38,10 @@ public partial class PlayerCamera : Camera2D
     private Vector2 _startZoom;
     private Vector2 _startPosition = Vector2.Zero;
 
-    public ObjectRegistry ObjectRegistry;
-    public Events Events;
-    public RemoteTransform2D RemoteMap;
-    public RemoteTransform2D RemoteDistort;
+    public ObjectRegistry ObjectRegistry = default!;
+    public Events Events = default!;
+    public RemoteTransform2D RemoteMap = default!;
+    public RemoteTransform2D RemoteDistort = default!;
     public FastNoiseLite Noise = new FastNoiseLite();
 
 

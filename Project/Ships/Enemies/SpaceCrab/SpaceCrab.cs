@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using StarSwarm.Project.SWStateMachine;
 using StarSwarm.Project.GSAI_Framework;
+using Autoload;
 
 namespace StarSwarm.Project.Ships.Enemies.SpaceCrab;
 

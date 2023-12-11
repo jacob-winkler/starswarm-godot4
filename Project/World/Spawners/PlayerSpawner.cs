@@ -1,3 +1,4 @@
+using Autoload;
 using Godot;
 
 namespace StarSwarm.World.Spawners;
