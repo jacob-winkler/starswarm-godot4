@@ -32,8 +32,6 @@ insert_final_newline = false
 
 # namespaces
 csharp_style_namespace_declarations = file_scoped:warning
-dotnet_style_namespace_match_folder = true
-dotnet_diagnostic.IDE0130.severity = error
 dotnet_diagnostic.CA1050.severity = error
 
 # Organize usings
