@@ -32,27 +32,29 @@ public partial class RadialSpawner<TNode> : Spawner
         _rng = rng;
     }
 
-    public void SpawnNodesAroundPosition(Vector2 position)
+    public void SpawnNodesAroundPosition(Vector2 centralPosition)
     {
         while (_nodesAlive < MaxNodes)
         {
-            SpawnNode(position);
+            SpawnNodeAroundPosition(centralPosition);
         }
     }
 
-    public void SpawnNode(Vector2 centralPoint)
+    public TNode SpawnNodeAroundPosition(Vector2 centralPosition)
     {
         var instantiatedNode = (TNode)NodeToSpawn.Instantiate();
-        PositionSpawnedNodeAroundCentralPosition(instantiatedNode, centralPoint);
+        PlaceSpawnedNodeAroundCentralPosition(instantiatedNode, centralPosition);
 
         CallDeferred("add_child", instantiatedNode);
         _nodesAlive++;
+
+        return instantiatedNode;
     }
 
-    public void PositionSpawnedNodeAroundCentralPosition(TNode node, Vector2 centralPoint)
+    public void PlaceSpawnedNodeAroundCentralPosition(TNode node, Vector2 centralPosition)
     {
         var angle = Mathf.DegToRad(_rng.RandfRange(0, 360));
-        var newPosition = centralPoint + (new Vector2(
+        var newPosition = centralPosition + (new Vector2(
             Mathf.Cos(angle),
             Mathf.Sin(angle)
         ) * SpawnRadius);
