@@ -12,14 +12,11 @@ public partial class SwarmWaveSpawner : Node2D
 
     private Planet _planet = default!;
 
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
+    // Called when the node enters the scene tree for the first time.
+    public override void _Ready()
 	{
-        WaveTimer = GetNode<Timer>("WaveTimer");
-        WaveTimer.OneShot = true;
-
         SpawnTimer = GetNode<Timer>("SpawnTimer");
-        SentientGooSpawner = GetNode<SentientGooSpawner>("SentientGooSpawner");       
+        SentientGooSpawner = GetNode<SentientGooSpawner>("SentientGooSpawner");
 	}
 
     public void Initialize(Planet planet)
@@ -27,11 +24,8 @@ public partial class SwarmWaveSpawner : Node2D
         _planet = planet;
     }
 
-	public void StartSwarmWave(int waveTime, int spawnTime)
+	public void StartSwarmWave(int spawnTime)
     {
-        WaveTimer.Connect("timeout", new Callable(this, "StopSwarmWave"));
-        WaveTimer.Start(waveTime);
-
         SpawnTimer.Connect("timeout", new Callable(this, "SpawnSwarmEnemy"));
         SpawnTimer.Start(spawnTime);
     }

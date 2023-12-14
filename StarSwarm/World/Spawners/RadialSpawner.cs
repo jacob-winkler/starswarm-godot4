@@ -1,11 +1,10 @@
 ﻿using Godot;
 using Main;
 using StarSwarm.Autoload;
-using StarSwarm.Ships.Player;
 
 namespace StarSwarm.World.Spawners;
 
-public partial class RadialSpawner<TNode> : Spawner
+public partial class RadialSpawner<TNode> : Node2D
     where TNode : Node2D
 {
     [Export]
@@ -20,16 +19,12 @@ public partial class RadialSpawner<TNode> : Spawner
     public Events Events { get; set; } = default!;
     public CountUpTimer GameTime { get; set; } = default!;
 
-    private RandomNumberGenerator _rng = default!;
+    private RandomNumberGenerator _rng = new RandomNumberGenerator();
     private int _nodesAlive = 0;
 
     public override void _Ready()
-    { }
-
-    public void Initialize(PlayerShip playerShip, RandomNumberGenerator rng)
     {
-        _playerShip = playerShip;
-        _rng = rng;
+        _rng.Randomize();
     }
 
     public void SpawnNodesAroundPosition(Vector2 centralPosition)
