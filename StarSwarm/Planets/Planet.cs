@@ -2,17 +2,19 @@ using System;
 using System.Collections.Generic;
 using Godot;
 using StarSwarm.Autoload;
-using StarSwarm.Planets;
 using StarSwarm.UI.PlayerHUD;
 using StarSwarm.Ships.Player;
 using StarSwarm.Weapons;
+using StarSwarm.World.Spawners;
 
 namespace StarSwarm.Planets;
 
 public partial class Planet : Node2D
-{
+{    
     public AudioManager AudioManager { get; set; } = default!;
     public AudioManager2D AudioManager2D { get; set; } = default!;
+
+    public SwarmWaveSpawner SwarmWaveSpawner { get; set; } = default!;
     public TweenAura Tween { get; set; } = default!;
     public Sprite2D PlanetAura { get; set; } = default!;
     public Sprite2D UpgradeIcon { get; set; } = default!;
@@ -33,6 +35,8 @@ public partial class Planet : Node2D
     {
         AudioManager = GetNode<AudioManager>("/root/AudioManager");
         AudioManager2D = GetNode<AudioManager2D>("/root/AudioManager2D");
+
+        SwarmWaveSpawner = GetNode<SwarmWaveSpawner>("SwarmWaveSpawner");
         Tween = GetNode<TweenAura>("TweenAura");
         PlanetAura = GetNode<Sprite2D>("PlanetAura");
         UpgradeIcon = GetNode<Sprite2D>("UpgradeIcon");
@@ -66,6 +70,7 @@ public partial class Planet : Node2D
                 _activatable = false;
                 AudioManager2D.Play(KnownAudioStream2Ds.StartResearch, GlobalPosition + new Vector2(50, 50));
                 ResearchBar.BeginResearch(_researchTime);
+                SwarmWaveSpawner.StartSwarmWave(3);
             }
         }
     }
@@ -79,6 +84,7 @@ public partial class Planet : Node2D
         _playerShip = playerShip;
 
         RefreshHousedUpgrade();
+        SwarmWaveSpawner.Initialize(this);
     }
 
     private void OnResearchFinished()
@@ -92,6 +98,7 @@ public partial class Planet : Node2D
             _activatable = true;
 
         AudioManager.Play(KnownAudioStreams.ResearchComplete);
+        SwarmWaveSpawner.StopSwarmWave();
     }
 
     private void OnBodyEnteredActivationRange(PhysicsBody2D playerBody)

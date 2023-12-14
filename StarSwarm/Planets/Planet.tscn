@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://l05qslq7ulnx"]
+[gd_scene load_steps=9 format=3 uid="uid://l05qslq7ulnx"]
 
 [ext_resource type="Script" path="res://StarSwarm/Planets/Planet.cs" id="1"]
 [ext_resource type="PackedScene" path="res://StarSwarm/UI/PlayerHUD/OffScreenMarker.tscn" id="2"]
@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://bw6t0lkxf4cmj" path="res://Assets/Planets/PlanetAura.png" id="4"]
 [ext_resource type="Script" path="res://StarSwarm/Planets/TweenAura.cs" id="5"]
 [ext_resource type="AudioStream" uid="uid://nrorf63u6072" path="res://Assets/Planets/complete-research.wav" id="7"]
-
+[ext_resource type="PackedScene" uid="uid://51i47f6ksusc" path="res://StarSwarm/World/Spawners/SwarmWaveSpawner.tscn" id="7_agxg0"]
 
 [sub_resource type="CircleShape2D" id="1"]
 radius = 300.0
@@ -46,3 +46,5 @@ shape = SubResource("1")
 [node name="UpgradeIcon" type="Sprite2D" parent="."]
 z_index = 1
 position = Vector2(50, 50)
+
+[node name="SwarmWaveSpawner" parent="." instance=ExtResource("7_agxg0")]

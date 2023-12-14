@@ -1,10 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://51i47f6ksusc"]
+[gd_scene load_steps=4 format=3 uid="uid://51i47f6ksusc"]
 
 [ext_resource type="Script" path="res://StarSwarm/World/Spawners/SwarmWaveSpawner.cs" id="1_u6y7k"]
 [ext_resource type="Script" path="res://StarSwarm/World/Spawners/SentientGooSpawner.cs" id="2_yrn3c"]
+[ext_resource type="PackedScene" uid="uid://bh2hhmx66jrk6" path="res://StarSwarm/Ships/Enemies/SentientGoo/SentientGoo.tscn" id="3_iw37d"]
 
 [node name="SwarmWaveSpawner" type="Node2D"]
 script = ExtResource("1_u6y7k")
 
 [node name="SentientGooSpawner" type="Node2D" parent="."]
 script = ExtResource("2_yrn3c")
+NodeToSpawn = ExtResource("3_iw37d")
+
+[node name="SpawnTimer" type="Timer" parent="."]
+wait_time = 3.0
