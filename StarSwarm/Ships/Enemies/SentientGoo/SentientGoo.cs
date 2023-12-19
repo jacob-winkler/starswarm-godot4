@@ -1,41 +1,64 @@
+using System.Collections.Generic;
 using Godot;
 using StarSwarm.GSAI_Framework;
+using StarSwarm.SWStateMachine;
 
 namespace StarSwarm.Ships.Enemies.SentientGoo;
 
 public partial class SentientGoo : GSAICharacterBody2D
 {
-	public const float Speed = 300.0f;
-	public const float JumpVelocity = -400.0f;
+    public StateMachine StateMachine = default!;
 
-	// Get the gravity from the project settings to be synced with RigidBody nodes.
-	public float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
+    [Export]
+    public float HealthMax = 100f;
+    [Export]
+    public float LinearSpeedMax = 200f;
+    [Export]
+    public float AccelerationMax = 300f;
+    [Export]
+    public float DragFactor = 0.04f;
+    [Export]
+    public float AngularSpeedMax = 200;
+    [Export]
+    public float AngularAccelerationMax = 3600f;
+    [Export]
+    public float AngularDragFactor = 0.05f;
 
-	public override void _PhysicsProcess(double delta)
-	{
-		var velocity = Velocity;
+    private float _health;
 
-		// Add the gravity.
-		if (!IsOnFloor())
-			velocity.Y += gravity * (float)delta;
+    public SentientGoo()
+    {
+        _health = HealthMax;
+    }
 
-		// Handle Jump.
-		if (Input.IsActionJustPressed("ui_accept") && IsOnFloor())
-			velocity.Y = JumpVelocity;
+    public override void _Ready()
+    {
+        StateMachine = GetNode<StateMachine>("StateMachine");
 
-		// Get the input direction and handle the movement/deceleration.
-		// As good practice, you should replace UI actions with custom gameplay actions.
-		var direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
-		if (direction != Vector2.Zero)
-		{
-			velocity.X = direction.X * Speed;
-		}
-		else
-		{
-			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
-		}
+        Agent.LinearAccelerationMax = AccelerationMax;
+        Agent.LinearSpeedMax = LinearSpeedMax;
 
-		Velocity = velocity;
-		MoveAndSlide();
-	}
+        Agent.AngularAccelerationMax = Mathf.DegToRad(AngularAccelerationMax);
+        Agent.AngularSpeedMax = Mathf.DegToRad(AngularSpeedMax);
+
+        Agent.LinearDragPercentage = DragFactor;
+        Agent.AngularDragPercentage = AngularDragFactor;
+    }
+
+    public void Attack(Node2D target)
+    {
+        StateMachine.TransitionTo("Attack", new Dictionary<string, GodotObject> { ["target"] = target });
+    }
+
+    public void OnDamaged(Node target, float amount, Node origin)
+    {
+        if (target != this)
+            return;
+
+        _health -= amount;
+        if (_health <= 0)
+        {
+            Die();
+        }
+    }
 }
