@@ -40,7 +40,7 @@ public partial class RadialSpawner<TNode> : Node2D
         var instantiatedNode = (TNode)NodeToSpawn.Instantiate();
         PlaceSpawnedNodeAroundCentralPosition(instantiatedNode, centralPosition);
 
-        CallDeferred("add_child", instantiatedNode);
+        AddChild(instantiatedNode);
         _nodesAlive++;
 
         return instantiatedNode;
