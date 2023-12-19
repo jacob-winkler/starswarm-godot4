@@ -1,10 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://bh2hhmx66jrk6"]
+[gd_scene load_steps=6 format=3 uid="uid://bh2hhmx66jrk6"]
 
 [ext_resource type="Script" path="res://StarSwarm/Ships/Enemies/SentientGoo/SentientGoo.cs" id="1_oq5j0"]
 [ext_resource type="Texture2D" uid="uid://bgu1nwcdmqj6l" path="res://Assets/Ships/Enemies/SentientGoo/SentientGoo.png" id="2_7ss0h"]
 [ext_resource type="Script" path="res://StarSwarm/SWStateMachine/StateMachine.cs" id="3_w8eus"]
+[ext_resource type="Script" path="res://StarSwarm/Ships/Enemies/SentientGoo/States/SentientGooAttack.cs" id="4_fo7m1"]
+[ext_resource type="Script" path="res://StarSwarm/Ships/Enemies/SentientGoo/States/SentientGooRest.cs" id="4_mwo2y"]
 
 [node name="SentientGoo" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("1_oq5j0")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
@@ -19,6 +23,10 @@ texture = ExtResource("2_7ss0h")
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource("3_w8eus")
-InitialState = null
+InitialState = NodePath("Rest")
+
+[node name="Rest" type="Node" parent="StateMachine"]
+script = ExtResource("4_mwo2y")
 
 [node name="Attack" type="Node" parent="StateMachine"]
+script = ExtResource("4_fo7m1")
