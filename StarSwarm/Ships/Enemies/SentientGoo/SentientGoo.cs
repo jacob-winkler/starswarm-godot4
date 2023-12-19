@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Godot;
+using StarSwarm.Autoload;
 using StarSwarm.GSAI_Framework;
 using StarSwarm.SWStateMachine;
 
@@ -7,8 +8,8 @@ namespace StarSwarm.Ships.Enemies.SentientGoo;
 
 public partial class SentientGoo : GSAICharacterBody2D
 {
-    public StateMachine StateMachine = default!;
-
+    [Export]
+    public PackedScene DisintegrateEffect = default!;
     [Export]
     public float HealthMax = 100f;
     [Export]
@@ -24,7 +25,13 @@ public partial class SentientGoo : GSAICharacterBody2D
     [Export]
     public float AngularDragFactor = 0.05f;
 
+    public AudioManager2D AudioManager2D { get; set; } = default!;
+    public Events Events = default!;
+    public ObjectRegistry ObjectRegistry = default!;
+    public StateMachine StateMachine = default!;
+
     private float _health;
+    private readonly int _pointValue = 15000;
 
     public SentientGoo()
     {
@@ -43,6 +50,11 @@ public partial class SentientGoo : GSAICharacterBody2D
 
         Agent.LinearDragPercentage = DragFactor;
         Agent.AngularDragPercentage = AngularDragFactor;
+
+        AudioManager2D = GetNode<AudioManager2D>("/root/AudioManager2D");
+        ObjectRegistry = GetNode<ObjectRegistry>("/root/ObjectRegistry");
+        Events = GetNode<Events>("/root/Events");
+        Events.Connect("Damaged", new Callable(this, "OnDamaged"));
     }
 
     public void Attack(Node2D target)
@@ -60,5 +72,17 @@ public partial class SentientGoo : GSAICharacterBody2D
         {
             Die();
         }
+    }
+
+    private void Die()
+    {
+        var effect = (Node2D)DisintegrateEffect.Instantiate();
+        effect.GlobalPosition = GlobalPosition;
+        effect.GlobalRotation = GlobalRotation;
+        ObjectRegistry.RegisterEffect(effect);
+        AudioManager2D.Play(KnownAudioStream2Ds.SpaceCrabDeath, GlobalPosition);
+        QueueFree();
+        Events.EmitSignal("SpaceCrabDied");
+        Events.EmitSignal("AddPoints", _pointValue);
     }
 }
