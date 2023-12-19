@@ -24,12 +24,6 @@ public partial class SpaceCrab : GSAICharacterBody2D
 		public float AngularAccelerationMax = 3600f;
 		[Export]
 		public float AngularDragFactor = 0.05f;
-		[Export]
-		public float DistanceFromTargetMin = 200f;
-		[Export]
-		public float DistanceFromObstaclesMin = 200f;
-		[Export(PropertyHint.Layers2DPhysics)]
-		public long ProjectileMask = 0;
 
 		private float _health;
 
