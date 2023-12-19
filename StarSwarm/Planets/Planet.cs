@@ -6,11 +6,12 @@ using StarSwarm.UI.PlayerHUD;
 using StarSwarm.Ships.Player;
 using StarSwarm.Weapons;
 using StarSwarm.World.Spawners;
+using StarSwarm.GSAI_Framework;
 
 namespace StarSwarm.Planets;
 
-public partial class Planet : Node2D
-{    
+public partial class Planet : GSAICharacterBody2D
+{
     public AudioManager AudioManager { get; set; } = default!;
     public AudioManager2D AudioManager2D { get; set; } = default!;
 
@@ -85,6 +86,12 @@ public partial class Planet : Node2D
 
         RefreshHousedUpgrade();
         SwarmWaveSpawner.Initialize(this);
+    }
+
+    public void SetPosition(Vector2 position)
+    {
+        Position = position;
+        Agent.Position = GSAIUtils.ToVector3(GlobalPosition);
     }
 
     private void OnResearchFinished()

@@ -33,6 +33,7 @@ public partial class SwarmWaveSpawner : Node2D
     public void SpawnSwarmEnemy()
     {
         var spawnedEnemy = SentientGooSpawner.SpawnNodeAroundPosition(_planet.GlobalPosition);
+        spawnedEnemy.Attack(_planet);
     }
 
     public void StopSwarmWave()
