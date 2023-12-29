@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://bh2hhmx66jrk6"]
+[gd_scene load_steps=7 format=3 uid="uid://bh2hhmx66jrk6"]
 
 [ext_resource type="Script" path="res://StarSwarm/Ships/Enemies/SentientGoo/SentientGoo.cs" id="1_oq5j0"]
 [ext_resource type="Texture2D" uid="uid://bgu1nwcdmqj6l" path="res://Assets/Ships/Enemies/SentientGoo/SentientGoo.png" id="2_7ss0h"]
+[ext_resource type="PackedScene" uid="uid://djx887kkmmbw6" path="res://StarSwarm/VFX/DisintegrateEffect.tscn" id="2_qccce"]
 [ext_resource type="Script" path="res://StarSwarm/SWStateMachine/StateMachine.cs" id="3_w8eus"]
 [ext_resource type="Script" path="res://StarSwarm/Ships/Enemies/SentientGoo/States/SentientGooAttack.cs" id="4_fo7m1"]
 [ext_resource type="Script" path="res://StarSwarm/Ships/Enemies/SentientGoo/States/SentientGooRest.cs" id="4_mwo2y"]
@@ -10,6 +11,7 @@
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_oq5j0")
+DisintegrateEffect = ExtResource("2_qccce")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 position = Vector2(3, -9)

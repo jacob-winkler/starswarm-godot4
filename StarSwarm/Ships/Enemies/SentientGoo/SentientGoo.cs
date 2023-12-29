@@ -3,6 +3,7 @@ using Godot;
 using StarSwarm.Autoload;
 using StarSwarm.GSAI_Framework;
 using StarSwarm.SWStateMachine;
+using StarSwarm.VFX;
 
 namespace StarSwarm.Ships.Enemies.SentientGoo;
 
@@ -76,9 +77,15 @@ public partial class SentientGoo : GSAICharacterBody2D
 
     private void Die()
     {
-        var effect = (Node2D)DisintegrateEffect.Instantiate();
+        var sprite = GetNode<Sprite2D>("Sprite2D");
+
+        var effect = DisintegrateEffect.Instantiate<DisintegrateEffect>();
+        effect.Texture = sprite.Texture;
+        effect.Speed = 0.01f;
+        effect.ZIndex = 100;
         effect.GlobalPosition = GlobalPosition;
         effect.GlobalRotation = GlobalRotation;
+        effect.ProcessMode = ProcessModeEnum.Always;
         ObjectRegistry.RegisterEffect(effect);
         AudioManager2D.Play(KnownAudioStream2Ds.SpaceCrabDeath, GlobalPosition);
         QueueFree();
