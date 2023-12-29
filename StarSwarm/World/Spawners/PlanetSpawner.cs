@@ -57,7 +57,7 @@ public partial class PlanetSpawner : Spawner
         var spriteInstance = (Control)_planetSkins[_rng.RandiRange(0, _planetSkins.Count - 1)].Instantiate();
         var newPlanetInstance = (Planet)Planet.Instantiate();
 
-        newPlanetInstance.SetPosition(position + new Vector2(-50, -50));
+        newPlanetInstance.SetPosition(position);
         AddChild(newPlanetInstance);
         newPlanetInstance.AddChild(spriteInstance);
 

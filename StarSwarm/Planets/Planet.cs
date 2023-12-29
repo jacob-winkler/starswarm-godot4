@@ -80,7 +80,7 @@ public partial class Planet : GSAICharacterBody2D
     {
         _rng = rng;
         Sprite2D = spriteInstance;
-        spriteInstance.Position = Position - GlobalPosition;
+        spriteInstance.Position = Position - GlobalPosition + new Vector2(-50, -50);
 
         _playerShip = playerShip;
 
