@@ -12,7 +12,6 @@
 [ext_resource type="PackedScene" uid="uid://djx887kkmmbw6" path="res://StarSwarm/VFX/DisintegrateEffect.tscn" id="11"]
 [ext_resource type="Resource" path="res://StarSwarm/Ships/Player/player_stats.tres" id="12"]
 
-
 [node name="PlayerShip" instance=ExtResource("1")]
 collision_mask = 0
 script = ExtResource("4")
