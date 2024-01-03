@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Godot;
 using StarSwarm.Autoload;
 using StarSwarm.GSAI_Framework;
+using StarSwarm.Planets;
 using StarSwarm.SWStateMachine;
 using StarSwarm.VFX;
 
@@ -30,6 +31,7 @@ public partial class SentientGoo : GSAICharacterBody2D
     public Events Events = default!;
     public ObjectRegistry ObjectRegistry = default!;
     public StateMachine StateMachine = default!;
+    public Area2D PlanetAttackRadius = default!;
 
     private float _health;
     private readonly int _pointValue = 15000;
@@ -56,11 +58,33 @@ public partial class SentientGoo : GSAICharacterBody2D
         ObjectRegistry = GetNode<ObjectRegistry>("/root/ObjectRegistry");
         Events = GetNode<Events>("/root/Events");
         Events.Connect("Damaged", new Callable(this, "OnDamaged"));
+
+        PlanetAttackRadius = GetNode<Area2D>("PlanetAttackRadius");
+        PlanetAttackRadius.Connect("body_entered", new Callable(this, "OnBodyEnteredPlanetAttackRadius"));
     }
 
     public void Attack(Node2D target)
     {
         StateMachine.TransitionTo("Attack", new Dictionary<string, GodotObject> { ["target"] = target });
+    }
+
+    public void OnBodyEnteredPlanetAttackRadius(PhysicsBody2D collider)
+    {
+        if (collider is Planet)
+        {
+            var sprite = GetNode<Sprite2D>("Sprite2D");
+            var effect = DisintegrateEffect.Instantiate<DisintegrateEffect>();
+            effect.Texture = sprite.Texture;
+            effect.Speed = 0.01f;
+            effect.ZIndex = 100;
+            effect.GlobalPosition = GlobalPosition;
+            effect.GlobalRotation = GlobalRotation;
+            effect.ProcessMode = ProcessModeEnum.Always;
+            ObjectRegistry.RegisterEffect(effect);
+
+            Events.EmitSignal("Damaged", collider, 25, this);
+            QueueFree();
+        }
     }
 
     public void OnDamaged(Node target, float amount, Node origin)
@@ -71,11 +95,11 @@ public partial class SentientGoo : GSAICharacterBody2D
         _health -= amount;
         if (_health <= 0)
         {
-            Die();
+            DieByPlayer();
         }
     }
 
-    private void Die()
+    private void DieByPlayer()
     {
         var sprite = GetNode<Sprite2D>("Sprite2D");
 
@@ -89,7 +113,6 @@ public partial class SentientGoo : GSAICharacterBody2D
         ObjectRegistry.RegisterEffect(effect);
         AudioManager2D.Play(KnownAudioStream2Ds.SpaceCrabDeath, GlobalPosition);
         QueueFree();
-        Events.EmitSignal("SpaceCrabDied");
         Events.EmitSignal("AddPoints", _pointValue);
     }
 }

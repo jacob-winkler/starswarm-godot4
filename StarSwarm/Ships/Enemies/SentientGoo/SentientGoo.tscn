@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bh2hhmx66jrk6"]
+[gd_scene load_steps=8 format=3 uid="uid://bh2hhmx66jrk6"]
 
 [ext_resource type="Script" path="res://StarSwarm/Ships/Enemies/SentientGoo/SentientGoo.cs" id="1_oq5j0"]
 [ext_resource type="Texture2D" uid="uid://bgu1nwcdmqj6l" path="res://Assets/Ships/Enemies/SentientGoo/SentientGoo.png" id="2_7ss0h"]
@@ -7,9 +7,12 @@
 [ext_resource type="Script" path="res://StarSwarm/Ships/Enemies/SentientGoo/States/SentientGooAttack.cs" id="4_fo7m1"]
 [ext_resource type="Script" path="res://StarSwarm/Ships/Enemies/SentientGoo/States/SentientGooRest.cs" id="4_mwo2y"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_35t38"]
+radius = 16.0
+
 [node name="SentientGoo" type="CharacterBody2D"]
-collision_layer = 2
-collision_mask = 2
+collision_layer = 4
+collision_mask = 4
 script = ExtResource("1_oq5j0")
 DisintegrateEffect = ExtResource("2_qccce")
 
@@ -32,3 +35,11 @@ script = ExtResource("4_mwo2y")
 
 [node name="Attack" type="Node" parent="StateMachine"]
 script = ExtResource("4_fo7m1")
+MinDistanceFromTarget = null
+
+[node name="PlanetAttackRadius" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlanetAttackRadius"]
+shape = SubResource("CircleShape2D_35t38")
