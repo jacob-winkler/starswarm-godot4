@@ -70,7 +70,7 @@ public partial class SentientGoo : GSAICharacterBody2D
 
     public void OnBodyEnteredPlanetAttackRadius(PhysicsBody2D collider)
     {
-        if (collider is Planet)
+        if (collider is Planet planet)
         {
             var sprite = GetNode<Sprite2D>("Sprite2D");
             var effect = DisintegrateEffect.Instantiate<DisintegrateEffect>();
@@ -82,7 +82,7 @@ public partial class SentientGoo : GSAICharacterBody2D
             effect.ProcessMode = ProcessModeEnum.Always;
             ObjectRegistry.RegisterEffect(effect);
 
-            Events.EmitSignal("Damaged", collider, 25, this);
+            planet.ApplyDamage(25);
             QueueFree();
         }
     }
