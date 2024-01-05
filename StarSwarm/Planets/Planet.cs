@@ -12,9 +12,11 @@ namespace StarSwarm.Planets;
 
 public partial class Planet : GSAICharacterBody2D
 {
+    [Export]
+    public float HealthMax = 100f;
+
     public AudioManager AudioManager { get; set; } = default!;
     public AudioManager2D AudioManager2D { get; set; } = default!;
-
     public SwarmWaveSpawner SwarmWaveSpawner { get; set; } = default!;
     public TweenAura Tween { get; set; } = default!;
     public Sprite2D PlanetAura { get; set; } = default!;
@@ -25,12 +27,17 @@ public partial class Planet : GSAICharacterBody2D
     public WeaponAttachment? Weapon { get; set; } = default!;
     public Control Sprite2D { get; set; } = default!;
 
-    private float _researchTime = 5;
+    private float _researchTime = 15;
     private PlayerShip _playerShip = default!;
     private bool _activatable = false;
     private RandomNumberGenerator _rng = default!;
-
     private List<PackedScene> _weaponAttachments = default!;
+    private float _health;
+
+    public Planet()
+    {
+        _health = HealthMax;
+    }
 
     public override void _Ready()
     {
@@ -62,16 +69,16 @@ public partial class Planet : GSAICharacterBody2D
     }
 
     public override void _UnhandledInput(InputEvent @event)
-    { 
-        if(_activatable)
+    {
+        if (_activatable)
         {
-            if(@event.IsActionPressed("research"))
+            if (@event.IsActionPressed("research"))
             {
                 ((CollisionShape2D)ActivateResearchArea.GetChild(0)).Disabled = true;
                 _activatable = false;
                 AudioManager2D.Play(KnownAudioStream2Ds.StartResearch, GlobalPosition + new Vector2(50, 50));
                 ResearchBar.BeginResearch(_researchTime);
-                SwarmWaveSpawner.StartSwarmWave(3);
+                SwarmWaveSpawner.StartSwarmWave(1);
             }
         }
     }
@@ -92,6 +99,20 @@ public partial class Planet : GSAICharacterBody2D
     {
         Position = position;
         Agent.Position = GSAIUtils.ToVector3(GlobalPosition);
+    }
+
+    public void ApplyDamage(float damage)
+    {
+        _health -= damage;
+        if (_health <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        QueueFree();
     }
 
     private void OnResearchFinished()
