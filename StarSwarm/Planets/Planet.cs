@@ -7,10 +7,11 @@ using StarSwarm.Ships.Player;
 using StarSwarm.Weapons;
 using StarSwarm.World.Spawners;
 using StarSwarm.GSAI_Framework;
+using StarSwarm.StarSwarm.Infrastructure;
 
 namespace StarSwarm.Planets;
 
-public partial class Planet : GSAICharacterBody2D
+public partial class Planet : GSAICharacterBody2D, IKillable
 {
     [Export]
     public float HealthMax = 100f;
@@ -74,11 +75,7 @@ public partial class Planet : GSAICharacterBody2D
         {
             if (@event.IsActionPressed("research"))
             {
-                ((CollisionShape2D)ActivateResearchArea.GetChild(0)).Disabled = true;
-                _activatable = false;
-                AudioManager2D.Play(KnownAudioStream2Ds.StartResearch, GlobalPosition + new Vector2(50, 50));
-                ResearchBar.BeginResearch(_researchTime);
-                SwarmWaveSpawner.StartSwarmWave(1);
+                StartResearch();
             }
         }
     }
@@ -101,7 +98,7 @@ public partial class Planet : GSAICharacterBody2D
         Agent.Position = GSAIUtils.ToVector3(GlobalPosition);
     }
 
-    public void ApplyDamage(float damage)
+    public void TakeDamage(float damage)
     {
         _health -= damage;
         if (_health <= 0)
@@ -110,6 +107,15 @@ public partial class Planet : GSAICharacterBody2D
         }
     }
 
+
+    private void StartResearch()
+    {
+        ((CollisionShape2D)ActivateResearchArea.GetChild(0)).Disabled = true;
+        _activatable = false;
+        AudioManager2D.Play(KnownAudioStream2Ds.StartResearch, GlobalPosition + new Vector2(50, 50));
+        ResearchBar.BeginResearch(_researchTime);
+        SwarmWaveSpawner.StartSwarmWave(1);
+    }
     private void Die()
     {
         QueueFree();
