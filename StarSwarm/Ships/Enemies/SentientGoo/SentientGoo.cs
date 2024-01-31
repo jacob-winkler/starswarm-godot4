@@ -1,14 +1,16 @@
+using System;
 using System.Collections.Generic;
 using Godot;
 using StarSwarm.Autoload;
 using StarSwarm.GSAI_Framework;
 using StarSwarm.Planets;
+using StarSwarm.StarSwarm.Infrastructure;
 using StarSwarm.SWStateMachine;
 using StarSwarm.VFX;
 
 namespace StarSwarm.Ships.Enemies.SentientGoo;
 
-public partial class SentientGoo : GSAICharacterBody2D
+public partial class SentientGoo : GSAICharacterBody2D, IKillable
 {
     [Export]
     public PackedScene DisintegrateEffect = default!;
@@ -32,6 +34,8 @@ public partial class SentientGoo : GSAICharacterBody2D
     public ObjectRegistry ObjectRegistry = default!;
     public StateMachine StateMachine = default!;
     public Area2D PlanetAttackRadius = default!;
+    public AnimatedSprite2D ShieldAnimation = default!;
+    public Sprite2D Sprite = default!;
 
     private float _health;
     private readonly int _pointValue = 15000;
@@ -43,7 +47,7 @@ public partial class SentientGoo : GSAICharacterBody2D
 
     public override void _Ready()
     {
-        StateMachine = GetNode<StateMachine>("StateMachine");
+        
 
         Agent.LinearAccelerationMax = AccelerationMax;
         Agent.LinearSpeedMax = LinearSpeedMax;
@@ -54,13 +58,19 @@ public partial class SentientGoo : GSAICharacterBody2D
         Agent.LinearDragPercentage = DragFactor;
         Agent.AngularDragPercentage = AngularDragFactor;
 
+        Sprite = GetNode<Sprite2D>("Sprite2D");
+        ShieldAnimation = GetNode<AnimatedSprite2D>("ShieldAnimation");
+        StateMachine = GetNode<StateMachine>("StateMachine");
         AudioManager2D = GetNode<AudioManager2D>("/root/AudioManager2D");
         ObjectRegistry = GetNode<ObjectRegistry>("/root/ObjectRegistry");
+
         Events = GetNode<Events>("/root/Events");
         Events.Connect("Damaged", new Callable(this, "OnDamaged"));
 
         PlanetAttackRadius = GetNode<Area2D>("PlanetAttackRadius");
         PlanetAttackRadius.Connect("body_entered", new Callable(this, "OnBodyEnteredPlanetAttackRadius"));
+
+        ActivateShields();
     }
 
     public void Attack(Node2D target)
@@ -82,9 +92,34 @@ public partial class SentientGoo : GSAICharacterBody2D
             effect.ProcessMode = ProcessModeEnum.Always;
             ObjectRegistry.RegisterEffect(effect);
 
-            planet.ApplyDamage(25);
+            planet.TakeDamage(25);
             QueueFree();
         }
+    }
+
+    public void TakeDamage(float rawDamage, object origin)
+    {
+        // mitigate damage if shield is active
+
+        var finalDamage = rawDamage;
+
+        _health -= finalDamage;
+        if (_health <= 0)
+        {
+            DieByPlayer();
+        }
+    }
+
+    /// <summary>
+    /// Transforms and applies damage to the shield.
+    /// </summary>
+    /// <param name="rawDamage">The amount of incoming damage, before it's been transformed.</param>
+    /// <param name="origin">An object that represents any pertinent attributes about the damage.</param>
+    /// <returns>A <see cref="float"/> value representing any damage that should be applied to the shielded target.</returns>
+    /// <exception cref="NotImplementedException"></exception>
+    private float ApplyShieldDamage(float rawDamage, object origin)
+    {
+        throw new NotImplementedException();
     }
 
     public void OnDamaged(Node target, float amount, Node origin)
@@ -97,6 +132,20 @@ public partial class SentientGoo : GSAICharacterBody2D
         {
             DieByPlayer();
         }
+    }
+
+    private void ActivateShields()
+    {
+        Sprite.Visible = false;
+        ShieldAnimation.Visible = true;
+        ShieldAnimation.Play("shielded");
+    }
+
+    private void DeactivateShields()
+    {
+        Sprite.Visible = true;
+        ShieldAnimation.Visible = false;
+        ShieldAnimation.Stop();
     }
 
     private void DieByPlayer()
