@@ -7,6 +7,7 @@ using StarSwarm.Planets;
 using StarSwarm.StarSwarm.Infrastructure;
 using StarSwarm.SWStateMachine;
 using StarSwarm.VFX;
+using StarSwarm.Weapons;
 
 namespace StarSwarm.Ships.Enemies.SentientGoo;
 
@@ -37,6 +38,8 @@ public partial class SentientGoo : GSAICharacterBody2D, IKillable
     public AnimatedSprite2D ShieldAnimation = default!;
     public Sprite2D Sprite = default!;
 
+    private bool _shieldActive;
+    private float _shield;
     private float _health;
     private readonly int _pointValue = 15000;
 
@@ -47,8 +50,6 @@ public partial class SentientGoo : GSAICharacterBody2D, IKillable
 
     public override void _Ready()
     {
-        
-
         Agent.LinearAccelerationMax = AccelerationMax;
         Agent.LinearSpeedMax = LinearSpeedMax;
 
@@ -65,7 +66,6 @@ public partial class SentientGoo : GSAICharacterBody2D, IKillable
         ObjectRegistry = GetNode<ObjectRegistry>("/root/ObjectRegistry");
 
         Events = GetNode<Events>("/root/Events");
-        Events.Connect("Damaged", new Callable(this, "OnDamaged"));
 
         PlanetAttackRadius = GetNode<Area2D>("PlanetAttackRadius");
         PlanetAttackRadius.Connect("body_entered", new Callable(this, "OnBodyEnteredPlanetAttackRadius"));
@@ -97,13 +97,11 @@ public partial class SentientGoo : GSAICharacterBody2D, IKillable
         }
     }
 
-    public void TakeDamage(float rawDamage, object origin)
+    public void TakeDamage(float damage, DamageType type)
     {
-        // mitigate damage if shield is active
+        damage = ApplyShieldDamage(damage, type);
 
-        var finalDamage = rawDamage;
-
-        _health -= finalDamage;
+        _health -= damage;
         if (_health <= 0)
         {
             DieByPlayer();
@@ -117,21 +115,31 @@ public partial class SentientGoo : GSAICharacterBody2D, IKillable
     /// <param name="origin">An object that represents any pertinent attributes about the damage.</param>
     /// <returns>A <see cref="float"/> value representing any damage that should be applied to the shielded target.</returns>
     /// <exception cref="NotImplementedException"></exception>
-    private float ApplyShieldDamage(float rawDamage, object origin)
+    private float ApplyShieldDamage(float rawDamage, DamageType type)
     {
-        throw new NotImplementedException();
-    }
+        if (!_shieldActive)
+            return rawDamage;
 
-    public void OnDamaged(Node target, float amount, Node origin)
-    {
-        if (target != this)
-            return;
+        float shieldDamage;
+        float targetDamage;
 
-        _health -= amount;
-        if (_health <= 0)
+        switch (type)
         {
-            DieByPlayer();
+            case DamageType.Energy:
+                shieldDamage = rawDamage * 0.5f;
+                targetDamage = shieldDamage;
+                break;
+            default:
+                return rawDamage * 0.25f;
         }
+
+        _shield -= shieldDamage;
+        if (_shield <= 0)
+        {
+            DeactivateShields();
+        }
+
+        return targetDamage;
     }
 
     private void ActivateShields()
@@ -139,6 +147,7 @@ public partial class SentientGoo : GSAICharacterBody2D, IKillable
         Sprite.Visible = false;
         ShieldAnimation.Visible = true;
         ShieldAnimation.Play("shielded");
+        _shieldActive = true;
     }
 
     private void DeactivateShields()
@@ -146,6 +155,7 @@ public partial class SentientGoo : GSAICharacterBody2D, IKillable
         Sprite.Visible = true;
         ShieldAnimation.Visible = false;
         ShieldAnimation.Stop();
+        _shieldActive = false;
     }
 
     private void DieByPlayer()
