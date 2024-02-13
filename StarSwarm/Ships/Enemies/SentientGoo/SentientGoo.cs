@@ -2,33 +2,18 @@ using System;
 using System.Collections.Generic;
 using Godot;
 using StarSwarm.Autoload;
-using StarSwarm.GSAI_Framework;
 using StarSwarm.Planets;
-using StarSwarm.StarSwarm.Infrastructure;
+using StarSwarm.StarSwarm.Ships;
 using StarSwarm.SWStateMachine;
 using StarSwarm.VFX;
 using StarSwarm.Weapons;
 
 namespace StarSwarm.Ships.Enemies.SentientGoo;
 
-public partial class SentientGoo : GSAICharacterBody2D, IKillable
+public partial class SentientGoo : KillableShip
 {
     [Export]
     public PackedScene DisintegrateEffect = default!;
-    [Export]
-    public float HealthMax = 100f;
-    [Export]
-    public float LinearSpeedMax = 200f;
-    [Export]
-    public float AccelerationMax = 300f;
-    [Export]
-    public float DragFactor = 0.04f;
-    [Export]
-    public float AngularSpeedMax = 200;
-    [Export]
-    public float AngularAccelerationMax = 3600f;
-    [Export]
-    public float AngularDragFactor = 0.05f;
 
     public AudioManager2D AudioManager2D { get; set; } = default!;
     public Events Events = default!;
@@ -40,7 +25,6 @@ public partial class SentientGoo : GSAICharacterBody2D, IKillable
 
     private bool _shieldActive;
     private float _shield;
-    private float _health;
     private readonly int _pointValue = 15000;
 
     public SentientGoo()
@@ -97,7 +81,7 @@ public partial class SentientGoo : GSAICharacterBody2D, IKillable
         }
     }
 
-    public void TakeDamage(float damage, DamageType type)
+    public override void TakeDamage(float damage, DamageType type)
     {
         damage = ApplyShieldDamage(damage, type);
 

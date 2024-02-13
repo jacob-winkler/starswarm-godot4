@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 using StarSwarm.Autoload;
+using StarSwarm.StarSwarm.Ships;
 
 namespace StarSwarm.Weapons.LightningRod;
 
@@ -38,15 +39,18 @@ public partial class LightningRodAttachment : WeaponAttachment
             if (!bodiesInRange.Any())
                 break;
 
-            var target = bodiesInRange.Find(
-                x => x.GlobalPosition.DistanceSquaredTo(GlobalPosition) == bodiesInRange.Min(x => x.GlobalPosition.DistanceSquaredTo(GlobalPosition)));
+            var target = (KillableShip?)bodiesInRange.Find(
+                x => x.GlobalPosition.DistanceSquaredTo(GlobalPosition) == bodiesInRange.Min(x => x.GlobalPosition.DistanceSquaredTo(GlobalPosition)) && x is KillableShip);
+
+            if (target == null)
+                break;
 
             SpawnNewLightningBolt(target, this);
             bodiesInRange.Remove(target);
         }
     }
 
-    private void OnBounceTriggered(LightningBolt triggeredBolt, PhysicsBody2D target)
+    private void OnBounceTriggered(LightningBolt triggeredBolt, KillableShip target)
     {
         if (triggeredBolt.BounceCount >= MaxBounces)
             return;
@@ -57,7 +61,7 @@ public partial class LightningRodAttachment : WeaponAttachment
             triggeredBolt.BounceCount + 1);
     }
 
-    private void SpawnNewLightningBolt(Node2D targetBody, Node2D sourceBody, Vector2 sourcePosition = default,
+    private void SpawnNewLightningBolt(KillableShip targetBody, Node2D sourceBody, Vector2 sourcePosition = default,
         List<Node2D>? forbiddenTargets = null, float bounceCount = 1)
     {
         var newLightningBolt = (LightningBolt)LightningBolt.Instantiate();
