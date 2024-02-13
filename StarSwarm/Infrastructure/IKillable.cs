@@ -1,6 +1,6 @@
 ﻿using StarSwarm.Weapons;
 
-namespace StarSwarm.StarSwarm.Infrastructure;
+namespace StarSwarm.Infrastructure;
 public interface IKillable
 {
     /// <summary>

@@ -5,7 +5,6 @@
 [ext_resource type="Texture2D" uid="uid://dvcg84i3soofi" path="res://Assets/UI/Icons/LightningRod_Icon_small.png" id="3"]
 [ext_resource type="PackedScene" uid="uid://k3obgphnig3x" path="res://StarSwarm/Weapons/LightningRod/LightningBolt.tscn" id="4"]
 
-
 [sub_resource type="CircleShape2D" id="1"]
 radius = 250.0
 
@@ -17,7 +16,7 @@ Cooldown = 4.0
 SmallIcon = ExtResource("3")
 
 [node name="AttackRange" type="Area2D" parent="." index="2"]
-collision_mask = 2
+collision_mask = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange" index="0"]
 shape = SubResource("1")

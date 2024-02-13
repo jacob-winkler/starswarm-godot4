@@ -3,6 +3,7 @@ using System.Linq;
 using StarSwarm.Autoload;
 using Godot;
 using static Godot.Tween;
+using StarSwarm.StarSwarm.Ships;
 
 namespace StarSwarm.Weapons.LightningRod;
 
@@ -18,7 +19,7 @@ public partial class LightningBolt : Node2D
 
     public AudioManager2D AudioManager { get; set; } = default!;
     public Node2D? Source;
-    public Node2D Target = default!;
+    public KillableShip Target = default!;
     public Vector2 SourcePosition { get; set; }
     public Vector2 TargetPosition { get; set; }
     public Events Events { get; set; } = default!;
@@ -115,6 +116,6 @@ public partial class LightningBolt : Node2D
     {
         _damageApplied = true;
         if(IsInstanceValid(Target))
-            Events.EmitSignal("Damaged", Target, Damage, this);
+            Target.TakeDamage(Damage, DamageType.Energy);
     }
 }

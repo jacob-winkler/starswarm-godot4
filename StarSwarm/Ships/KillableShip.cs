@@ -1,9 +1,9 @@
 ﻿using Godot;
 using StarSwarm.GSAI_Framework;
-using StarSwarm.StarSwarm.Infrastructure;
+using StarSwarm.Infrastructure;
 using StarSwarm.Weapons;
 
-namespace StarSwarm.StarSwarm.Ships;
+namespace StarSwarm.Ships;
 public abstract partial class KillableShip : GSAICharacterBody2D, IKillable
 {
     [Export]

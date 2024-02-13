@@ -7,11 +7,10 @@ using StarSwarm.Ships.Player;
 using StarSwarm.Weapons;
 using StarSwarm.World.Spawners;
 using StarSwarm.GSAI_Framework;
-using StarSwarm.StarSwarm.Infrastructure;
 
 namespace StarSwarm.Planets;
 
-public partial class Planet : GSAICharacterBody2D, IKillable
+public partial class Planet : GSAICharacterBody2D
 {
     [Export]
     public float HealthMax = 100f;
@@ -28,7 +27,7 @@ public partial class Planet : GSAICharacterBody2D, IKillable
     public WeaponAttachment? Weapon { get; set; } = default!;
     public Control Sprite2D { get; set; } = default!;
 
-    private float _researchTime = 15;
+    private float _researchTime = 5;
     private PlayerShip _playerShip = default!;
     private bool _activatable = false;
     private RandomNumberGenerator _rng = default!;
