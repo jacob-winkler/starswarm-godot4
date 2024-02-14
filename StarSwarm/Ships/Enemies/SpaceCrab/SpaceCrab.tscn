@@ -1,0 +1,51 @@
+[gd_scene load_steps=9 format=3 uid="uid://dfqp1a1ov5tr"]
+
+[ext_resource type="Script" path="res://StarSwarm/Ships/Enemies/SpaceCrab/SpaceCrab.cs" id="1_mo0lb"]
+[ext_resource type="PackedScene" uid="uid://djx887kkmmbw6" path="res://StarSwarm/VFX/DisintegrateEffect.tscn" id="2_m6k84"]
+[ext_resource type="Texture2D" uid="uid://oyw64ydfhcf8" path="res://Assets/Ships/Enemies/SpaceCrab/SpaceCrab_small.svg" id="3_ngvy7"]
+[ext_resource type="Script" path="res://StarSwarm/SWStateMachine/StateMachine.cs" id="4_6g2jj"]
+[ext_resource type="Script" path="res://StarSwarm/Ships/Enemies/SpaceCrab/States/SpaceCrabAttack.cs" id="5_q40px"]
+[ext_resource type="Script" path="res://StarSwarm/Ships/Enemies/SpaceCrab/States/SpaceCrabRest.cs" id="6_ga074"]
+
+[sub_resource type="RectangleShape2D" id="2"]
+size = Vector2(12, 10.5)
+
+[sub_resource type="CircleShape2D" id="3"]
+radius = 750.0
+
+[node name="SpaceCrab" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_mo0lb")
+DisintegrateEffect = ExtResource("2_m6k84")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(12, 10, -12, 10, -8, -9, 8, -9)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("3_ngvy7")
+
+[node name="MeleeRange" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeRange"]
+position = Vector2(0, -0.5)
+shape = SubResource("2")
+
+[node name="AggroArea" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AggroArea"]
+shape = SubResource("3")
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("4_6g2jj")
+InitialState = NodePath("Rest")
+
+[node name="Attack" type="Node" parent="StateMachine"]
+script = ExtResource("5_q40px")
+
+[node name="Rest" type="Node" parent="StateMachine"]
+script = ExtResource("6_ga074")
+
+[node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier2D" parent="."]

@@ -11,16 +11,16 @@ config_version=5
 [application]
 
 config/name="Star Swarm"
-run/main_scene="res://Project/UI/MainMenu.tscn"
-config/features=PackedStringArray("4.0", "C#")
+run/main_scene="res://StarSwarm/UI/MainMenu.tscn"
+config/features=PackedStringArray("4.2", "C#")
 config/icon="res://icon.png"
 
 [autoload]
 
-Events="*res://Project/Autoload/Events.cs"
-ObjectRegistry="*res://Project/Autoload/ObjectRegistry.tscn"
-AudioManager2D="*res://Project/Autoload/AudioManager2D.tscn"
-AudioManager="*res://Project/Autoload/AudioManager.tscn"
+Events="*res://StarSwarm/Autoload/Events.cs"
+ObjectRegistry="*res://StarSwarm/Autoload/ObjectRegistry.tscn"
+AudioManager2D="*res://StarSwarm/Autoload/AudioManager2D.tscn"
+AudioManager="*res://StarSwarm/Autoload/AudioManager.tscn"
 
 [display]
 
