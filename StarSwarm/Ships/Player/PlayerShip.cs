@@ -1,12 +1,14 @@
 using Godot;
 using StarSwarm.Autoload;
 using StarSwarm.GSAI_Framework;
+using StarSwarm.Infrastructure;
 using StarSwarm.Ships.Player.States;
 using StarSwarm.VFX;
+using StarSwarm.Weapons;
 
 namespace StarSwarm.Ships.Player;
 
-public partial class PlayerShip : CharacterBody2D
+public partial class PlayerShip : CharacterBody2D, IKillable
 {
 	[Export]
 	public PackedScene PackedDisintegrateEffect { get; set; } = default!;
@@ -39,7 +41,6 @@ public partial class PlayerShip : CharacterBody2D
 		MoveState = GetNode<Move>("StateMachine/Move");
 		Vfx = GetNode<VFX>("VFX");
 
-        Events.Connect("Damaged", new Callable(this, "OnDamaged"));
 		Events.Connect("UpgradeChosen", new Callable(this, "OnUpgradeChosen"));
 		Stats.Connect("HealthDepleted", new Callable(this, "Die"));
 	}
@@ -71,11 +72,8 @@ public partial class PlayerShip : CharacterBody2D
 		CameraTransform.RemotePath = camera.GetPath();
 	}
 
-	public void OnDamaged(Node target, float amount, Node origin)
-	{
-		if (target != this)
-			return;
-
-		Stats.Health -= amount;
-	}
+    public void TakeDamage(float damage, DamageType type)
+    {
+        Stats.Health -= damage;
+    }
 }

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Godot;
 using StarSwarm.Autoload;
+using StarSwarm.Infrastructure;
 using StarSwarm.SWStateMachine;
 using StarSwarm.Weapons;
 
@@ -17,7 +18,7 @@ public partial class SpaceCrab : KillableShip
 		public Events Events = default!;
 		public ObjectRegistry ObjectRegistry = default!;
 
-		private KillableShip? _meleeTarget;
+		private IKillable? _meleeTarget;
 		private readonly int _pointValue = 500;
 		private readonly float _damagePerSecond = 500f;
 
@@ -67,7 +68,7 @@ public partial class SpaceCrab : KillableShip
 
 		public void OnBodyEnteredMeleeRange(PhysicsBody2D playerBody)
 		{
-            if(playerBody is KillableShip player)
+            if(playerBody is IKillable player)
             {
                 _meleeTarget = player;
             }
