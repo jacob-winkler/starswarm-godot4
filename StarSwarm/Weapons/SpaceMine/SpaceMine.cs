@@ -1,6 +1,8 @@
 using StarSwarm.Autoload;
 using Godot;
 using static Godot.Animation;
+using System.Linq;
+using StarSwarm.Infrastructure;
 
 namespace StarSwarm.Weapons.SpaceMine;
 
@@ -66,9 +68,10 @@ public partial class SpaceMine : Node2D
         AudioManager2D.Play(KnownAudioStream2Ds.SpaceMine, GlobalPosition);
         Explosion.Play("Explosion");
 
-        foreach(var body in BlastRadius.GetOverlappingBodies())
+        var killableBodies = BlastRadius.GetOverlappingBodies().Where(x => x is IKillable).Cast<IKillable>();
+        foreach(var killableBody in killableBodies)
         {
-            Events.EmitSignal("Damaged", body, Damage, this);
+            killableBody.TakeDamage(Damage, DamageType.Fire);
         }
 
         BlastRadius.Connect("body_entered", new Callable(this, "OnBodyEnteredBlastRadius"));
@@ -76,7 +79,8 @@ public partial class SpaceMine : Node2D
 
     private void OnBodyEnteredBlastRadius(PhysicsBody2D body)
     {
-        Events.EmitSignal("Damaged", body, Damage, this);
+        if(body is IKillable killable)
+            killable.TakeDamage(Damage, DamageType.Fire);
     }
 
     private void OnExplosionFinished()
