@@ -1,5 +1,6 @@
 using Godot;
 using StarSwarm.Autoload;
+using StarSwarm.Infrastructure;
 
 namespace StarSwarm.Weapons.LaserBeam;
 
@@ -111,7 +112,7 @@ public partial class LaserBeam : RayCast2D
 
     private void ApplyDamage(double delta)
     {
-        var collider = GetCollider();
-        Events.EmitSignal("Damaged", collider, DamagePerSecond * delta, this);
+        var collider = (IKillable?)GetCollider();
+        collider?.TakeDamage(DamagePerSecond * (float)delta, DamageType.Energy);
     }
 }
