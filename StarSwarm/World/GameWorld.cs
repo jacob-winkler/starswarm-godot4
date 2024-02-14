@@ -45,7 +45,7 @@ public partial class GameWorld : Node2D
 		PlayerSpawner.SpawnPlayer();
 
 		SpaceCrabSpawner.Initialize(Player, Rng);
-		//SpaceCrabSpawner.SpawnSpaceCrabsAroundPlayer();
+		SpaceCrabSpawner.SpawnSpaceCrabsAroundPlayer();
 
         PlanetSpawner.Initialize(Player, Rng);
         PlanetSpawner.SpawnInitialPlanets();
