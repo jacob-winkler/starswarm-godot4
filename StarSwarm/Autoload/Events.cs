@@ -7,12 +7,6 @@ public partial class Events : Node
 {
     // Player signals
     [Signal]
-    public delegate void DamagedEventHandler(Node target, float amount, Node origin);
-
-    [Signal]
-    public delegate void UpgradeChosenEventHandler();
-
-    [Signal]
     public delegate void PlayerSpawnedEventHandler(PlayerShip player);
 
     /// Enemy signals
