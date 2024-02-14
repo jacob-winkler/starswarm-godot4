@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Godot;
 using StarSwarm.Autoload;
 using StarSwarm.Planets;
-using StarSwarm.StarSwarm.Ships;
 using StarSwarm.SWStateMachine;
 using StarSwarm.VFX;
 using StarSwarm.Weapons;

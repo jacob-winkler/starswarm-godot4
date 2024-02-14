@@ -1,31 +1,15 @@
 using System.Collections.Generic;
 using Godot;
 using StarSwarm.Autoload;
-using StarSwarm.GSAI_Framework;
 using StarSwarm.SWStateMachine;
+using StarSwarm.Weapons;
 
 namespace StarSwarm.Ships.Enemies.SpaceCrab;
 
-public partial class SpaceCrab : GSAICharacterBody2D
+public partial class SpaceCrab : KillableShip
 	{
 		[Export]
 		public PackedScene DisintegrateEffect = default!;
-		[Export]
-		public float HealthMax = 100f;
-		[Export]
-		public float LinearSpeedMax = 200f;
-		[Export]
-		public float AccelerationMax = 300f;
-		[Export]
-		public float DragFactor = 0.04f;
-		[Export]
-		public float AngularSpeedMax = 200;
-		[Export]
-		public float AngularAccelerationMax = 3600f;
-		[Export]
-		public float AngularDragFactor = 0.05f;
-
-		private float _health;
 
 		public AudioManager2D AudioManager2D { get; set; } = default!;
 		public VisibleOnScreenNotifier2D VisibleOnScreenNotifier3D { get; set; } = default!;
@@ -33,7 +17,7 @@ public partial class SpaceCrab : GSAICharacterBody2D
 		public Events Events = default!;
 		public ObjectRegistry ObjectRegistry = default!;
 
-		private PhysicsBody2D? _meleeTarget;
+		private KillableShip? _meleeTarget;
 		private readonly int _pointValue = 500;
 		private readonly float _damagePerSecond = 500f;
 
@@ -62,7 +46,6 @@ public partial class SpaceCrab : GSAICharacterBody2D
 			AudioManager2D = GetNode<AudioManager2D>("/root/AudioManager2D");
 			ObjectRegistry = GetNode<ObjectRegistry>("/root/ObjectRegistry");
 			Events = GetNode<Events>("/root/Events");
-			Events.Connect("Damaged", new Callable(this, "OnDamaged"));
 
 			var AggroArea = GetNode<Area2D>("AggroArea");
 			AggroArea.Connect("body_entered", new Callable(this, "OnBodyEnteredAggroRadius"));
@@ -74,10 +57,7 @@ public partial class SpaceCrab : GSAICharacterBody2D
 
 		public override void _PhysicsProcess(double delta)
 		{
-			if (_meleeTarget != null)
-			{
-				Events.EmitSignal("Damaged", _meleeTarget, _damagePerSecond * delta, this);
-			}
+			_meleeTarget?.TakeDamage(_damagePerSecond * ((float)delta), DamageType.Physical);
 		}
 
 		public void OnBodyEnteredAggroRadius(PhysicsBody2D collider)
@@ -87,7 +67,10 @@ public partial class SpaceCrab : GSAICharacterBody2D
 
 		public void OnBodyEnteredMeleeRange(PhysicsBody2D playerBody)
 		{
-			_meleeTarget = playerBody;
+            if(playerBody is KillableShip player)
+            {
+                _meleeTarget = player;
+            }
 		}
 
 		public void OnBodyExitedMeleeRange(PhysicsBody2D playerBody)
@@ -100,19 +83,16 @@ public partial class SpaceCrab : GSAICharacterBody2D
 			Events.EmitSignal("EnemyAdrift", this);
 		}
 
-		public void OnDamaged(Node target, float amount, Node origin)
-		{
-			if (target != this)
-				return;
+        public override void TakeDamage(float damage, DamageType type)
+        {
+            _health -= damage;
+            if (_health <= 0)
+            {
+                Die();
+            }
+        }
 
-			_health -= amount;
-			if (_health <= 0)
-			{
-				Die();
-			}
-		}
-
-		private void Die()
+        private void Die()
 		{
 			var effect = (Node2D)DisintegrateEffect.Instantiate();
 			effect.GlobalPosition = GlobalPosition;

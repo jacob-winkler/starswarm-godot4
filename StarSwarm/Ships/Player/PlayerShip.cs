@@ -78,18 +78,4 @@ public partial class PlayerShip : CharacterBody2D
 
 		Stats.Health -= amount;
 	}
-
-
-	public void OnUpgradeChosen(int choice)
-	{
-		switch(choice)
-		{
-			case (int)UpgradeChoices.HEALTH:
-				Stats.AddModifier("maxHealth", 25.0F);
-				break;
-			case (int)UpgradeChoices.SPEED:
-				Stats.AddModifier("linearSpeedMax", 125.0F);
-				break;
-		}
-	}
 }

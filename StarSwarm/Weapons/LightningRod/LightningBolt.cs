@@ -3,7 +3,7 @@ using System.Linq;
 using StarSwarm.Autoload;
 using Godot;
 using static Godot.Tween;
-using StarSwarm.StarSwarm.Ships;
+using StarSwarm.Ships;
 
 namespace StarSwarm.Weapons.LightningRod;
 
