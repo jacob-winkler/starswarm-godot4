@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://d4hrcahmvwf07"]
 
-[ext_resource type="Script" path="res://Project/Planets/PixelPlanets/GasPlanet/GasPlanet.gd" id="1"]
-[ext_resource type="Shader" path="res://Project/Planets/PixelPlanets/GasPlanet/GasPlanet.gdshader" id="2"]
+[ext_resource type="Script" uid="uid://bxaiwe2vedtio" path="res://Project/Planets/PixelPlanets/GasPlanet/GasPlanet.gd" id="1"]
+[ext_resource type="Shader" uid="uid://hna1pt4exesj" path="res://Project/Planets/PixelPlanets/GasPlanet/GasPlanet.gdshader" id="2"]
 
 [sub_resource type="ShaderMaterial" id="1"]
 shader = ExtResource("2")

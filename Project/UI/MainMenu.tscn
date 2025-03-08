@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://crca5egg45kqf"]
 
-[ext_resource type="Script" path="res://Project/UI/MainMenu.cs" id="1"]
+[ext_resource type="Script" uid="uid://cjr1gic2xxn47" path="res://Project/UI/MainMenu.cs" id="1"]
 [ext_resource type="PackedScene" uid="uid://c75x418opn3yj" path="res://Project/UI/MainScreen/TitleScreen.tscn" id="2_osymj"]
 [ext_resource type="PackedScene" uid="uid://fcy7vdmfwgcc" path="res://Project/UI/ScreenFader.tscn" id="4"]
 
@@ -22,8 +22,6 @@ anchor_bottom = 1.0
 
 [node name="TitleScreen" parent="Background" instance=ExtResource("2_osymj")]
 layout_mode = 1
-grow_horizontal = 2
-grow_vertical = 2
 
 [node name="UIBehaviors" type="CanvasLayer" parent="."]
 

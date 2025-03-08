@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://k3obgphnig3x"]
 
-[ext_resource type="Script" path="res://Project/Weapons/LightningRod/LightningBolt.cs" id="1"]
+[ext_resource type="Script" uid="uid://dic3t7ld5dp3o" path="res://Project/Weapons/LightningRod/LightningBolt.cs" id="1"]
 [ext_resource type="Texture2D" uid="uid://c2yaokdrsjexs" path="res://Assets/Weapons/LightningRod/LightningChain_2.png" id="2"]
 [ext_resource type="Texture2D" uid="uid://cae7kkxc8mod6" path="res://Assets/Weapons/LightningRod/LightningChain_1.png" id="3"]
 
@@ -43,8 +43,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vx8xf"]
 _data = {
-"ChainLightning": SubResource("4"),
-"RESET": SubResource("5")
+&"ChainLightning": SubResource("4"),
+&"RESET": SubResource("5")
 }
 
 [sub_resource type="CircleShape2D" id="6"]
