@@ -5,15 +5,17 @@
     "tasks": [
         {
             "label": "build",
-            "command": "C:/dev/Game Development/GodotEngine/Godot_v3.4.4-stable_mono_win64.exe\r",
-            "type": "process",
+            "command": "dotnet",
+            "type": "shell",
             "args": [
-                "--build-solutions",
-                "--path",
-                "${workspaceRoot}",
-                "--no-window",
-                "-q"
+                "build",
+                "/property:GenerateFullPath=true",
+                "/consoleloggerparameters:NoSummary"
             ],
+            "group": "build",
+            "presentation": {
+                "reveal": "silent",
+            },
             "problemMatcher": "$msCompile"
         }
     ]

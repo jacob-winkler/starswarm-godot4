@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://oyw64ydfhcf8" path="res://Assets/Ships/Enemies/SpaceCrab/SpaceCrab_small.svg" id="1"]
 [ext_resource type="Texture2D" uid="uid://ije0cndbmxau" path="res://Assets/VFX/PixelNoise.png" id="2"]
-[ext_resource type="Script" path="res://Project/VFX/DisintegrateEffect.cs" id="3"]
+[ext_resource type="Script" uid="uid://dm0sauffossud" path="res://Project/VFX/DisintegrateEffect.cs" id="3"]
 
 [sub_resource type="Shader" id="1"]
 code = "shader_type canvas_item;

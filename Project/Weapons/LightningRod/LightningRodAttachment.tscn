@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://nkkffjfrtcfo"]
 
 [ext_resource type="PackedScene" uid="uid://dblevrbfgd58g" path="res://Project/Weapons/WeaponAttachment.tscn" id="1"]
-[ext_resource type="Script" path="res://Project/Weapons/LightningRod/LightningRodAttachment.cs" id="2"]
+[ext_resource type="Script" uid="uid://bq5tt03jsue8s" path="res://Project/Weapons/LightningRod/LightningRodAttachment.cs" id="2"]
 [ext_resource type="Texture2D" uid="uid://dvcg84i3soofi" path="res://Assets/UI/Icons/LightningRod_Icon_small.png" id="3"]
 [ext_resource type="PackedScene" uid="uid://k3obgphnig3x" path="res://Project/Weapons/LightningRod/LightningBolt.tscn" id="4"]
 
