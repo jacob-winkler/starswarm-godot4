@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://blshftrctvs4a"]
 
-[ext_resource type="Script" uid="uid://bdqmpqyjmufhl" path="res://Project/Ships/Player/PlayerCamera.cs" id="1"]
+[ext_resource type="Script" path="res://Project/Ships/Player/PlayerCamera.cs" id="1"]
 
 [node name="Camera3D" type="Camera2D" groups=["Camera3D"]]
 position_smoothing_enabled = true

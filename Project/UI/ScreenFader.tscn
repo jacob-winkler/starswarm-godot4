@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://fcy7vdmfwgcc"]
 
-[ext_resource type="Script" uid="uid://vxi372qfip3v" path="res://Project/UI/ScreenFader.cs" id="1"]
+[ext_resource type="Script" path="res://Project/UI/ScreenFader.cs" id="1"]
 
 [sub_resource type="Gradient" id="1"]
 offsets = PackedFloat32Array(0)
