@@ -1,10 +1,10 @@
 [gd_scene load_steps=8 format=3 uid="uid://l05qslq7ulnx"]
 
-[ext_resource type="Script" uid="uid://cbp8shw53snr0" path="res://Project/Planets/Planet.cs" id="1"]
+[ext_resource type="Script" path="res://Project/Planets/Planet.cs" id="1"]
 [ext_resource type="PackedScene" path="res://Project/UI/PlayerHUD/OffScreenMarker.tscn" id="2"]
 [ext_resource type="PackedScene" path="res://Project/Planets/ResearchBar.tscn" id="3"]
 [ext_resource type="Texture2D" uid="uid://bw6t0lkxf4cmj" path="res://Assets/Planets/PlanetAura.png" id="4"]
-[ext_resource type="Script" uid="uid://bws8hp210kk4s" path="res://Project/Planets/TweenAura.cs" id="5"]
+[ext_resource type="Script" path="res://Project/Planets/TweenAura.cs" id="5"]
 [ext_resource type="AudioStream" uid="uid://nrorf63u6072" path="res://Assets/Planets/complete-research.wav" id="7"]
 
 [sub_resource type="CircleShape2D" id="1"]

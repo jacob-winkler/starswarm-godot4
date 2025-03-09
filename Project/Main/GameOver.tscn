@@ -1,16 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://cev7pv726glyw"]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource type="FontFile" uid="uid://dduxrkkxu85fv" path="res://Assets/Fonts/Mplus1-Light.ttf" id="1"]
-[ext_resource type="Script" uid="uid://cxfkcvbsnyo8e" path="res://Project/Main/GameOver.cs" id="2"]
-[ext_resource type="PackedScene" uid="uid://fcy7vdmfwgcc" path="res://Project/UI/ScreenFader.tscn" id="3"]
+[ext_resource path="res://Assets/Fonts/Mplus1-Light.ttf" type="FontFile" id=1]
+[ext_resource path="res://Project/Main/GameOver.cs" type="Script" id=2]
+[ext_resource path="res://Project/UI/ScreenFader.tscn" type="PackedScene" id=3]
 
-[sub_resource type="FontFile" id="1"]
-fallbacks = Array[Font]([ExtResource("1")])
-cache/0/16/0/ascent = 0.0
-cache/0/16/0/descent = 0.0
-cache/0/16/0/underline_position = 0.0
-cache/0/16/0/underline_thickness = 0.0
-cache/0/16/0/scale = 1.0
+[sub_resource type="FontFile" id=1]
+size = 54
+font_data = ExtResource( 1 )
 
 [node name="GameOver" type="TextureRect"]
 anchor_right = 1.0
@@ -18,7 +14,7 @@ anchor_bottom = 1.0
 offset_right = 1080.0
 offset_bottom = 1460.0
 expand = true
-script = ExtResource("2")
+script = ExtResource( 2 )
 
 [node name="LabelLayer" type="CanvasLayer" parent="."]
 layer = 2
@@ -33,16 +29,16 @@ offset_left = -332.0
 offset_top = -79.0
 offset_right = 332.0
 offset_bottom = 79.0
-pivot_offset = Vector2(166, 40)
-theme_override_fonts/font = SubResource("1")
+pivot_offset = Vector2( 166, 40 )
+theme_override_fonts/font = SubResource( 1 )
 text = "GAME OVER"
 align = 1
 valign = 1
 
 [node name="FaderLayer" type="CanvasLayer" parent="."]
 
-[node name="ScreenFader" parent="FaderLayer" instance=ExtResource("3")]
-modulate = Color(0, 0, 0, 0)
+[node name="ScreenFader" parent="FaderLayer" instance=ExtResource( 3 )]
+modulate = Color( 0, 0, 0, 0 )
 offset_left = -1000.0
 offset_top = -1000.0
 offset_right = 0.0
