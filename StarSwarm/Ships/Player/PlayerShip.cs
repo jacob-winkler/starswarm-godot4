@@ -19,8 +19,8 @@ public partial class PlayerShip : CharacterBody2D, IKillable
 	[Signal]
 	public delegate void DiedEventHandler();
 
-    public AudioManager AudioManager { get; set; } = default!;
-    public ObjectRegistry ObjectRegistry { get; set; } = default!;
+	public AudioManager AudioManager { get; set; } = default!;
+	public ObjectRegistry ObjectRegistry { get; set; } = default!;
 	public Events Events { get; set; } = default!;
 	public CollisionPolygon2D Shape3D { get; set; } = default!;
 	public GSAISteeringAgent Agent { get; set; } = default!;
@@ -30,7 +30,7 @@ public partial class PlayerShip : CharacterBody2D, IKillable
 
 	private bool _isDead;
 
-    public override void _Ready()
+	public override void _Ready()
 	{
 		AudioManager = GetNode<AudioManager>("/root/AudioManager");
 		ObjectRegistry = GetNode<ObjectRegistry>("/root/ObjectRegistry");
@@ -56,8 +56,8 @@ public partial class PlayerShip : CharacterBody2D, IKillable
 		var playerSprite = GetNode<Sprite2D>("Sprite2D");
 		playerSprite.Visible = false;
 
-        AudioManager.Play(KnownAudioStreams.PlayerDeath, ProcessModeEnum.Always);
-        var effect = PackedDisintegrateEffect.Instantiate<DisintegrateEffect>();
+		AudioManager.Play(KnownAudioStreams.PlayerDeath, ProcessModeEnum.Always);
+		var effect = PackedDisintegrateEffect.Instantiate<DisintegrateEffect>();
 		effect.Texture = playerSprite.Texture;
 		effect.Speed = 0.01f;
 		effect.ZIndex = 100;
