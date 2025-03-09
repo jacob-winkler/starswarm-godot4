@@ -1,8 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://d4hrcahmvwf07"]
 
-[ext_resource type="Script" path="res://StarSwarm/Planets/PixelPlanets/GasPlanet/GasPlanet.gd" id="1"]
-[ext_resource type="Shader" path="res://StarSwarm/Planets/PixelPlanets/GasPlanet/GasPlanet.gdshader" id="2"]
-
+[ext_resource type="Script" uid="uid://dlg8df0e2w4i6" path="res://StarSwarm/Planets/PixelPlanets/GasPlanet/GasPlanet.gd" id="1"]
+[ext_resource type="Shader" uid="uid://dd8gri7aofg5l" path="res://StarSwarm/Planets/PixelPlanets/GasPlanet/GasPlanet.gdshader" id="2"]
 
 [sub_resource type="ShaderMaterial" id="1"]
 shader = ExtResource("2")

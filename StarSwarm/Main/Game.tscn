@@ -1,28 +1,24 @@
 [gd_scene load_steps=21 format=3 uid="uid://bwh471je24d7i"]
 
 [ext_resource type="PackedScene" uid="uid://bbc2cv5im7mda" path="res://StarSwarm/Ships/Player/PlayerShip.tscn" id="1"]
-[ext_resource type="Script" path="res://StarSwarm/World/GameWorld.cs" id="2"]
-[ext_resource type="Script" path="res://StarSwarm/World/Spawners/PlanetSpawner.cs" id="3"]
+[ext_resource type="Script" uid="uid://cfasaixsl7c7n" path="res://StarSwarm/World/GameWorld.cs" id="2"]
+[ext_resource type="Script" uid="uid://couaptb2batpe" path="res://StarSwarm/World/Spawners/PlanetSpawner.cs" id="3"]
 [ext_resource type="PackedScene" uid="uid://blshftrctvs4a" path="res://StarSwarm/World/ShakingCamera.tscn" id="4"]
-[ext_resource type="Script" path="res://StarSwarm/World/GameInitializer.cs" id="5"]
-[ext_resource type="Script" path="res://StarSwarm/World/Spawners/PlayerSpawner.cs" id="6"]
+[ext_resource type="Script" uid="uid://ceawyqu5b0dar" path="res://StarSwarm/World/GameInitializer.cs" id="5"]
+[ext_resource type="Script" uid="uid://ble0uqerjlec3" path="res://StarSwarm/World/Spawners/PlayerSpawner.cs" id="6"]
 [ext_resource type="PackedScene" uid="uid://dt887huwtojkf" path="res://StarSwarm/VFX/BackgroundStars.tscn" id="7"]
-[ext_resource type="Script" path="res://StarSwarm/World/Spawners/SpaceCrabSpawner.cs" id="8"]
+[ext_resource type="Script" uid="uid://c154kmxou7h52" path="res://StarSwarm/World/Spawners/SpaceCrabSpawner.cs" id="8"]
 [ext_resource type="PackedScene" uid="uid://dfqp1a1ov5tr" path="res://StarSwarm/Ships/Enemies/SpaceCrab/SpaceCrab.tscn" id="9"]
 [ext_resource type="PackedScene" path="res://StarSwarm/UI/PlayerHUD/HealthBarUpdater.tscn" id="10"]
-[ext_resource type="Script" path="res://StarSwarm/Main/CountUpTimer.cs" id="11"]
+[ext_resource type="Script" uid="uid://cywawv8q4pjyk" path="res://StarSwarm/Main/CountUpTimer.cs" id="11"]
 [ext_resource type="FontFile" uid="uid://dduxrkkxu85fv" path="res://Assets/Fonts/Mplus1-Light.ttf" id="12"]
-[ext_resource type="Script" path="res://StarSwarm/World/DifficultyScaler.cs" id="13"]
-[ext_resource type="Script" path="res://StarSwarm/World/ScoreKeeper.cs" id="14"]
+[ext_resource type="Script" uid="uid://bduao1tv4j0n6" path="res://StarSwarm/World/DifficultyScaler.cs" id="13"]
+[ext_resource type="Script" uid="uid://c72wvrf3pfu10" path="res://StarSwarm/World/ScoreKeeper.cs" id="14"]
 [ext_resource type="PackedScene" path="res://StarSwarm/Main/GameOver.tscn" id="15"]
 [ext_resource type="PackedScene" uid="uid://l05qslq7ulnx" path="res://StarSwarm/Planets/Planet.tscn" id="16"]
 
-
 [sub_resource type="FontFile" id="2"]
 fallbacks = Array[Font]([ExtResource("12")])
-face_index = null
-embolden = null
-transform = null
 cache/0/16/0/ascent = 0.0
 cache/0/16/0/descent = 0.0
 cache/0/16/0/underline_position = 0.0
@@ -32,9 +28,6 @@ cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
 
 [sub_resource type="FontFile" id="3"]
 fallbacks = Array[Font]([ExtResource("12")])
-face_index = null
-embolden = null
-transform = null
 cache/0/16/0/ascent = 0.0
 cache/0/16/0/descent = 0.0
 cache/0/16/0/underline_position = 0.0
@@ -44,9 +37,6 @@ cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
 
 [sub_resource type="FontFile" id="4"]
 fallbacks = Array[Font]([ExtResource("12")])
-face_index = null
-embolden = null
-transform = null
 cache/0/16/0/ascent = 0.0
 cache/0/16/0/descent = 0.0
 cache/0/16/0/underline_position = 0.0

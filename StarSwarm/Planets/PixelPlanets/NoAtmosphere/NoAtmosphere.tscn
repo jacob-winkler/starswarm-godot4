@@ -1,10 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://bekcwnu05wl0s"]
 
 [ext_resource type="PackedScene" path="res://StarSwarm/Planets/PixelPlanets/Planet.tscn" id="1"]
-[ext_resource type="Shader" path="res://StarSwarm/Planets/PixelPlanets/NoAtmosphere/NoAtmosphere.gdshader" id="2"]
-[ext_resource type="Shader" path="res://StarSwarm/Planets/PixelPlanets/NoAtmosphere/Craters.gdshader" id="3"]
-[ext_resource type="Script" path="res://StarSwarm/Planets/PixelPlanets/NoAtmosphere/NoAtmosphere.gd" id="4"]
-
+[ext_resource type="Shader" uid="uid://dg7aomghiixwn" path="res://StarSwarm/Planets/PixelPlanets/NoAtmosphere/NoAtmosphere.gdshader" id="2"]
+[ext_resource type="Shader" uid="uid://dguswwxm05dmf" path="res://StarSwarm/Planets/PixelPlanets/NoAtmosphere/Craters.gdshader" id="3"]
+[ext_resource type="Script" uid="uid://dyv43xkspgkdk" path="res://StarSwarm/Planets/PixelPlanets/NoAtmosphere/NoAtmosphere.gd" id="4"]
 
 [sub_resource type="ShaderMaterial" id="1"]
 shader = ExtResource("2")

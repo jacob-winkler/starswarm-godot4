@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://crca5egg45kqf"]
 
-[ext_resource type="Script" path="res://StarSwarm/UI/MainMenu.cs" id="1"]
+[ext_resource type="Script" uid="uid://cxr1akvaab1u" path="res://StarSwarm/UI/MainMenu.cs" id="1"]
 [ext_resource type="PackedScene" uid="uid://c75x418opn3yj" path="res://StarSwarm/UI/MainScreen/TitleScreen.tscn" id="2_osymj"]
 [ext_resource type="PackedScene" uid="uid://fcy7vdmfwgcc" path="res://StarSwarm/UI/ScreenFader.tscn" id="4"]
 

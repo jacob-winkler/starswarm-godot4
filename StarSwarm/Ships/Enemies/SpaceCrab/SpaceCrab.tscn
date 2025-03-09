@@ -1,11 +1,11 @@
 [gd_scene load_steps=9 format=3 uid="uid://dfqp1a1ov5tr"]
 
-[ext_resource type="Script" path="res://StarSwarm/Ships/Enemies/SpaceCrab/SpaceCrab.cs" id="1_mo0lb"]
+[ext_resource type="Script" uid="uid://d4h6xxhyw2yj6" path="res://StarSwarm/Ships/Enemies/SpaceCrab/SpaceCrab.cs" id="1_mo0lb"]
 [ext_resource type="PackedScene" uid="uid://djx887kkmmbw6" path="res://StarSwarm/VFX/DisintegrateEffect.tscn" id="2_m6k84"]
 [ext_resource type="Texture2D" uid="uid://oyw64ydfhcf8" path="res://Assets/Ships/Enemies/SpaceCrab/SpaceCrab_small.svg" id="3_ngvy7"]
-[ext_resource type="Script" path="res://StarSwarm/SWStateMachine/StateMachine.cs" id="4_6g2jj"]
-[ext_resource type="Script" path="res://StarSwarm/Ships/Enemies/SpaceCrab/States/SpaceCrabAttack.cs" id="5_q40px"]
-[ext_resource type="Script" path="res://StarSwarm/Ships/Enemies/SpaceCrab/States/SpaceCrabRest.cs" id="6_ga074"]
+[ext_resource type="Script" uid="uid://bu0nxjfthtdhb" path="res://StarSwarm/SWStateMachine/StateMachine.cs" id="4_6g2jj"]
+[ext_resource type="Script" uid="uid://blusjirg6cy46" path="res://StarSwarm/Ships/Enemies/SpaceCrab/States/SpaceCrabAttack.cs" id="5_q40px"]
+[ext_resource type="Script" uid="uid://bud3dbjvt8ind" path="res://StarSwarm/Ships/Enemies/SpaceCrab/States/SpaceCrabRest.cs" id="6_ga074"]
 
 [sub_resource type="RectangleShape2D" id="2"]
 size = Vector2(12, 10.5)
