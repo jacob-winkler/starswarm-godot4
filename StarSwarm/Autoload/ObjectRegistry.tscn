@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dbrdgx7tds6jl"]
 
-[ext_resource type="Script" path="res://StarSwarm/Autoload/ObjectRegistry.cs" id="1"]
+[ext_resource type="Script" uid="uid://bi2bkntn2stk8" path="res://StarSwarm/Autoload/ObjectRegistry.cs" id="1"]
 
 [node name="ObjectRegistry" type="Node"]
 script = ExtResource("1")

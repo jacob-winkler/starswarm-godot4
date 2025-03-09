@@ -1,9 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://i4whu68n35ks"]
 
-[ext_resource type="Shader" path="res://StarSwarm/Planets/PixelPlanets/Rivers/LandRivers.gdshader" id="1"]
-[ext_resource type="Shader" path="res://StarSwarm/Planets/PixelPlanets/LandMasses/Clouds.gdshader" id="2"]
-[ext_resource type="Script" path="res://StarSwarm/Planets/PixelPlanets/Rivers/Rivers.gd" id="3"]
-
+[ext_resource type="Shader" uid="uid://dkooub2jkpbtn" path="res://StarSwarm/Planets/PixelPlanets/Rivers/LandRivers.gdshader" id="1"]
+[ext_resource type="Shader" uid="uid://ckkpuu44hcxmd" path="res://StarSwarm/Planets/PixelPlanets/LandMasses/Clouds.gdshader" id="2"]
+[ext_resource type="Script" uid="uid://dne2vcciyqaxh" path="res://StarSwarm/Planets/PixelPlanets/Rivers/Rivers.gd" id="3"]
 
 [sub_resource type="ShaderMaterial" id="1"]
 shader = ExtResource("1")

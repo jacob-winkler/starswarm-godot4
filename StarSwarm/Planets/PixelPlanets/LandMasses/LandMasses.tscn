@@ -1,10 +1,9 @@
 [gd_scene load_steps=8 format=3 uid="uid://cg402xilar7h4"]
 
-[ext_resource type="Shader" path="res://StarSwarm/Planets/PixelPlanets/LandMasses/PlanetUnder.gdshader" id="1"]
-[ext_resource type="Shader" path="res://StarSwarm/Planets/PixelPlanets/LandMasses/Clouds.gdshader" id="2"]
-[ext_resource type="Shader" path="res://StarSwarm/Planets/PixelPlanets/LandMasses/PlanetLandmass.gdshader" id="3"]
-[ext_resource type="Script" path="res://StarSwarm/Planets/PixelPlanets/LandMasses/LandMasses.gd" id="4"]
-
+[ext_resource type="Shader" uid="uid://32qm10csiuk8" path="res://StarSwarm/Planets/PixelPlanets/LandMasses/PlanetUnder.gdshader" id="1"]
+[ext_resource type="Shader" uid="uid://ckkpuu44hcxmd" path="res://StarSwarm/Planets/PixelPlanets/LandMasses/Clouds.gdshader" id="2"]
+[ext_resource type="Shader" uid="uid://cf3j6mug3ip14" path="res://StarSwarm/Planets/PixelPlanets/LandMasses/PlanetLandmass.gdshader" id="3"]
+[ext_resource type="Script" uid="uid://bn1463vd82yac" path="res://StarSwarm/Planets/PixelPlanets/LandMasses/LandMasses.gd" id="4"]
 
 [sub_resource type="ShaderMaterial" id="1"]
 shader = ExtResource("1")

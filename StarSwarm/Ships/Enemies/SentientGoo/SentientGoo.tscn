@@ -1,12 +1,12 @@
 [gd_scene load_steps=13 format=3 uid="uid://bh2hhmx66jrk6"]
 
-[ext_resource type="Script" path="res://StarSwarm/Ships/Enemies/SentientGoo/SentientGoo.cs" id="1_oq5j0"]
+[ext_resource type="Script" uid="uid://bm4yd0j7tqov6" path="res://StarSwarm/Ships/Enemies/SentientGoo/SentientGoo.cs" id="1_oq5j0"]
 [ext_resource type="Texture2D" uid="uid://bgu1nwcdmqj6l" path="res://Assets/Ships/Enemies/SentientGoo/SentientGoo.png" id="2_7ss0h"]
 [ext_resource type="PackedScene" uid="uid://djx887kkmmbw6" path="res://StarSwarm/VFX/DisintegrateEffect.tscn" id="2_qccce"]
-[ext_resource type="Script" path="res://StarSwarm/SWStateMachine/StateMachine.cs" id="3_w8eus"]
+[ext_resource type="Script" uid="uid://bu0nxjfthtdhb" path="res://StarSwarm/SWStateMachine/StateMachine.cs" id="3_w8eus"]
 [ext_resource type="Texture2D" uid="uid://kpvdpwkp1t5c" path="res://Assets/Ships/Enemies/SentientGoo/SentientGoo_ShieldedAnimation-Sheet.png" id="4_1o8is"]
-[ext_resource type="Script" path="res://StarSwarm/Ships/Enemies/SentientGoo/States/SentientGooAttack.cs" id="4_fo7m1"]
-[ext_resource type="Script" path="res://StarSwarm/Ships/Enemies/SentientGoo/States/SentientGooRest.cs" id="4_mwo2y"]
+[ext_resource type="Script" uid="uid://dlu7y2q1uvj2f" path="res://StarSwarm/Ships/Enemies/SentientGoo/States/SentientGooAttack.cs" id="4_fo7m1"]
+[ext_resource type="Script" uid="uid://b3k6n13jkpw6p" path="res://StarSwarm/Ships/Enemies/SentientGoo/States/SentientGooRest.cs" id="4_mwo2y"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_05y8n"]
 atlas = ExtResource("4_1o8is")
