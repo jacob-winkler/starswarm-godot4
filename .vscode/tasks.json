@@ -5,15 +5,19 @@
     "tasks": [
         {
             "label": "build",
-            "command": "C:/dev/Game Development/GodotEngine/Godot_v3.4.4-stable_mono_win64.exe\r",
-            "type": "process",
+            "command": "dotnet",
+            "type": "shell",
             "args": [
-                "--build-solutions",
-                "--path",
-                "${workspaceRoot}",
-                "--no-window",
-                "-q"
+                "build",
+                // Ask dotnet build to generate full paths for file names.
+                "/property:GenerateFullPaths=true",
+                // Do not generate summary otherwise it leads to duplicate errors in Problems panel
+                "/consoleloggerparameters:NoSummary"
             ],
+            "group": "build",
+            "presentation": {
+                "reveal": "silent"
+            },
             "problemMatcher": "$msCompile"
         }
     ]
