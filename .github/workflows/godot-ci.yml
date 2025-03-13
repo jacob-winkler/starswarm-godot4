@@ -47,17 +47,16 @@ jobs:
           path: build/windows
   push-to-itch:
     needs: export-windows
-    if: ${{ contains(github.ref, 'develop') }}
     runs-on: ubuntu-latest
     steps:
       - name: Download Exports
         uses: actions/download-artifact@v4
         with:
-          name: exports
-          path: exports
+          name: windows
+          path: build/windows
       - name: Zip Exports
         run: |
-          cd exports/windows
+          cd build/windows
           zip -r starswarm.zip $EXPORT_NAME.exe $EXPORT_NAME.pck
           cd ../..
       - name: Download + Authorize Butler
@@ -69,4 +68,4 @@ jobs:
       - name: Login To Butler
         run: ./butler login
       - name: Push Windows Export To Itch
-        run: ./butler push exports/windows/starswarm.zip $ITCH_USERNAME/$ITCH_PROJECT_NAME:win
+        run: ./butler push build/windows/starswarm.zip $ITCH_USERNAME/$ITCH_PROJECT_NAME:win
