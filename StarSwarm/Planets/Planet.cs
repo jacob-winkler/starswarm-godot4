@@ -18,8 +18,10 @@ public partial class Planet : GSAICharacterBody2D
     public AudioManager AudioManager { get; set; } = default!;
     public AudioManager2D AudioManager2D { get; set; } = default!;
     public SwarmWaveSpawner SwarmWaveSpawner { get; set; } = default!;
-    public TweenAura Tween { get; set; } = default!;
+    public ScaleTween TweenAura { get; set; } = default!;
     public Sprite2D PlanetAura { get; set; } = default!;
+    public RichTextLabel ResearchLabel { get; set; } = default!;
+    public ScaleTween TweenLabel { get; set; } = default!;
     public Sprite2D UpgradeIcon { get; set; } = default!;
     public Area2D ActivateResearchArea { get; set; } = default!;
     public ResearchBar ResearchBar { get; set; } = default!;
@@ -45,8 +47,10 @@ public partial class Planet : GSAICharacterBody2D
         AudioManager2D = GetNode<AudioManager2D>("/root/AudioManager2D");
 
         SwarmWaveSpawner = GetNode<SwarmWaveSpawner>("SwarmWaveSpawner");
-        Tween = GetNode<TweenAura>("TweenAura");
+        TweenAura = GetNode<ScaleTween>("TweenAura");
         PlanetAura = GetNode<Sprite2D>("PlanetAura");
+        ResearchLabel = GetNode<RichTextLabel>("ResearchLabel");
+        TweenLabel = GetNode<ScaleTween>("ResearchLabel/TweenLabel");
         UpgradeIcon = GetNode<Sprite2D>("UpgradeIcon");
         ActivateResearchArea = GetNode<Area2D>("ActivateResearchArea");
         ResearchBar = GetNode<ResearchBar>("ResearchBar");
@@ -140,9 +144,8 @@ public partial class Planet : GSAICharacterBody2D
         {
             _activatable = true;
 
-            if(Tween.IsRunning())
-                Tween.Pause();
-            Tween.MakeAppear(PlanetAura);
+            TweenAura.MakeAppear(PlanetAura);
+            TweenLabel.MakeAppear(ResearchLabel);
         }
     }
 
@@ -152,9 +155,8 @@ public partial class Planet : GSAICharacterBody2D
         {
             _activatable = false;
 
-            if(Tween.IsRunning())
-                Tween.Pause();
-            Tween.MakeDisappear(PlanetAura);
+            TweenAura.MakeDisappear(PlanetAura);
+            TweenLabel.MakeDisappear(ResearchLabel);
         }
     }
 
