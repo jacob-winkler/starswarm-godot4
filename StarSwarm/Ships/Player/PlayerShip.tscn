@@ -5,12 +5,12 @@
 [ext_resource type="Script" uid="uid://mh411clc57g4" path="res://StarSwarm/Ships/Player/States/Move.cs" id="3"]
 [ext_resource type="Script" uid="uid://cyr5ntdlmfx3d" path="res://StarSwarm/Ships/Player/PlayerShip.cs" id="4"]
 [ext_resource type="Script" uid="uid://b4r51pfb7fc08" path="res://StarSwarm/Ships/Player/States/Travel.cs" id="5"]
-[ext_resource type="PackedScene" path="res://StarSwarm/Ships/Player/ThrustersAudioPlayer.tscn" id="6"]
+[ext_resource type="PackedScene" uid="uid://8biytum5cxuy" path="res://StarSwarm/Ships/Player/ThrustersAudioPlayer.tscn" id="6"]
 [ext_resource type="PackedScene" uid="uid://bwt1lhyweajcn" path="res://StarSwarm/VFX/MoveTrail.tscn" id="7"]
 [ext_resource type="Script" uid="uid://k1k6d5dxehof" path="res://StarSwarm/Ships/Player/VFX.cs" id="8"]
 [ext_resource type="Texture2D" uid="uid://57vs6joqjs0w" path="res://Assets/Ships/PlayerShip/PlayerShip_small.svg" id="9"]
 [ext_resource type="PackedScene" uid="uid://djx887kkmmbw6" path="res://StarSwarm/VFX/DisintegrateEffect.tscn" id="11"]
-[ext_resource type="Resource" path="res://StarSwarm/Ships/Player/player_stats.tres" id="12"]
+[ext_resource type="Resource" uid="uid://bse5125xj6efn" path="res://StarSwarm/Ships/Player/player_stats.tres" id="12"]
 
 [node name="PlayerShip" instance=ExtResource("1")]
 collision_mask = 0

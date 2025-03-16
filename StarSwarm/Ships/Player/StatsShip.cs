@@ -30,11 +30,6 @@ public partial class StatsShip : Stats
         }
     }
 
-    public StatsShip()
-    {
-        _health = _maxHealth;
-    }
-
     public float GetMaxHealth()
     {
         return GetStat("maxHealth");
