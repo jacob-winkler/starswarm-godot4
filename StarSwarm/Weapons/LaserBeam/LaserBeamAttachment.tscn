@@ -12,3 +12,4 @@ SmallIcon = ExtResource("4")
 [node name="LaserBeam" parent="." index="2" instance=ExtResource("3")]
 position = Vector2(0, 0)
 rotation = -1.5708
+collision_mask = 10
