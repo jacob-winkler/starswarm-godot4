@@ -8,5 +8,5 @@ public interface IKillable
     /// </summary>
     /// <param name="damage"></param>
     /// <param name="origin"></param>
-    void TakeDamage(float damage, DamageType type);
+    public void TakeDamage(float damage, DamageType type);
 }
