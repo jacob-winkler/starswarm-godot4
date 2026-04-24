@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://b4kvba881tc4l"]
+
+[ext_resource type="Script" uid="uid://bdiuaidvylx8j" path="res://StarSwarm/World/Spawners/SpawnPoint.cs" id="1_2bf5k"]
+[ext_resource type="Texture2D" uid="uid://ce0jao053fea" path="res://Assets/World/Spawners/wormhole.png" id="1_n37wn"]
+
+[node name="SpawnPoint" type="Node2D" unique_id=971541393]
+script = ExtResource("1_2bf5k")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1578823166]
+texture = ExtResource("1_n37wn")
