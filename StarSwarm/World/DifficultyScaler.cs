@@ -13,12 +13,13 @@ public partial class DifficultyScaler : Node
     {
         SpaceCrabSpawner = GetNode<SpaceCrabSpawner>("../SpaceCrabSpawner");
         Events = GetNode<Events>("/root/Events");
-        Events.Connect("GameTenSecondsPassed", new Callable(this, "OnTenSecondsPassed"));
+        // TODO: This is a temporary solution to scale the difficulty of the game.
+        Events.Connect("GameThreeSecondsPassed", new Callable(this, "OnTenSecondsPassed"));
     }
 
     public void OnTenSecondsPassed(float totalTimeElapsed)
     {
-        SpaceCrabSpawner.MaxSpaceCrabs += 3;
+        SpaceCrabSpawner.MaxSpaceCrabs += 15;
         SpaceCrabSpawner.SpawnSpaceCrabsAroundPlayer();
     }
 }
