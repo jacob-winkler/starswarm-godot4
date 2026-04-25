@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dfqp1a1ov5tr"]
+[gd_scene format=3 uid="uid://dfqp1a1ov5tr"]
 
 [ext_resource type="Script" uid="uid://d4h6xxhyw2yj6" path="res://StarSwarm/Ships/Enemies/SpaceCrab/SpaceCrab.cs" id="1_mo0lb"]
 [ext_resource type="PackedScene" uid="uid://djx887kkmmbw6" path="res://StarSwarm/VFX/DisintegrateEffect.tscn" id="2_m6k84"]
@@ -13,39 +13,39 @@ size = Vector2(12, 10.5)
 [sub_resource type="CircleShape2D" id="3"]
 radius = 750.0
 
-[node name="SpaceCrab" type="CharacterBody2D"]
+[node name="SpaceCrab" type="CharacterBody2D" unique_id=2119551291]
 collision_layer = 2
-collision_mask = 2
+collision_mask = 2048
 script = ExtResource("1_mo0lb")
 DisintegrateEffect = ExtResource("2_m6k84")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=1970159638]
 polygon = PackedVector2Array(12, 10, -12, 10, -8, -9, 8, -9)
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1712301806]
 texture = ExtResource("3_ngvy7")
 
-[node name="MeleeRange" type="Area2D" parent="."]
-collision_layer = 0
+[node name="MeleeRange" type="Area2D" parent="." unique_id=782280853]
+collision_layer = 16
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeRange"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeRange" unique_id=291663313]
 position = Vector2(0, -0.5)
 shape = SubResource("2")
 
-[node name="AggroArea" type="Area2D" parent="."]
-collision_layer = 0
+[node name="AggroArea" type="Area2D" parent="." unique_id=1001641490]
+collision_layer = 16
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AggroArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AggroArea" unique_id=298826346]
 shape = SubResource("3")
 
-[node name="StateMachine" type="Node" parent="."]
+[node name="StateMachine" type="Node" parent="." unique_id=249545645]
 script = ExtResource("4_6g2jj")
 InitialState = NodePath("Rest")
 
-[node name="Attack" type="Node" parent="StateMachine"]
+[node name="Attack" type="Node" parent="StateMachine" unique_id=1152962336]
 script = ExtResource("5_q40px")
 
-[node name="Rest" type="Node" parent="StateMachine"]
+[node name="Rest" type="Node" parent="StateMachine" unique_id=809027150]
 script = ExtResource("6_ga074")
 
-[node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier2D" parent="."]
+[node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier2D" parent="." unique_id=973443614]

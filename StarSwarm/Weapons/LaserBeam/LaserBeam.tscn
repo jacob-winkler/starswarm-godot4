@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cfbokwoa2tdbj"]
+[gd_scene format=3 uid="uid://cfbokwoa2tdbj"]
 
 [ext_resource type="Texture2D" uid="uid://n1ikvm2o8pv6" path="res://Assets/Weapons/LaserBeam/GlowingCircle.png" id="1"]
 [ext_resource type="Script" uid="uid://c6sm0itfwlxva" path="res://StarSwarm/Weapons/LaserBeam/LaserBeam.cs" id="2"]
@@ -11,7 +11,6 @@ glow_levels/1 = 5.88
 glow_levels/2 = 3.54
 glow_levels/3 = 2.94
 glow_levels/4 = 0.2
-glow_levels/5 = 0.0
 glow_normalized = true
 glow_intensity = 2.75
 glow_blend_mode = 0
@@ -72,13 +71,13 @@ scale_min = 0.3
 scale_max = 0.3
 scale_curve = SubResource("10")
 
-[node name="LaserBeam" type="RayCast2D"]
+[node name="LaserBeam" type="RayCast2D" unique_id=782660539]
 position = Vector2(150, 150)
 target_position = Vector2(0, 0)
-collision_mask = 2
+collision_mask = 6
 script = ExtResource("2")
 
-[node name="FillLine" type="Line2D" parent="."]
+[node name="FillLine" type="Line2D" parent="." unique_id=277245405]
 modulate = Color(1.5, 1.5, 1.5, 1)
 self_modulate = Color(1.5, 1.5, 1.5, 1)
 points = PackedVector2Array(0, 0, 100, 0)
@@ -91,10 +90,10 @@ end_cap_mode = 2
 sharp_limit = 8.0
 antialiased = true
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="FillLine"]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="FillLine" unique_id=334772161]
 environment = SubResource("Environment_l4bt7")
 
-[node name="CastingParticles" type="GPUParticles2D" parent="."]
+[node name="CastingParticles" type="GPUParticles2D" parent="." unique_id=492030814]
 emitting = false
 amount = 30
 texture = ExtResource("1")
@@ -103,14 +102,14 @@ visibility_rect = Rect2(0, -18, 29, 38.4)
 local_coords = true
 process_material = SubResource("6")
 
-[node name="CollisionParticles" type="GPUParticles2D" parent="."]
+[node name="CollisionParticles" type="GPUParticles2D" parent="." unique_id=1097095163]
 emitting = false
 texture = ExtResource("1")
 lifetime = 0.3
 local_coords = true
 process_material = SubResource("7")
 
-[node name="BeamParticles" type="GPUParticles2D" parent="."]
+[node name="BeamParticles" type="GPUParticles2D" parent="." unique_id=80551095]
 emitting = false
 amount = 50
 texture = ExtResource("1")
@@ -120,4 +119,4 @@ randomness = 1.0
 visibility_rect = Rect2(-750, -750, 1500, 1500)
 process_material = SubResource("8")
 
-[node name="LaserAudioPlayer" parent="." instance=ExtResource("3")]
+[node name="LaserAudioPlayer" parent="." unique_id=1973281786 instance=ExtResource("3")]

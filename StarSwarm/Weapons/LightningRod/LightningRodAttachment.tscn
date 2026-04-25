@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://nkkffjfrtcfo"]
+[gd_scene format=3 uid="uid://nkkffjfrtcfo"]
 
 [ext_resource type="PackedScene" uid="uid://dblevrbfgd58g" path="res://StarSwarm/Weapons/WeaponAttachment.tscn" id="1"]
 [ext_resource type="Script" uid="uid://wgomcscuvi4d" path="res://StarSwarm/Weapons/LightningRod/LightningRodAttachment.cs" id="2"]
@@ -8,20 +8,21 @@
 [sub_resource type="CircleShape2D" id="1"]
 radius = 250.0
 
-[node name="LightningRodAttachment" instance=ExtResource("1")]
+[node name="LightningRodAttachment" unique_id=426051119 instance=ExtResource("1")]
 script = ExtResource("2")
 LightningBolt = ExtResource("4")
 MaxTargets = 1.0
 Cooldown = 4.0
 SmallIcon = ExtResource("3")
 
-[node name="AttackRange" type="Area2D" parent="." index="2"]
+[node name="AttackRange" type="Area2D" parent="." index="2" unique_id=1175092281]
+collision_layer = 16
 collision_mask = 6
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange" index="0"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange" index="0" unique_id=1121379845]
 shape = SubResource("1")
 
-[node name="Label" type="Label" parent="AttackRange" index="1"]
+[node name="Label" type="Label" parent="AttackRange" index="1" unique_id=1545212458]
 visible = false
 offset_left = -24.0
 offset_top = -7.0

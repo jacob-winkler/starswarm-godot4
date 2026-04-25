@@ -76,6 +76,15 @@ research={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="Player"
+2d_physics/layer_2="Enemies"
+2d_physics/layer_3="Swarm Enemies"
+2d_physics/layer_4="Planets"
+2d_physics/layer_5="Sensors"
+2d_physics/layer_6="Weapons"
+
 [mono]
 
 project/assembly_name="Star Swarm"

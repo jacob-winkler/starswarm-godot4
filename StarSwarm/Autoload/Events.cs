@@ -30,5 +30,8 @@ public partial class Events : Node
     public delegate void GameTenSecondsPassedEventHandler(float totalTimeElapsed);
 
     [Signal]
+    public delegate void GameThreeSecondsPassedEventHandler(float totalTimeElapsed);
+
+    [Signal]
     public delegate void AddPointsEventHandler(int points);
 }

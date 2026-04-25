@@ -63,7 +63,10 @@ public partial class CountUpTimer : Label
             _seconds = seconds;
             Events.EmitSignal("AddPoints", _pointsPerSecond);
 
-            if(_seconds % 10 == 0)
+            if (_seconds % 3 == 0)
+                Events.EmitSignal("GameThreeSecondsPassed", TimeElapsed);
+
+            if (_seconds % 10 == 0)
                 Events.EmitSignal("GameTenSecondsPassed", TimeElapsed);
 
             if(_seconds % 30 == 0)

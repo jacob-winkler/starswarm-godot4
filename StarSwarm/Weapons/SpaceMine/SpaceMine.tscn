@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dalnqubcxs1tk"]
+[gd_scene format=3 uid="uid://dalnqubcxs1tk"]
 
 [ext_resource type="Texture2D" uid="uid://dicmvfu2g8j2j" path="res://Assets/Weapons/SpaceMine/SpaceMine_Sheet.png" id="1"]
 [ext_resource type="Texture2D" uid="uid://dcfpg1wl24fwu" path="res://Assets/Weapons/SpaceMine/SpaceMine_Explosion-Sheet.png" id="2"]
@@ -90,6 +90,13 @@ tracks/1/keys = {
 "values": [false]
 }
 
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gm2ur"]
+_data = {
+&"Explosion": SubResource("5"),
+&"RESET": SubResource("3"),
+&"SpaceMineCountdown": SubResource("4")
+}
+
 [sub_resource type="AtlasTexture" id="16"]
 atlas = ExtResource("2")
 region = Rect2(0, 0, 240, 162)
@@ -161,26 +168,25 @@ animations = [{
 "speed": 15.0
 }]
 
-[node name="SpaceMine" type="Node2D"]
+[node name="SpaceMine" type="Node2D" unique_id=916065521]
 script = ExtResource("3")
 
-[node name="BlastRadius" type="Area2D" parent="."]
-collision_mask = 2
+[node name="BlastRadius" type="Area2D" parent="." unique_id=1569926999]
+collision_layer = 16
+collision_mask = 6
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BlastRadius"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BlastRadius" unique_id=1434075735]
 shape = SubResource("2")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Explosion = SubResource("5")
-anims/RESET = SubResource("3")
-anims/SpaceMineCountdown = SubResource("4")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1378250731]
+libraries/ = SubResource("AnimationLibrary_gm2ur")
 
-[node name="Explosion" type="AnimatedSprite2D" parent="."]
+[node name="Explosion" type="AnimatedSprite2D" parent="." unique_id=2092967397]
 visible = false
 z_index = 1
-frames = SubResource("15")
-animation = "Explosion"
+sprite_frames = SubResource("15")
+animation = &"Explosion"
 
-[node name="Countdown" type="Sprite2D" parent="."]
+[node name="Countdown" type="Sprite2D" parent="." unique_id=1914563779]
 texture = ExtResource("1")
 hframes = 2
